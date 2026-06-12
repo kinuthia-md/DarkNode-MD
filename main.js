@@ -96,7 +96,6 @@ const factCommand = require('./commands/fact');
 const weatherCommand = require('./commands/weather');
 const newsCommand = require('./commands/news');
 const kickCommand = require('./commands/kick');
-const simageCommand = require('./commands/simage');
 const attpCommand = require('./commands/attp');
 const { startHangman, guessLetter } = require('./commands/hangman');
 const { startTrivia, answerTrivia } = require('./commands/trivia');
@@ -452,10 +451,8 @@ if (message.message?.interactiveResponseMessage?.nativeFlowResponseMessage) {
         let commandExecuted = false;
 
         switch (true) {
-            case cmd === '.simage': {
                 const quotedMessage = message.message?.extendedTextMessage?.contextInfo?.quotedMessage;
                 if (quotedMessage?.stickerMessage) {
-                    await simageCommand(sock, quotedMessage, chatId);
                 } else {
                     await sock.sendMessage(chatId, { text: 'Reply to a sticker with .simage', ...channelInfo }, { quoted: message });
                 }
