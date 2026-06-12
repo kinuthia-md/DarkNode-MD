@@ -452,10 +452,6 @@ if (message.message?.interactiveResponseMessage?.nativeFlowResponseMessage) {
 
         switch (true) {
                 const quotedMessage = message.message?.extendedTextMessage?.contextInfo?.quotedMessage;
-                if (quotedMessage?.stickerMessage) {
-                } else {
-                    await sock.sendMessage(chatId, { text: 'Reply to a sticker with .simage', ...channelInfo }, { quoted: message });
-                }
                 commandExecuted = true;
                 break;
             }
