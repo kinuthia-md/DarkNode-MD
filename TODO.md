@@ -1,0 +1,12 @@
+- [ ] Update Telegram `/pair` to use real WhatsApp sub-bot session folder (`subbots/<whatsapp_number>`) like WhatsApp `.pair`.
+  - [ ] Create/check slot limits (use `getAvailableSlots`).
+  - [ ] Use `createSubBotFolder(number)` and auth state from that folder.
+  - [ ] Wait for Baileys `connection === 'open'` then `launchSubBot(number)`.
+  - [ ] Cleanup on timeout/logout.
+- [ ] Update Telegram menu to the requested ASCII/box format.
+- [ ] Test:
+  - [ ] run Telegram `/menu`
+  - [ ] run Telegram `/pair <number>`
+  - [ ] confirm code works in WhatsApp “Link a device”
+  - [ ] confirm sub-bot launches and session folder contains creds.
+
