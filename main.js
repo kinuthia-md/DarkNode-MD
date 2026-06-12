@@ -451,10 +451,7 @@ if (message.message?.interactiveResponseMessage?.nativeFlowResponseMessage) {
         let commandExecuted = false;
 
         switch (true) {
-                const quotedMessage = message.message?.extendedTextMessage?.contextInfo?.quotedMessage;
-                commandExecuted = true;
-                break;
-            }
+            /* command switch */
             case cmd.startsWith('.kick'):
                 const mentionedJidListKick = message.message.extendedTextMessage?.contextInfo?.mentionedJid || [];
                 await kickCommand(sock, chatId, senderId, mentionedJidListKick, message);
