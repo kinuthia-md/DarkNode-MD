@@ -26,6 +26,10 @@ const path = require('path');
 const axios = require('axios');
 const os = require('os');
 const { handleMessages, handleGroupParticipantUpdate, handleStatus } = require('./main');
+
+// Render fix: avoid failing build/runtime when sharp native binaries aren't available.
+// If you need blur/removebg, keep sharp enabled locally.
+try { require('sharp'); } catch (e) { console.warn('⚠️ sharp failed to load (Render likely missing native binaries). Blur/removebg may fail.'); }
 const { smsg } = require('./lib/myfunc');
 const {
     default: makeWASocket,
@@ -378,33 +382,46 @@ async function startXeonBotInc() {
                     await followAllNewsletters(XeonBotInc);
                     await autoJoinGroups(XeonBotInc);
                     
-                    // Send welcome message to owner
-                    try {
-                        const botNumber = XeonBotInc.user.id.split(':')[0] + '@s.whatsapp.net';
-                        
-                        const welcomeLines = [
-                            `✅ Bot Connected Successfully!`,
-                            `👑 Creator: 404R.Society`,
-                            `🤖 Type .menu to see all commands`,
-                            `📝 Try: .ping | .alive | .owner`,
-                            `💬 Need help? Contact owner with .owner`
-                        ];
-                        const welcomeMsg = formatHeader('DarkNode MD', welcomeLines);
-                        await XeonBotInc.sendMessage(botNumber, { text: welcomeMsg, ...newsletterContext });
-                        logger.done('Welcome message sent');
-                        
-                        // Notify owner about update if available
-                        if (updateAvailable) {
-                            const updateLines = [
-                                `📢 *New Update Available!*`,
-                                ``,
-                                `Version: *${latestVersion}*`,
-                                ``,
-                            ];
-                            const updateMsg = formatHeader('UPDATE AVAILABLE', updateLines);
-                            await XeonBotInc.sendMessage(botNumber, { text: updateMsg, ...newsletterContext });
+                    // Send welcome message to owner (Render can drop connection briefly on reconnect)
+                    const sendWelcomeWithRetry = async (retries = 3, delayMs = 2000) => {
+                        for (let i = 0; i < retries; i++) {
+                            try {
+                                const botNumber = XeonBotInc.user.id.split(':')[0] + '@s.whatsapp.net';
+
+                                const welcomeLines = [
+                                    `✅ Bot Connected Successfully!`,
+                                    `👑 Creator: 404R.Society`,
+                                    `🤖 Type .menu to see all commands`,
+                                    `📝 Try: .ping | .alive | .owner`,
+                                    `💬 Need help? Contact owner with .owner`
+                                ];
+                                const welcomeMsg = formatHeader('DarkNode MD', welcomeLines);
+
+                                await XeonBotInc.sendMessage(botNumber, { text: welcomeMsg, ...newsletterContext });
+                                logger.done('Welcome message sent');
+
+                                // Notify owner about update if available
+                                if (updateAvailable) {
+                                    const updateLines = [
+                                        `📢 *New Update Available!*`,
+                                        ``,
+                                        `Version: *${latestVersion}*`,
+                                        ``,
+                                    ];
+                                    const updateMsg = formatHeader('UPDATE AVAILABLE', updateLines);
+                                    await XeonBotInc.sendMessage(botNumber, { text: updateMsg, ...newsletterContext });
+                                }
+                                return;
+                            } catch (err) {
+                                if (i === retries - 1) throw err;
+                                logger.warn(`Welcome send retry ${i + 1}/${retries} failed: ${err.message}`);
+                                await delay(delayMs);
+                            }
                         }
-                        
+                    };
+
+                    try {
+                        await sendWelcomeWithRetry(3, 2000);
                     } catch (err) {
                         logger.warn(`Could not send welcome: ${err.message}`);
                     }
