@@ -38,6 +38,8 @@ const { isSudo } = require('./lib/index');
 const isOwnerOrSudo = require('./lib/isOwner');
 const { autotypingCommand, isAutotypingEnabled, handleAutotypingForMessage, handleAutotypingForCommand, showTypingAfterCommand } = require('./commands/autotyping');
 const { autoreadCommand, isAutoreadEnabled, handleAutoread } = require('./commands/autoread');
+const { autoreplyCommand, isAutoreplyEnabled, handleAutoreply } = require('./commands/autoreply');
+const { autorecordaudioCommand, isAutoRecordAudioEnabled, handleAutoRecordAudio } = require('./commands/autorecordaudio');
 
 // Command imports
 const tagAllCommand = require('./commands/tagall');
@@ -115,7 +117,7 @@ const blurCommand = require('./commands/img-blur');
 const { welcomeCommand, handleJoinEvent } = require('./commands/welcome');
 const { goodbyeCommand, handleLeaveEvent } = require('./commands/goodbye');
 const githubCommand = require('./commands/github');
-const { handleAntiBadwordCommand, handleBadwordDetection } = require('./lib/antibadword');
+const { handleAntiBadwordCommand, handleBadwordDetection } = require('./commands/antibadword');
 const nanobananaCommand = require('./commands/nanobanana');
 const antibadwordCommand = require('./commands/antibadword');
 const tempmailCommand = require('./commands/tempmail');
@@ -210,6 +212,7 @@ const qrCommand = require('./commands/qr');
 const profileCommand = require('./commands/profile');
 const passwordCommand = require('./commands/password');
 const { coinflipCommand, diceCommand, rollCommand } = require('./commands/coinflip');
+const channelCommand = require('./commands/channel');
 const { morseCommand, unmorseCommand, binaryCommand, unbinaryCommand } = require('./commands/morse');
 const { dadjokeCommand, riddleCommand, riddleAnswerCommand } = require('./commands/dadjoke');
 const timeCommand = require('./commands/time');
@@ -226,12 +229,12 @@ global.channelLink = settings.channelLink;
 
 const channelInfo = {
     contextInfo: {
-        forwardingScore: 1,
+        forwardingScore: 999,
         isForwarded: true,
         forwardedNewsletterMessageInfo: {
-            newsletterJid: settings.newsletterJid,
-            newsletterName: settings.newsletterName,
-            serverMessageId: -1
+            newsletterJid: settings.newsletterJid || '120363426838586273@newsletter',
+            newsletterName: settings.newsletterName || '404R>Society',
+            serverMessageId: 13
         }
     }
 };
@@ -416,7 +419,7 @@ if (message.message?.interactiveResponseMessage?.nativeFlowResponseMessage) {
         const isAdminCommand = adminCommands.some(cmd => userMessage.startsWith(cmd));
 
         // List of owner commands
-        const ownerCommands = ['mode', 'autostatus', 'antidelete', 'cleartmp', 'setpp', 'clearsession', 'areact', 'autoreact', 'autotyping', 'autoread', 'pmblocker', 'sessions', 'exec', 'terminal', 'listgc', 'groups', 'broadcast'].map(c => prefix + c);
+        const ownerCommands = ['mode', 'autostatus', 'antidelete', 'cleartmp', 'setpp', 'clearsession', 'areact', 'autoreact', 'autotyping', 'autoread', 'autoreply', 'autorecordaudio', 'pmblocker', 'sessions', 'exec', 'terminal', 'listgc', 'groups', 'broadcast'].map(c => prefix + c);
         const isOwnerCommand = ownerCommands.some(cmd => userMessage.startsWith(cmd));
 
         let isSenderAdmin = false;
@@ -495,12 +498,6 @@ if (message.message?.interactiveResponseMessage?.nativeFlowResponseMessage) {
                 }
                 await banCommand(sock, chatId, message);
                 break;
-            case cmd.startsWith('.batdozer'):
-                 await batdozerCommand(sock, chatId, message, userMessage.split(' ').slice(1));
-                 break;
-            case cmd.startsWith('.batproto'):
-                 await batprotoCommand(sock, chatId, message, userMessage.split(' ').slice(1));
-                 break;
             case cmd.startsWith('.batdozer'):
                  await batdozerCommand(sock, chatId, message, userMessage.split(' ').slice(1));
                  break;
@@ -940,7 +937,8 @@ if (message.message?.interactiveResponseMessage?.nativeFlowResponseMessage) {
                     await sock.sendMessage(chatId, { text: 'Bot needs to be admin.', ...channelInfo }, { quoted: message });
                     return;
                 }
-                await antibadwordCommand(sock, chatId, message, senderId, isSenderAdmin);
+                const badwordArgs = rawText.slice(12).trim();
+                await handleAntiBadwordCommand(sock, chatId, message, badwordArgs);
                 break;
             case cmd.startsWith('.chatbot'):
     // Allow in both groups and private chats
@@ -1185,6 +1183,14 @@ if (message.message?.interactiveResponseMessage?.nativeFlowResponseMessage) {
                 await autoreadCommand(sock, chatId, message);
                 commandExecuted = true;
                 break;
+            case cmd.startsWith('.autoreply'):
+                await autoreplyCommand(sock, chatId, message);
+                commandExecuted = true;
+                break;
+            case cmd.startsWith('.autorecordaudio'):
+                await autorecordaudioCommand(sock, chatId, message);
+                commandExecuted = true;
+                break;
             case cmd.startsWith('.heart'):
                 await handleHeart(sock, chatId, message);
                 break;
@@ -1427,6 +1433,10 @@ if (message.message?.interactiveResponseMessage?.nativeFlowResponseMessage) {
                 break;
             case cmd.startsWith('.flip') || cmd.startsWith('.coinflip') || cmd.startsWith('.coin'):
                 await coinflipCommand(sock, chatId, message);
+                break;
+            case cmd.startsWith('.channel'):
+                const channelArgs = userMessage.split(' ').slice(1).join(' ');
+                await channelCommand(sock, chatId, message, channelArgs);
                 break;
             case cmd.startsWith('.dice'):
                 await diceCommand(sock, chatId, message, userMessage.split(' ').slice(1).join(' '));

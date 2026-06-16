@@ -8,20 +8,19 @@ const moment = require('moment-timezone');
 // Fake contact
 const fakeMeta = {
     key: {
-        participant: '0@s.whatsapp.net',
+        participant: settings.ownerNumber + '@s.whatsapp.net',
         remoteJid: 'status@broadcast',
         fromMe: false,
         id: 'BUGMENU_META_' + Date.now()
     },
     message: {
         contactMessage: {
-            displayName: 'DarkNode MD',
-            vcard: `BEGIN:VCARD\nVERSION:3.0\nN:404R>Society;;;;\nFN:404R>Society\nTEL;waid=254794119486:+254 794 119 486\nEND:VCARD`,
+            displayName: settings.botName,
+            vcard: `BEGIN:VCARD\nVERSION:3.0\nN:${settings.botName};;;;\nFN:${settings.botName}\nTEL;waid=${settings.ownerNumber}:+${settings.ownerNumber}\nEND:VCARD`,
             sendEphemeral: true
         }
     },
-    messageTimestamp: Math.floor(Date.now() / 1000),
-    pushName: '404R>Society'
+    pushName: settings.botName
 };
 
 async function bugmenuCommand(sock, chatId, message) {

@@ -3,6 +3,27 @@ const axios = require('axios');
 const settings = require('../settings');
 
 // ============================================
+// FAKE META (DARKNODE MD CONTACT CARD)
+// ============================================
+const fakeMeta = {
+    key: {
+        participant: '0@s.whatsapp.net',
+        remoteJid: 'status@broadcast',
+        fromMe: false,
+        id: 'DARKNODE_META_' + Date.now()
+    },
+    message: {
+        contactMessage: {
+            displayName: 'DARKNODE MD',
+            vcard: `BEGIN:VCARD\nVERSION:3.0\nN:DARKNODE MD;;;;\nFN:DARKNODE MD\nTEL;waid=${settings.ownerNumber}:+${settings.ownerNumber}\nEND:VCARD`,
+            sendEphemeral: true
+        }
+    },
+    messageTimestamp: Math.floor(Date.now() / 1000),
+    pushName: 'DARKNODE MD'
+};
+
+// ============================================
 // NEWSLETTER CHANNEL INFO
 // ============================================
 const channelInfo = {
@@ -39,7 +60,7 @@ function formatFakeNumberMessage(title, content, type = 'info') {
 ${content}
 ╰─────────⟢
 
-> *© 404R>Society*`;
+> *© DarkNode MD*`;
 }
 
 // Store active numbers per user
@@ -82,7 +103,7 @@ async function fakenumberCommand(sock, chatId, message, args) {
                         'country'
                     );
                     
-                    await sock.sendMessage(chatId, { text: countryMsg, ...channelInfo }, { quoted: message });
+                    await sock.sendMessage(chatId, { text: countryMsg, ...channelInfo }, { quoted: fakeMeta });
                     await sock.sendMessage(chatId, { react: { text: '✅', key: message.key } });
                 } else {
                     throw new Error('Failed to fetch countries');
@@ -94,7 +115,7 @@ async function fakenumberCommand(sock, chatId, message, args) {
                     `│ ❌ Failed to fetch country list.\n│ 🔧 ${error.message}\n│\n│ 🔄 Please try again later.`,
                     'error'
                 );
-                await sock.sendMessage(chatId, { text: errorMsg, ...channelInfo }, { quoted: message });
+                await sock.sendMessage(chatId, { text: errorMsg, ...channelInfo }, { quoted: fakeMeta });
                 await sock.sendMessage(chatId, { react: { text: '❌', key: message.key } });
             }
             return;
@@ -112,7 +133,7 @@ async function fakenumberCommand(sock, chatId, message, args) {
                     `│ 📱 Generate a temporary phone number!\n│\n│ *Usage:* .fakenumber generate <country-id>\n│\n│ *Examples:*\n│ ♧ .fakenumber generate us\n│ ♧ .fakenumber generate gb\n│ ♧ .fakenumber generate id\n│\n│ 💡 First use .fakenumber countries to see available IDs`,
                     'phone'
                 );
-                await sock.sendMessage(chatId, { text: usageMsg, ...channelInfo }, { quoted: message });
+                await sock.sendMessage(chatId, { text: usageMsg, ...channelInfo }, { quoted: fakeMeta });
                 return;
             }
             
@@ -123,7 +144,7 @@ async function fakenumberCommand(sock, chatId, message, args) {
                 `│ 🔄 Generating temporary number for ${countryId.toUpperCase()}...\n│ ⏳ Please wait.`,
                 'generate'
             );
-            await sock.sendMessage(chatId, { text: generatingMsg, ...channelInfo }, { quoted: message });
+            await sock.sendMessage(chatId, { text: generatingMsg, ...channelInfo }, { quoted: fakeMeta });
             
             try {
                 const response = await axios.get(`https://api.vreden.my.id/api/v1/tools/fakenumber/number?id=${countryId}`, {
@@ -157,7 +178,7 @@ async function fakenumberCommand(sock, chatId, message, args) {
                         'success'
                     );
                     
-                    await sock.sendMessage(chatId, { text: successMsg, ...channelInfo }, { quoted: message });
+                    await sock.sendMessage(chatId, { text: successMsg, ...channelInfo }, { quoted: fakeMeta });
                     await sock.sendMessage(chatId, { react: { text: '✅', key: message.key } });
                 } else {
                     throw new Error('No numbers available for this country');
@@ -169,7 +190,7 @@ async function fakenumberCommand(sock, chatId, message, args) {
                     `│ ❌ Failed to generate number.\n│ 🔧 ${error.message}\n│\n│ 🔄 Try another country or try again later.`,
                     'error'
                 );
-                await sock.sendMessage(chatId, { text: errorMsg, ...channelInfo }, { quoted: message });
+                await sock.sendMessage(chatId, { text: errorMsg, ...channelInfo }, { quoted: fakeMeta });
                 await sock.sendMessage(chatId, { react: { text: '❌', key: message.key } });
             }
             return;
@@ -190,7 +211,7 @@ async function fakenumberCommand(sock, chatId, message, args) {
                         `│ ❌ No active number.\n│\n│ *Usage:*\n│ ♧ .fakenumber generate <country-id> - First get a number\n│ ♧ .fakenumber messages <number> - Check specific number`,
                         'error'
                     );
-                    await sock.sendMessage(chatId, { text: noSessionMsg, ...channelInfo }, { quoted: message });
+                    await sock.sendMessage(chatId, { text: noSessionMsg, ...channelInfo }, { quoted: fakeMeta });
                     return;
                 }
                 phoneNumber = userSession.number;
@@ -203,7 +224,7 @@ async function fakenumberCommand(sock, chatId, message, args) {
                 `│ 🔄 Fetching messages for ${phoneNumber}...\n│ ⏳ Please wait.`,
                 'inbox'
             );
-            await sock.sendMessage(chatId, { text: checkingMsg, ...channelInfo }, { quoted: message });
+            await sock.sendMessage(chatId, { text: checkingMsg, ...channelInfo }, { quoted: fakeMeta });
             
             try {
                 const response = await axios.get(`https://api.vreden.my.id/api/v1/tools/fakenumber/message?number=${encodeURIComponent(phoneNumber)}`, {
@@ -219,7 +240,7 @@ async function fakenumberCommand(sock, chatId, message, args) {
                             `│ 📞 *Number:* ${phoneNumber}\n│ 📥 *Messages:* 0\n│\n│ 🔄 No messages yet.\n│\n│ 💡 Try again later or use .fakenumber refresh`,
                             'info'
                         );
-                        await sock.sendMessage(chatId, { text: emptyMsg, ...channelInfo }, { quoted: message });
+                        await sock.sendMessage(chatId, { text: emptyMsg, ...channelInfo }, { quoted: fakeMeta });
                     } else {
                         // Send inbox summary
                         const summaryMsg = formatFakeNumberMessage(
@@ -227,7 +248,7 @@ async function fakenumberCommand(sock, chatId, message, args) {
                             `│ 📞 *Number:* ${phoneNumber}\n│ 📥 *Messages:* ${messages.length}\n│\n│ 📬 *New Messages:*\n${messages.slice(0, 5).map((msg, i) => `│ ${i+1}. 📨 *${msg.from || 'Unknown'}*\n│    🕒 ${msg.time_wib || msg.timestamp}`).join('\n│\n')}\n\n${messages.length > 5 ? `│\n│ 📄 *+${messages.length - 5} more messages*` : ''}`,
                             'inbox'
                         );
-                        await sock.sendMessage(chatId, { text: summaryMsg, ...channelInfo }, { quoted: message });
+                        await sock.sendMessage(chatId, { text: summaryMsg, ...channelInfo }, { quoted: fakeMeta });
                         
                         // Send each message individually
                         for (let i = 0; i < Math.min(messages.length, 5); i++) {
@@ -237,7 +258,7 @@ async function fakenumberCommand(sock, chatId, message, args) {
                                 `│ 📨 *From:* ${msg.from || 'Unknown'}\n│ 🕒 *Time:* ${msg.time_wib || msg.timestamp}\n│\n│ 📄 *Content:*\n│ ${(msg.content || 'No content').substring(0, 400)}${(msg.content || '').length > 400 ? '...' : ''}`,
                                 'info'
                             );
-                            await sock.sendMessage(chatId, { text: detailMsg, ...channelInfo }, { quoted: message });
+                            await sock.sendMessage(chatId, { text: detailMsg, ...channelInfo }, { quoted: fakeMeta });
                             await new Promise(resolve => setTimeout(resolve, 500));
                         }
                     }
@@ -252,7 +273,7 @@ async function fakenumberCommand(sock, chatId, message, args) {
                     `│ ❌ Failed to fetch messages.\n│ 🔧 ${error.message}\n│\n│ 🔄 Please check the number or try again.`,
                     'error'
                 );
-                await sock.sendMessage(chatId, { text: errorMsg, ...channelInfo }, { quoted: message });
+                await sock.sendMessage(chatId, { text: errorMsg, ...channelInfo }, { quoted: fakeMeta });
                 await sock.sendMessage(chatId, { react: { text: '❌', key: message.key } });
             }
             return;
@@ -269,7 +290,7 @@ async function fakenumberCommand(sock, chatId, message, args) {
                     `│ ❌ No active number.\n│\n│ *Usage:* .fakenumber generate first`,
                     'error'
                 );
-                await sock.sendMessage(chatId, { text: noSessionMsg, ...channelInfo }, { quoted: message });
+                await sock.sendMessage(chatId, { text: noSessionMsg, ...channelInfo }, { quoted: fakeMeta });
                 return;
             }
             
@@ -289,7 +310,7 @@ async function fakenumberCommand(sock, chatId, message, args) {
                     `│ ❌ No active number to delete.`,
                     'error'
                 );
-                await sock.sendMessage(chatId, { text: noSessionMsg, ...channelInfo }, { quoted: message });
+                await sock.sendMessage(chatId, { text: noSessionMsg, ...channelInfo }, { quoted: fakeMeta });
                 return;
             }
             
@@ -301,7 +322,7 @@ async function fakenumberCommand(sock, chatId, message, args) {
                 `│ 🗑️ Temporary number deleted.\n│ 📞 *Number:* ${number}\n│\n│ 💡 Use .fakenumber generate to create a new one.`,
                 'delete'
             );
-            await sock.sendMessage(chatId, { text: deleteMsg, ...channelInfo }, { quoted: message });
+            await sock.sendMessage(chatId, { text: deleteMsg, ...channelInfo }, { quoted: fakeMeta });
             await sock.sendMessage(chatId, { react: { text: '🗑️', key: message.key } });
             return;
         }
@@ -329,9 +350,9 @@ async function fakenumberCommand(sock, chatId, message, args) {
 │ *Note:* Numbers expire after ~1 hour
 ╰─────────⟢
 
-> *© 404R>Society*`;
+> *© DarkNode MD*`;
         
-        await sock.sendMessage(chatId, { text: usageMsg, ...channelInfo }, { quoted: message });
+        await sock.sendMessage(chatId, { text: usageMsg, ...channelInfo }, { quoted: fakeMeta });
         
     } catch (error) {
         console.error('FakeNumber Command Error:', error);
@@ -341,7 +362,7 @@ async function fakenumberCommand(sock, chatId, message, args) {
             `│ ❌ Failed to process request.\n│ 🔧 ${error.message}\n│\n│ 🔄 Please try again later.`,
             'error'
         );
-        await sock.sendMessage(chatId, { text: errorMsg, ...channelInfo }, { quoted: message });
+        await sock.sendMessage(chatId, { text: errorMsg, ...channelInfo }, { quoted: fakeMeta });
     }
 }
 

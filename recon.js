@@ -1,4 +1,5 @@
 // commands/recon.js
+const settings = require('./settings');
 const axios = require('axios');
 const url = require('url');
 const dns = require('dns').promises;

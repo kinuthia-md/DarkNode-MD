@@ -3,257 +3,210 @@ const { downloadMediaMessage } = require('@whiskeysockets/baileys');
 const { exec } = require('child_process');
 const fs = require('fs');
 const path = require('path');
-const util = require('util');
-const execPromise = util.promisify(exec);
+const os = require('os');
+const settings = require('../settings');
 
-const newsletterContext = {
+const fakeMeta = {
+    key: {
+        participant: '0@s.whatsapp.net',
+        remoteJid: 'status@broadcast',
+        fromMe: false,
+        id: 'DARKNODE_META_' + Date.now()
+    },
+    message: {
+        contactMessage: {
+            displayName: 'DARKNODE MD',
+            vcard: `BEGIN:VCARD\nVERSION:3.0\nN:DARKNODE MD;;;;\nFN:DARKNODE MD\nTEL;waid=${settings.ownerNumber}:+${settings.ownerNumber}\nEND:VCARD`,
+            sendEphemeral: true
+        }
+    },
+    messageTimestamp: Math.floor(Date.now() / 1000),
+    pushName: 'DARKNODE MD'
+};
+
+const channelInfo = {
     contextInfo: {
-        forwardingScore: 999,
+        forwardingScore: 1,
         isForwarded: true,
         forwardedNewsletterMessageInfo: {
-            newsletterJid: '120363426838586273@newsletter',
-            newsletterName: '404R>Society',
-            serverMessageId: 13
+            newsletterJid: settings.newsletterJid,
+            newsletterName: settings.newsletterName,
+            serverMessageId: -1
         }
     }
 };
 
+function execPromise(cmd) {
+    return new Promise((resolve, reject) => {
+        exec(cmd, { timeout: 60000 }, (err, stdout, stderr) => {
+            if (err) reject(err);
+            else resolve(stdout);
+        });
+    });
+}
+
+function getTempPath(ext) {
+    return path.join(os.tmpdir(), 'conv_' + Date.now() + '.' + ext);
+}
+
 async function convertCommand(sock, chatId, message, args) {
     try {
-        const mode = args[0]?.toLowerCase();
-        
-        const quotedMsg = message.message?.extendedTextMessage?.contextInfo?.quotedMessage;
-        
-        if (!quotedMsg) {
-            await sock.sendMessage(chatId, { 
-                text: "🎨 *Universal Media Converter*\n\n*Modes:*\n.to sticker - Image/Video → Sticker\n.to image - Sticker → Image\n.to video - Sticker/Audio → Video\n.to audio - Video → Audio (MP3)\n.to voicenote - Audio/Video → Voice Note\n.to videonote - Video → Circle Video\n.to resize - Image → Resized Image\n\n*Usage:* Reply to media with .to <mode>"
-            }, { quoted: message });
+        const input = args.join(' ').trim();
+        if (!input) {
+            const usage = `╭─── 『 🔄 CONVERT 』───⟢
+│ 📌 *Usage:*
+│ ♧ .to sticker  — image/video → sticker
+│ ♧ .to image    — sticker → image
+│ ♧ .to video    — sticker/audio → video
+│ ♧ .to audio    — video → MP3
+│ ♧ .to voicenote — audio → voice note
+│ ♧ .to videonote — video → video note
+│ ♧ .to resize   — image → 512x512
+╰────────────⟢
+> © DarkNode MD`;
+            return await sock.sendMessage(chatId, {
+                text: usage,
+                ...channelInfo
+            }, { quoted: fakeMeta });
+        }
+
+        const targetFormat = input.toLowerCase().split(' ')[0];
+        const validFormats = ['sticker', 'image', 'video', 'audio', 'voicenote', 'videonote', 'resize'];
+        if (!validFormats.includes(targetFormat)) {
+            await sock.sendMessage(chatId, {
+                text: `╭─── 『 ❌ INVALID FORMAT 』───⟢
+│ ❌ Unknown format: ${targetFormat}
+│ 📌 Use: ${validFormats.join(', ')}
+╰────────────⟢
+> © DarkNode MD`,
+                ...channelInfo
+            }, { quoted: fakeMeta });
             return;
         }
 
-        const tmpDir = path.join(process.cwd(), 'tmp');
-        if (!fs.existsSync(tmpDir)) fs.mkdirSync(tmpDir, { recursive: true });
-        
-        let inputBuffer = null;
-        let inputType = null;
-        let stanzaId = message.message?.extendedTextMessage?.contextInfo?.stanzaId;
-        let participant = message.message?.extendedTextMessage?.contextInfo?.participant;
-        let senderId = message.key.participant || message.key.remoteJid;
-
-        // Detect input type
-        if (quotedMsg.imageMessage) {
-            inputType = 'image';
-            const stream = await downloadMediaMessage({
-                key: { remoteJid: chatId, id: stanzaId, participant: participant || senderId },
-                message: quotedMsg
-            }, 'buffer', {}, { logger: console });
-            inputBuffer = stream;
-        } 
-        else if (quotedMsg.videoMessage) {
-            inputType = 'video';
-            const stream = await downloadMediaMessage({
-                key: { remoteJid: chatId, id: stanzaId, participant: participant || senderId },
-                message: quotedMsg
-            }, 'buffer', {}, { logger: console });
-            inputBuffer = stream;
-        }
-        else if (quotedMsg.audioMessage) {
-            inputType = 'audio';
-            const stream = await downloadMediaMessage({
-                key: { remoteJid: chatId, id: stanzaId, participant: participant || senderId },
-                message: quotedMsg
-            }, 'buffer', {}, { logger: console });
-            inputBuffer = stream;
-        }
-        else if (quotedMsg.stickerMessage) {
-            inputType = 'sticker';
-            const stream = await downloadMediaMessage({
-                key: { remoteJid: chatId, id: stanzaId, participant: participant || senderId },
-                message: quotedMsg
-            }, 'buffer', {}, { logger: console });
-            inputBuffer = stream;
-        }
-        else {
-            await sock.sendMessage(chatId, { text: "❌ Please reply to an image, video, audio, or sticker." }, { quoted: message });
+        const quoted = message.message?.extendedTextMessage?.contextInfo?.quotedMessage;
+        if (!quoted) {
+            await sock.sendMessage(chatId, {
+                text: `╭─── 『 ❌ NO MEDIA 』───⟢
+│ ❌ Reply to a media message to convert it.
+╰────────────⟢
+> © DarkNode MD`,
+                ...channelInfo
+            }, { quoted: fakeMeta });
             return;
         }
 
-        if (!inputBuffer) {
-            await sock.sendMessage(chatId, { react: { text: "❌", key: message.key } });
-            return;
-        }
+        await sock.sendMessage(chatId, { react: { text: '🔄', key: message.key } });
 
-        await sock.sendMessage(chatId, { react: { text: "🎨", key: message.key } });
-
-        const tempInput = path.join(tmpDir, `input_${Date.now()}`);
-        const tempOutput = path.join(tmpDir, `output_${Date.now()}`);
-
-        // ============ STICKER CONVERSION ============
-        if (mode === 'sticker') {
-            if (inputType === 'image') {
-                fs.writeFileSync(tempInput + '.jpg', inputBuffer);
-                await execPromise(`ffmpeg -i "${tempInput}.jpg" -vf "scale=512:512:force_original_aspect_ratio=decrease,pad=512:512:(ow-iw)/2:(oh-ih)/2" -c:v libwebp -loop 0 -qscale 80 "${tempOutput}.webp"`);
-                const outputBuffer = fs.readFileSync(tempOutput + '.webp');
-                await sock.sendMessage(chatId, { sticker: outputBuffer, ...newsletterContext }, { quoted: message });
-            } 
-            else if (inputType === 'video') {
-                fs.writeFileSync(tempInput + '.mp4', inputBuffer);
-                await execPromise(`ffmpeg -i "${tempInput}.mp4" -vf "scale=512:512:force_original_aspect_ratio=decrease,pad=512:512:(ow-iw)/2:(oh-ih)/2,fps=15" -c:v libwebp -loop 0 -qscale 80 "${tempOutput}.webp"`);
-                const outputBuffer = fs.readFileSync(tempOutput + '.webp');
-                await sock.sendMessage(chatId, { sticker: outputBuffer, ...newsletterContext }, { quoted: message });
-            }
-            else {
-                throw new Error('Invalid input for sticker. Reply to image or video.');
-            }
-        }
-        
-        // ============ IMAGE CONVERSION ============
-        else if (mode === 'image') {
-            if (inputType === 'sticker') {
-                fs.writeFileSync(tempInput + '.webp', inputBuffer);
-                await execPromise(`ffmpeg -i "${tempInput}.webp" "${tempOutput}.jpg"`);
-                const outputBuffer = fs.readFileSync(tempOutput + '.jpg');
-                await sock.sendMessage(chatId, { image: outputBuffer, caption: '> *© DarkNode MD*', ...newsletterContext }, { quoted: message });
-            }
-            else {
-                throw new Error('Invalid input for image. Reply to a sticker.');
-            }
-        }
-        
-        // ============ RESIZE IMAGE ============
-        else if (mode === 'resize') {
-            if (inputType === 'image') {
-                fs.writeFileSync(tempInput + '.jpg', inputBuffer);
-                await execPromise(`ffmpeg -i "${tempInput}.jpg" -vf "scale=720:720:force_original_aspect_ratio=decrease" "${tempOutput}.jpg"`);
-                const outputBuffer = fs.readFileSync(tempOutput + '.jpg');
-                await sock.sendMessage(chatId, { image: outputBuffer, caption: '> *© DarkNode MD*', ...newsletterContext }, { quoted: message });
-            }
-            else {
-                throw new Error('Invalid input for resize. Reply to an image.');
-            }
-        }
-        
-        // ============ VIDEO CONVERSION (Sticker → Video | Audio → Video) ============
-        else if (mode === 'video') {
-            if (inputType === 'sticker') {
-                fs.writeFileSync(tempInput + '.webp', inputBuffer);
-                
-                await sock.sendMessage(chatId, { react: { text: "🔄", key: message.key } });
-                
-                try {
-                    // Try animated WEBP to MP4
-                    await execPromise(`ffmpeg -i "${tempInput}.webp" -vf "fps=10,scale=480:-1:flags=lanczos" -c:v libx264 -pix_fmt yuv420p -preset fast -crf 25 "${tempOutput}.mp4"`);
-                    const outputBuffer = fs.readFileSync(tempOutput + '.mp4');
-                    await sock.sendMessage(chatId, { video: outputBuffer, caption: '🎬 *Sticker to Video*\n\n> *© DarkNode MD*', ...newsletterContext }, { quoted: message });
-                } catch (err) {
-                    // Fallback: static frame
-                    await execPromise(`ffmpeg -i "${tempInput}.webp" -frames:v 1 -c:v libx264 -pix_fmt yuv420p "${tempOutput}.mp4"`);
-                    const outputBuffer = fs.readFileSync(tempOutput + '.mp4');
-                    await sock.sendMessage(chatId, { video: outputBuffer, caption: '🎬 *Sticker to Video (Static)*\n\n> *© DarkNode MD*', ...newsletterContext }, { quoted: message });
+        const buffer = await downloadMediaMessage({
+            key: message.message.extendedTextMessage.contextInfo.stanzaId
+                ? {
+                    remoteJid: chatId,
+                    id: message.message.extendedTextMessage.contextInfo.stanzaId,
+                    participant: message.message.extendedTextMessage.contextInfo.participant
                 }
-            }
-            else if (inputType === 'audio') {
-                fs.writeFileSync(tempInput + '.mp3', inputBuffer);
-                await execPromise(`ffmpeg -i "${tempInput}.mp3" -filter_complex "[0:a]avectorscope=s=640x360,format=yuv420p[v]" -map "[v]" -map 0:a -c:v libx264 -c:a copy -shortest "${tempOutput}.mp4"`);
-                const outputBuffer = fs.readFileSync(tempOutput + '.mp4');
-                await sock.sendMessage(chatId, { video: outputBuffer, caption: '🎵 *Audio Visualizer*\n\n> *© DarkNode MD*', ...newsletterContext }, { quoted: message });
-            }
-            else {
-                throw new Error('Invalid input for video. Reply to a sticker or audio.');
-            }
+                : message.key,
+            message: quoted
+        }, 'buffer', {}, { logger: console });
+
+        if (!buffer) throw new Error('Failed to download media');
+
+        let inputPath, outputPath, mime;
+
+        if (targetFormat === 'sticker') {
+            inputPath = getTempPath('tmp');
+            outputPath = getTempPath('webp');
+            fs.writeFileSync(inputPath, buffer);
+            await execPromise(`ffmpeg -y -i "${inputPath}" -vf "scale=512:512:force_original_aspect_ratio=decrease,pad=512:512:(ow-iw)/2:(oh-ih)/2:color=0x00000000" -c:v libwebp -lossless 0 -qscale 50 -preset default -loop 0 -an -vsync 0 "${outputPath}"`);
+            const webpBuffer = fs.readFileSync(outputPath);
+            await sock.sendMessage(chatId, { sticker: webpBuffer, ...channelInfo }, { quoted: fakeMeta });
         }
-        
-        // ============ AUDIO CONVERSION (Video → Audio/MP3) ============
-        else if (mode === 'audio') {
-            if (inputType === 'video') {
-                fs.writeFileSync(tempInput + '.mp4', inputBuffer);
-                await execPromise(`ffmpeg -i "${tempInput}.mp4" -q:a 0 -map a "${tempOutput}.mp3"`);
-                const outputBuffer = fs.readFileSync(tempOutput + '.mp3');
-                await sock.sendMessage(chatId, { 
-                    audio: outputBuffer, 
-                    mimetype: 'audio/mpeg',
-                    fileName: 'audio.mp3',
-                    ...newsletterContext
-                }, { quoted: message });
-            }
-            else {
-                throw new Error('Invalid input for audio. Reply to a video.');
-            }
+
+        else if (targetFormat === 'image') {
+            inputPath = getTempPath('webp');
+            outputPath = getTempPath('png');
+            fs.writeFileSync(inputPath, buffer);
+            await execPromise(`ffmpeg -y -i "${inputPath}" "${outputPath}"`);
+            const imgBuffer = fs.readFileSync(outputPath);
+            await sock.sendMessage(chatId, { image: imgBuffer, caption: '> © DarkNode MD', ...channelInfo }, { quoted: fakeMeta });
         }
-        
-        // ============ VOICE NOTE CONVERSION ============
-        else if (mode === 'voicenote') {
-            if (inputType === 'audio') {
-                fs.writeFileSync(tempInput + '.mp3', inputBuffer);
-                await execPromise(`ffmpeg -i "${tempInput}.mp3" -c:a libopus -b:a 24k -vbr on -compression_level 10 -application voip -ar 24000 -ac 1 "${tempOutput}.opus"`);
-                const outputBuffer = fs.readFileSync(tempOutput + '.opus');
-                await sock.sendMessage(chatId, { 
-                    audio: outputBuffer, 
-                    mimetype: 'audio/ogg',
-                    ptt: true,
-                    ...newsletterContext
-                }, { quoted: message });
-            }
-            else if (inputType === 'video') {
-                fs.writeFileSync(tempInput + '.mp4', inputBuffer);
-                await execPromise(`ffmpeg -i "${tempInput}.mp4" -vn -c:a libopus -b:a 24k -vbr on -compression_level 10 -application voip -ar 24000 -ac 1 "${tempOutput}.opus"`);
-                const outputBuffer = fs.readFileSync(tempOutput + '.opus');
-                await sock.sendMessage(chatId, { 
-                    audio: outputBuffer, 
-                    mimetype: 'audio/ogg',
-                    ptt: true,
-                    ...newsletterContext
-                }, { quoted: message });
-            }
-            else {
-                throw new Error('Invalid input for voice note. Reply to audio or video.');
-            }
+
+        else if (targetFormat === 'video') {
+            inputPath = getTempPath('webp');
+            outputPath = getTempPath('mp4');
+            fs.writeFileSync(inputPath, buffer);
+            await execPromise(`ffmpeg -y -i "${inputPath}" -c:v libx264 -pix_fmt yuv420p -movflags +faststart "${outputPath}"`);
+            const vidBuffer = fs.readFileSync(outputPath);
+            await sock.sendMessage(chatId, { video: vidBuffer, caption: '> © DarkNode MD', ...channelInfo }, { quoted: fakeMeta });
         }
-        
-        // ============ VIDEO NOTE (Circle Video) ============
-        else if (mode === 'videonote') {
-            if (inputType === 'video') {
-                fs.writeFileSync(tempInput + '.mp4', inputBuffer);
-                await execPromise(`ffmpeg -i "${tempInput}.mp4" -vf "crop=min(iw\\,ih):min(iw\\,ih),scale=480:480,format=yuv420p" -c:v libx264 -preset fast -crf 23 -c:a aac -b:a 64k -movflags +faststart -pix_fmt yuv420p "${tempOutput}.mp4"`);
-                const outputBuffer = fs.readFileSync(tempOutput + '.mp4');
-                await sock.sendMessage(chatId, { 
-                    video: outputBuffer, 
-                    mimetype: 'video/mp4',
-                    gifPlayback: false,
-                    ...newsletterContext
-                }, { quoted: message });
-            }
-            else {
-                throw new Error('Invalid input for video note. Reply to a video.');
-            }
+
+        else if (targetFormat === 'audio') {
+            inputPath = getTempPath('tmp');
+            outputPath = getTempPath('mp3');
+            fs.writeFileSync(inputPath, buffer);
+            await execPromise(`ffmpeg -y -i "${inputPath}" -vn -ab 128k -ar 44100 -f mp3 "${outputPath}"`);
+            const audBuffer = fs.readFileSync(outputPath);
+            await sock.sendMessage(chatId, {
+                audio: audBuffer,
+                mimetype: 'audio/mpeg',
+                ptt: false,
+                ...channelInfo
+            }, { quoted: fakeMeta });
         }
-        
-        else {
-            await sock.sendMessage(chatId, { 
-                text: "❌ Invalid mode.\n\nAvailable modes:\n• sticker - Image/Video → Sticker\n• image - Sticker → Image\n• video - Sticker/Audio → Video\n• audio - Video → Audio (MP3)\n• voicenote - Audio/Video → Voice Note\n• videonote - Video → Circle Video\n• resize - Image → Resized Image"
-            }, { quoted: message });
-            await sock.sendMessage(chatId, { react: { text: "❌", key: message.key } });
-            return;
+
+        else if (targetFormat === 'voicenote') {
+            inputPath = getTempPath('tmp');
+            outputPath = getTempPath('ogg');
+            fs.writeFileSync(inputPath, buffer);
+            await execPromise(`ffmpeg -y -i "${inputPath}" -c:a libopus -b:a 32k "${outputPath}"`);
+            const oggBuffer = fs.readFileSync(outputPath);
+            await sock.sendMessage(chatId, {
+                audio: oggBuffer,
+                mimetype: 'audio/ogg; codecs=opus',
+                ptt: true,
+                ...channelInfo
+            }, { quoted: fakeMeta });
+        }
+
+        else if (targetFormat === 'videonote') {
+            inputPath = getTempPath('tmp');
+            outputPath = getTempPath('mp4');
+            fs.writeFileSync(inputPath, buffer);
+            await execPromise(`ffmpeg -y -i "${inputPath}" -c:v libx264 -pix_fmt yuv420p -vf "crop=min(iw\,ih):min(iw\,ih)" -movflags +faststart "${outputPath}"`);
+            const vidBuffer = fs.readFileSync(outputPath);
+            await sock.sendMessage(chatId, {
+                video: vidBuffer,
+                mimetype: 'video/mp4',
+                ptt: true,
+                ...channelInfo
+            }, { quoted: fakeMeta });
+        }
+
+        else if (targetFormat === 'resize') {
+            inputPath = getTempPath('tmp');
+            outputPath = getTempPath('jpg');
+            fs.writeFileSync(inputPath, buffer);
+            await execPromise(`ffmpeg -y -i "${inputPath}" -vf "scale=512:512:force_original_aspect_ratio=decrease,pad=512:512:(ow-iw)/2:(oh-ih)/2" "${outputPath}"`);
+            const imgBuffer = fs.readFileSync(outputPath);
+            await sock.sendMessage(chatId, { image: imgBuffer, caption: '> © DarkNode MD', ...channelInfo }, { quoted: fakeMeta });
         }
 
         // Cleanup temp files
-        try {
-            const files = fs.readdirSync(tmpDir);
-            for (const file of files) {
-                if (file.includes('input_') || file.includes('output_')) {
-                    fs.unlinkSync(path.join(tmpDir, file));
-                }
-            }
-        } catch (e) {}
+        try { if (inputPath) fs.unlinkSync(inputPath); } catch {}
+        try { if (outputPath) fs.unlinkSync(outputPath); } catch {}
 
-        await sock.sendMessage(chatId, { react: { text: "✅", key: message.key } });
+        await sock.sendMessage(chatId, { react: { text: '✅', key: message.key } });
 
     } catch (error) {
-        console.error('Convert error:', error.message);
-        await sock.sendMessage(chatId, { react: { text: "❌", key: message.key } });
-        await sock.sendMessage(chatId, { 
-            text: `❌ Conversion failed: ${error.message}`
-        }, { quoted: message });
+        console.error('[Convert] Error:', error.message);
+        await sock.sendMessage(chatId, {
+            text: `╭─── 『 ❌ ERROR 』───⟢
+│ ❌ Conversion failed: ${error.message}
+╰────────────⟢
+> © DarkNode MD`,
+            ...channelInfo
+        }, { quoted: fakeMeta });
+        await sock.sendMessage(chatId, { react: { text: '❌', key: message.key } });
     }
 }
 

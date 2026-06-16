@@ -1,3 +1,4 @@
 {
-  "enabled": true
+  "enabled": true,
+  "warnMessage": "⚠️ *Calls are not allowed!*\n\nPlease do not call the bot. Use messages only.\n\n_This is your last warning._"
 }

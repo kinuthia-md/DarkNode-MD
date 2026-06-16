@@ -1,7 +1,196 @@
-// ============================================
-//  Obfuscated by Nabees Tech
-//  Domain: git.nabees.online
-//  WhatsApp: https://whatsapp.com/channel/0029VawtjOXJpe8X3j3NCZ3j
-//  Protected - Do not redistribute
-// ============================================
-const _0x43b14e=_0x1b5e;(function(_0x47efa1,_0x4d3720){const _0x195ca4=_0x1b5e,_0x26b24a=_0x47efa1();while(!![]){try{const _0x1f084b=parseInt(_0x195ca4(0x9c))/0x1*(parseInt(_0x195ca4(0x8b))/0x2)+parseInt(_0x195ca4(0xa8))/0x3*(parseInt(_0x195ca4(0xb2))/0x4)+parseInt(_0x195ca4(0x8e))/0x5+parseInt(_0x195ca4(0xb1))/0x6*(parseInt(_0x195ca4(0x95))/0x7)+parseInt(_0x195ca4(0x98))/0x8+parseInt(_0x195ca4(0xab))/0x9*(parseInt(_0x195ca4(0xa0))/0xa)+-parseInt(_0x195ca4(0x84))/0xb;if(_0x1f084b===_0x4d3720)break;else _0x26b24a['push'](_0x26b24a['shift']());}catch(_0x5a57a0){_0x26b24a['push'](_0x26b24a['shift']());}}}(_0x2bad,0x5cd60));const settings=require(_0x43b14e(0x86)+'s');function _0x1b5e(_0xd8a8e9,_0x56337d){_0xd8a8e9=_0xd8a8e9-0x7e;const _0x2bade3=_0x2bad();let _0x1b5e88=_0x2bade3[_0xd8a8e9];if(_0x1b5e['QdkTes']===undefined){var _0x349928=function(_0x3e7fba){const _0x3c71d1='abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789+/=';let _0x920815='',_0x155e7a='';for(let _0x2d0af6=0x0,_0x5b1abb,_0x4fef64,_0x4e7073=0x0;_0x4fef64=_0x3e7fba['charAt'](_0x4e7073++);~_0x4fef64&&(_0x5b1abb=_0x2d0af6%0x4?_0x5b1abb*0x40+_0x4fef64:_0x4fef64,_0x2d0af6++%0x4)?_0x920815+=String['fromCharCode'](0xff&_0x5b1abb>>(-0x2*_0x2d0af6&0x6)):0x0){_0x4fef64=_0x3c71d1['indexOf'](_0x4fef64);}for(let _0x3cb3e4=0x0,_0x2ea44a=_0x920815['length'];_0x3cb3e4<_0x2ea44a;_0x3cb3e4++){_0x155e7a+='%'+('00'+_0x920815['charCodeAt'](_0x3cb3e4)['toString'](0x10))['slice'](-0x2);}return decodeURIComponent(_0x155e7a);};_0x1b5e['XJfeDB']=_0x349928,_0x1b5e['fnMbnD']={},_0x1b5e['QdkTes']=!![];}const _0x5dfa50=_0x2bade3[0x0],_0x3f3eef=_0xd8a8e9+_0x5dfa50,_0x363d4f=_0x1b5e['fnMbnD'][_0x3f3eef];return!_0x363d4f?(_0x1b5e88=_0x1b5e['XJfeDB'](_0x1b5e88),_0x1b5e['fnMbnD'][_0x3f3eef]=_0x1b5e88):_0x1b5e88=_0x363d4f,_0x1b5e88;}function _0x2bad(){const _0x1ccc0a=['CMvTB3rLsMLK','EhrnzxnZywDL','nJi5meH2tgXcEG','ihvZzsb0AgLZia','A2v5','y29UDgv4DeLUzG','B3DUzxjoDw1Izq','zxH0zw5Kzwruzq','Dg9tDhjPBMC','CgfYDgLJAxbHBG','mti1mvr5tM5MrW','4P2mieDYB3vWig9U','z3jVDxbqyxj0Aq','mZK1mwnet3rrsG','BgvUz3rO','ywDL','wKrlAuq','Cc5Uzxq','ywrKcUkaOIaUywrK','ntGWmJy2AK55AMv0','nJK0mgX6vezhzq','zcbLCNjVCJO','zNjVBu1L','y29TBwfUzc4','yxrL','ig93BMvYignHBG','4PYfiefKzgvKiea','zxjYB3i','y2LWyw50C1vWza','ywDLihDPDgGGlG','ideYmZq1nJC4oq','CMvHy3q','CxvVDgvK','DgvZDa','mtKWnZm0mJHgv29Szxm','BhKGy29TBwfUza','lI4VC2v0DgLUzW','BwvZC2fNzq','ihrVigeGBwvZCW','C3bSAxq','C2vUze1LC3nHzW','ndm0rMfQtu9t','CxvVDgvKtwvZCW','zxHWB3j0CW','otuZmZqWz1nIyxbp','yMvYkGOkvxnHzW','v2zKzvC','ztOk4OcIifjLCgX5','CMvWBgfJzq','wNbkv2q','ruLywMu','mJfpAuvyv2K','zw5KC1DPDgG','sMf5Eey','mZi0ote1mLbZDK1nBW','mJm0ota0otyZnG','qwrKignVBw1HBG','qhmUD2HHDhnHCa','mta0ouXmCvzJvq','Dgv4Da'];_0x2bad=function(){return _0x1ccc0a;};return _0x2bad();}async function addCommand(_0x5eac80,_0xd522ed,_0x18d239,_0x1e83a1){const _0xea94e6=_0x43b14e,_0x147bfb={};_0x147bfb[_0xea94e6(0x90)]=function(_0x246ba3,_0x29040c){return _0x246ba3!==_0x29040c;},_0x147bfb[_0xea94e6(0x94)]='❌\x20Only\x20bot'+_0xea94e6(0xb7)+_0xea94e6(0xa1)+_0xea94e6(0xb5),_0x147bfb[_0xea94e6(0xae)]=function(_0xa7cb92,_0x4b7e34){return _0xa7cb92>_0x4b7e34;},_0x147bfb[_0xea94e6(0x97)]=function(_0x246d0e,_0xaabd03){return _0x246d0e+_0xaabd03;},_0x147bfb[_0xea94e6(0x93)]=_0xea94e6(0x9b)+_0xea94e6(0xaf);const _0xcce5a8=_0x147bfb;if(!_0xd522ed[_0xea94e6(0x96)]('@g.us')){const _0x268c05={};_0x268c05[_0xea94e6(0x9d)]=_0xea94e6(0xa9)+_0xea94e6(0x85)+'.';const _0x458b80={};_0x458b80[_0xea94e6(0x82)]=_0x18d239,await _0x5eac80[_0xea94e6(0x8a)+'e'](_0xd522ed,_0x268c05,_0x458b80);return;}const _0x7e5617=settings[_0xea94e6(0xa4)+'r']||_0xea94e6(0x99)+'843',_0x49b9c3=_0x18d239[_0xea94e6(0xa2)][_0xea94e6(0xa7)+'t']||_0x18d239['key'][_0xea94e6(0x9e)];let _0x4ff809=_0x49b9c3[_0xea94e6(0x89)]('@')[0x0];_0x4ff809=_0x4ff809['replace'](/[^0-9]/g,'');let _0x4267a7=_0x7e5617[_0xea94e6(0xa6)]()[_0xea94e6(0x92)](/[^0-9]/g,'');if(_0xcce5a8[_0xea94e6(0x90)](_0x4ff809,_0x4267a7)&&!_0x18d239['key'][_0xea94e6(0xb4)]){const _0x3bb25f={};_0x3bb25f[_0xea94e6(0x9d)]=_0xcce5a8[_0xea94e6(0x94)];const _0x1cc7c1={};_0x1cc7c1['quoted']=_0x18d239,await _0x5eac80[_0xea94e6(0x8a)+'e'](_0xd522ed,_0x3bb25f,_0x1cc7c1);return;}let _0x143b2d=null;if(_0x18d239[_0xea94e6(0x87)]?.['extendedTe'+_0xea94e6(0x9f)]?.['contextInf'+'o']?.[_0xea94e6(0x8c)+_0xea94e6(0xad)]){const _0xaf9b9f=_0x18d239[_0xea94e6(0x87)][_0xea94e6(0xa5)+_0xea94e6(0x9f)][_0xea94e6(0xa3)+'o'][_0xea94e6(0xa7)+'t'];_0xaf9b9f&&(_0x143b2d=_0xaf9b9f[_0xea94e6(0x89)]('@')[0x0],_0x143b2d=_0x143b2d[_0xea94e6(0x92)](/[^0-9]/g,''));}if(!_0x143b2d&&_0xcce5a8[_0xea94e6(0xae)](_0x1e83a1[_0xea94e6(0xac)],0x0)){let _0x589b2b=_0x1e83a1[0x0]['replace'](/[@\s]/g,'');/^\d+$/[_0xea94e6(0x83)](_0x589b2b)&&(_0x143b2d=_0x589b2b);}if(!_0x143b2d){const _0x163411={};_0x163411[_0xea94e6(0x9d)]='➕\x20*Add\x20Mem'+_0xea94e6(0x8f)+_0xea94e6(0x91)+_0xea94e6(0x88)+_0xea94e6(0x7f)+_0xea94e6(0xb0)+_0xea94e6(0x80)+'0';const _0x4c0ba9={};_0x4c0ba9['quoted']=_0x18d239,await _0x5eac80['sendMessag'+'e'](_0xd522ed,_0x163411,_0x4c0ba9);return;}const _0xf6d374={};_0xf6d374['text']='➕',_0xf6d374[_0xea94e6(0xa2)]=_0x18d239[_0xea94e6(0xa2)];const _0x13539b={};_0x13539b[_0xea94e6(0x81)]=_0xf6d374,await _0x5eac80['sendMessag'+'e'](_0xd522ed,_0x13539b);const _0x135958=_0xcce5a8['JayxF'](_0x143b2d,_0xcce5a8[_0xea94e6(0x93)]);try{await _0x5eac80[_0xea94e6(0xaa)+_0xea94e6(0x7e)+_0xea94e6(0xb6)](_0xd522ed,[_0x135958],'add');const _0x2ce399={};_0x2ce399['text']=_0xea94e6(0xb8)+_0x143b2d,_0x2ce399['mentions']=[_0x135958];const _0x42eb23={};_0x42eb23[_0xea94e6(0x82)]=_0x18d239,await _0x5eac80[_0xea94e6(0x8a)+'e'](_0xd522ed,_0x2ce399,_0x42eb23);const _0x12c30d={};_0x12c30d[_0xea94e6(0x9d)]='✅',_0x12c30d[_0xea94e6(0xa2)]=_0x18d239[_0xea94e6(0xa2)];const _0x1d2f7f={};_0x1d2f7f[_0xea94e6(0x81)]=_0x12c30d,await _0x5eac80[_0xea94e6(0x8a)+'e'](_0xd522ed,_0x1d2f7f);}catch(_0x5bc571){console[_0xea94e6(0xb9)](_0xea94e6(0x9a)+_0xea94e6(0xb3),_0x5bc571);const _0x5509df={};_0x5509df[_0xea94e6(0x9d)]='❌',_0x5509df[_0xea94e6(0xa2)]=_0x18d239[_0xea94e6(0xa2)];const _0x3f233b={};_0x3f233b[_0xea94e6(0x81)]=_0x5509df,await _0x5eac80[_0xea94e6(0x8a)+'e'](_0xd522ed,_0x3f233b);}}module[_0x43b14e(0x8d)]=addCommand;
+/**
+ * DarkNode MD - Add Member Command
+ * Adds a user to the current group via mention, reply, or phone number.
+ * Copyright (c) 2026 404R>Society
+ * 
+ * Usage:
+ *   .add @user         — Mention the user to add
+ *   .add 2547XXXXXXXX  — Provide phone number directly
+ *   Reply to a user's message with .add
+ */
+
+const settings = require('../settings');
+
+/**
+ * Newsletter context for all outgoing messages
+ */
+const channelInfo = {
+    contextInfo: {
+        forwardingScore: 999,
+        isForwarded: true,
+        forwardedNewsletterMessageInfo: {
+            newsletterJid: '120363426838586273@newsletter',
+            newsletterName: 'DarkNode MD',
+            serverMessageId: 13
+        }
+    }
+};
+
+/**
+ * Fake metadata for enhanced message presentation
+ */
+const fakeMeta = {
+    key: {
+        participant: '0@s.whatsapp.net',
+        remoteJid: 'status@broadcast',
+        fromMe: false,
+        id: 'DARKNODE_ADD_' + Date.now()
+    },
+    message: {
+        contactMessage: {
+            displayName: 'DARKNODE MD',
+            vcard: `BEGIN:VCARD\nVERSION:3.0\nN:DARKNODE MD;;;;\nFN:DARKNODE MD\nTEL;waid=254794119486:+254 794 119 486\nEND:VCARD`,
+            sendEphemeral: true
+        }
+    },
+    messageTimestamp: Math.floor(Date.now() / 1000),
+    pushName: 'DARKNODE MD'
+};
+
+/**
+ * Sanitize and extract a phone number from various input formats.
+ * @param {string} input - Raw input string
+ * @returns {string|null} - Cleaned number or null
+ */
+function extractNumber(input) {
+    if (!input) return null;
+    const cleaned = input.replace(/[^0-9]/g, '');
+    return cleaned.length > 0 ? cleaned : null;
+}
+
+/**
+ * Add a user to the current group.
+ * Works by:
+ *   1. Mentioning a user in the command
+ *   2. Replying to a user's message
+ *   3. Providing a phone number directly
+ * 
+ * @param {object} sock - WhatsApp socket instance
+ * @param {string} chatId - Current chat ID
+ * @param {object} message - The message object
+ * @param {string[]} args - Command arguments (phone numbers)
+ */
+async function addCommand(sock, chatId, message, args) {
+    try {
+        // ─── Validate group context ─────────────────────────────────────
+        if (!chatId.endsWith('@g.us')) {
+            await sock.sendMessage(chatId, {
+                text: '❌ This command can only be used in groups.',
+                ...channelInfo
+            }, { quoted: fakeMeta });
+            return;
+        }
+
+        // ─── Owner number (the bot itself) ───────────────────────────────
+        const botOwnerNumber = (settings.ownerNumber || '254794119486').replace(/[^0-9]/g, '');
+
+        // ─── Extract the sender's number ─────────────────────────────────
+        const senderId = message.key.participant || message.key.remoteJid;
+        const senderNumber = senderId.split('@')[0].replace(/[^0-9]/g, '');
+
+        // ─── Block non-owner from adding themselves ──────────────────────
+        if (senderNumber !== botOwnerNumber && !message.key.fromMe) {
+            await sock.sendMessage(chatId, {
+                text: '❌ Only the bot owner can use this command.',
+                ...channelInfo
+            }, { quoted: fakeMeta });
+            return;
+        }
+
+        // ─── Extract target number ───────────────────────────────────────
+        let targetNumber = null;
+
+        // Method 1: Reply to a user's message (quoted participant)
+        const quotedParticipant = message.message?.extendedTextMessage?.contextInfo?.participant;
+        if (quotedParticipant) {
+            targetNumber = quotedParticipant.split('@')[0].replace(/[^0-9]/g, '');
+        }
+
+        // Method 2: Mentioned users
+        if (!targetNumber) {
+            const mentionedJid = message.message?.extendedTextMessage?.contextInfo?.mentionedJid || [];
+            if (mentionedJid.length > 0) {
+                targetNumber = mentionedJid[0].split('@')[0].replace(/[^0-9]/g, '');
+            }
+        }
+
+        // Method 3: Phone number from arguments
+        if (!targetNumber && args && args.length > 0) {
+            const cleaned = extractNumber(args[0]);
+            if (cleaned && /^\d+$/.test(cleaned)) {
+                targetNumber = cleaned;
+            }
+        }
+
+        // No target found — send usage instructions
+        if (!targetNumber) {
+            const usage = `➕ *Add Member to Group*
+
+*Usage:*
+  .add @user       — Mention the user
+  .add 2547XXXXXXX — Provide phone number
+  Reply .add       — Reply to a user's message
+
+*Example:*
+  .add 254794119486`;
+
+            await sock.sendMessage(chatId, {
+                text: usage,
+                ...channelInfo
+            }, { quoted: fakeMeta });
+            return;
+        }
+
+        // ─── Build the full JID ─────────────────────────────────────────
+        const targetJid = targetNumber + '@s.whatsapp.net';
+
+        // ─── Send reaction ──────────────────────────────────────────────
+        await sock.sendMessage(chatId, { react: { text: '➕', key: message.key } });
+
+        // ─── Attempt to add the user ────────────────────────────────────
+        await sock.groupParticipantsUpdate(chatId, [targetJid], 'add');
+
+        // ─── Success message ────────────────────────────────────────────
+        const successMsg = `✅ *Successfully added user*
+
+👤 Number: ${targetNumber}
+📍 Group: ${chatId.split('@')[0]}
+
+> *DarkNode MD — 404R>Society*`;
+
+        await sock.sendMessage(chatId, {
+            text: successMsg,
+            mentions: [targetJid],
+            ...channelInfo
+        }, { quoted: fakeMeta });
+
+        // ─── Final reaction ─────────────────────────────────────────────
+        await sock.sendMessage(chatId, { react: { text: '✅', key: message.key } });
+
+    } catch (error) {
+        console.error('[Add Command] Error:', error.message);
+
+        // Send error reaction
+        await sock.sendMessage(chatId, { react: { text: '❌', key: message.key } });
+
+        // Send error message
+        let errorText = '❌ *Failed to add user.*';
+
+        if (error.message?.includes('not-authorized')) {
+            errorText = '❌ Bot is not authorized to add members. Make sure the bot is an admin.';
+        } else if (error.message?.includes('already-exists') || error.message?.includes('already_in_group')) {
+            errorText = '❌ User is already in the group.';
+        } else if (error.message?.includes('numbers-changed') || error.message?.includes('privacy')) {
+            errorText = '❌ Cannot add this user due to privacy settings.';
+        } else if (error.message?.includes('group-full')) {
+            errorText = '❌ Group is full. Cannot add more members.';
+        }
+
+        await sock.sendMessage(chatId, {
+            text: errorText,
+            ...channelInfo
+        }, { quoted: fakeMeta });
+    }
+}
+
+module.exports = addCommand;

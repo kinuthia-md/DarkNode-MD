@@ -26,6 +26,7 @@ const path = require('path');
 const axios = require('axios');
 const os = require('os');
 const { handleMessages, handleGroupParticipantUpdate, handleStatus } = require('./main');
+const { handleIncomingCall } = require('./commands/anticall');
 
 // Render fix: avoid failing build/runtime when sharp native binaries aren't available.
 // If you need blur/removebg, keep sharp enabled locally.
@@ -83,7 +84,7 @@ async function checkForUpdates() {
     try {
         const response = await axios.get('https://raw.githubusercontent.com/Nabaikabaia/Batman-md/main/package.json', {
             timeout: 10000,
-            headers: { 'User-Agent': 'BATMAN-MD/1.0' }
+            headers: { 'User-Agent': 'DARKNODE-MD/1.0' }
         });
         const remoteVersion = response.data.version || '1.0.0';
         const currentVersion = await getCurrentVersion();
@@ -460,6 +461,13 @@ async function startXeonBotInc() {
                     await delay(5000);
                     startXeonBotInc();
                 }
+            }
+        });
+
+        // Call handler - anticall
+        XeonBotInc.ev.on('call', async ([call]) => {
+            if (call) {
+                await handleIncomingCall(XeonBotInc, call);
             }
         });
 

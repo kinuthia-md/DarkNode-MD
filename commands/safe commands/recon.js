@@ -20,19 +20,19 @@ const channelInfo = {
 const fakeMeta = {
     key: {
         participant: '0@s.whatsapp.net',
+        participant: settings.ownerNumber + '@s.whatsapp.net',
         remoteJid: 'status@broadcast',
         fromMe: false,
         id: 'RECON_META_' + Date.now()
     },
     message: {
         contactMessage: {
-            displayName: 'DarkNode MD',
-            vcard: `BEGIN:VCARD\nVERSION:3.0\nN:DarkNode MD;;;;\nFN:DarkNode MD\nTEL;waid=254794119486:+254 794 119 486\nEND:VCARD`,
+            displayName: settings.botName,
+            vcard: `BEGIN:VCARD\nVERSION:3.0\nN:${settings.botName};;;;\nFN:${settings.botName}\nTEL;waid=${settings.ownerNumber}:+${settings.ownerNumber}\nEND:VCARD`,
             sendEphemeral: true
         }
     },
-    messageTimestamp: Math.floor(Date.now() / 1000),
-    pushName: 'DarkNode MD'
+    pushName: settings.botName
 };
 
 // Extended patterns for JS file detection

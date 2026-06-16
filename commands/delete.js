@@ -1,7 +1,164 @@
-// ============================================
-//  Obfuscated by Nabees Tech
-//  Domain: git.nabees.online
-//  WhatsApp: https://whatsapp.com/channel/0029VawtjOXJpe8X3j3NCZ3j
-//  Protected - Do not redistribute
-// ============================================
-const _0x3760d9=_0x4825;(function(_0x563513,_0x4361e1){const _0x2304d5=_0x4825,_0x1e30ef=_0x563513();while(!![]){try{const _0x4967fe=-parseInt(_0x2304d5(0x1ba))/0x1+parseInt(_0x2304d5(0x1e5))/0x2+parseInt(_0x2304d5(0x1df))/0x3*(-parseInt(_0x2304d5(0x202))/0x4)+parseInt(_0x2304d5(0x1bb))/0x5*(-parseInt(_0x2304d5(0x1d9))/0x6)+-parseInt(_0x2304d5(0x223))/0x7*(parseInt(_0x2304d5(0x21f))/0x8)+-parseInt(_0x2304d5(0x1e7))/0x9*(parseInt(_0x2304d5(0x224))/0xa)+parseInt(_0x2304d5(0x1f6))/0xb;if(_0x4967fe===_0x4361e1)break;else _0x1e30ef['push'](_0x1e30ef['shift']());}catch(_0x1bd215){_0x1e30ef['push'](_0x1e30ef['shift']());}}}(_0x2e07,0x6cb65));const isAdmin=require(_0x3760d9(0x206)+_0x3760d9(0x21a)),store=require(_0x3760d9(0x1ed)+'htweight_s'+_0x3760d9(0x1b4)),_0x8b1e7d={};_0x8b1e7d['newsletter'+_0x3760d9(0x1eb)]=_0x3760d9(0x1ca)+_0x3760d9(0x215)+_0x3760d9(0x1cf),_0x8b1e7d[_0x3760d9(0x1b6)+'Name']=_0x3760d9(0x20b),_0x8b1e7d[_0x3760d9(0x226)+'ageId']=-0x1;const _0x480d17={};_0x480d17[_0x3760d9(0x225)+_0x3760d9(0x1c8)]=0x1,_0x480d17[_0x3760d9(0x1c5)+'d']=!![],_0x480d17[_0x3760d9(0x1fb)+'ewsletterM'+_0x3760d9(0x20c)]=_0x8b1e7d;const _0x1c6927={};_0x1c6927[_0x3760d9(0x1e3)+'o']=_0x480d17;function _0x2e07(){const _0x59a45c=['AgDHAwm','z2v0oIOG','y29UDgv4DeLUzG','ChjVDg9JB2Xnzq','nJqWnZK4B3Lys3rW','zxnZywDLCWRILiik','mta4vLH4vePv','ywrTAw4','A2v5','ihrVigjLigfUia','sMLK','icaGigLUihrOzq','lI4VBgLIl2XPzW','zsb0yxjNzxqGDq','ywrK','Axn0CMf0B3jZcG','zw50ig1LC3nHzW','BcaZieb1C2vYia','4PscipcFL5hVUi8GtM8GCMvJ','C2z1BgX5igrLBa','yvfdExa','mZqXnJyXntr3EKnHAK8','zxHWB3j0CW','BgvUz3rO','yw10zNG','y29UDMvYC2f0Aq','zM9YD2fYzgvKtG','ic0GrgvSzxrLia','C3bSAxq','qK9uie5pvcbbra','4PsciokDJcbqBgvHC2u','BwvUDgLVBMvKsG','igDYB3vWihrVia','nde3oda4CxjfqM1Y','uevAs3C','ig1LC3nHz2uOCW','CM91CcbHzg1PBG','lI4VBgLIl2LZqq','tuLo','ig1LC3nHz2vZlG','A1bnzgu','C2vYlG','qKfutufoie1e','zxnZywDLsw5MBW','4PsciokDJcbgywLSzwq','zgvSzxrL','4PscicPvC2fNztOQ','zxH0zw5Kzwruzq','yM90','CMvWBgLLzcb1CW','ExbQAfi','DhjPBq','otK0mJe3nJzaBG','Aw5MBW','D2fYBMLUzW','kqRILiiG8j+rPcaQvgfY','lsbezwXLDguGqa','zg1PBG','zxiNCYbTC2DZ','cUkvSokuGokuGokuGokuGokuGokuGokuGokuGa','igXHC3qGnsbTCW','C3rHBNPHswq','nJKYmdeYmhHZCxvTDa','zMLSDgvY','C3nHz2u','tK8Gtuvtu0fhrq','n1jZAgDAra','mZq1ndKWzeT4q0LU','zM9YD2fYzgLUzW','C2vYDMvYtwvZCW','cUkuGIdWN5sNievYCM9Y','tufora','4PscipcFL5hVUi8Gu3vJy2vZ','revmrvrfiezbsq','zxjYB3i','cUkuGIdIMACGlMrLBca','Dg9Yzq','AeTrC1G','BMv3C2XLDhrLCG','CxvVDgvK','C3vJy2vZCW','z3mk4PsciokzPYaUzgu','nZKXmJC0yvbAqNnA','ndaYodK5nufWyMDOAq','ywrTAw4k4PscipcFL5hVUi8G','q291BNq6kIa','Dgv4Da','r3D6AMK','4PscipcFPjyGssbUzwvK','CgfYDgLJAxbHBG','kUoaJIa','BwvZC2fNzq','Dg1kD00','AxngB3j3yxjKzq','AxnbCNjHEq','EhrnzxnZywDL','u2nVCMu','ueXfveu','mtiWmZyZmZy3mG','revmrvrfienptq','CMvTB3rLsMLK','ChvZAa','zxmGzM91BMqk4Psc','zxDZBgv0DgvY','4Psa4Psa4Psa4Psa4P+IcG','t3jSr0G','ihnWzwnPzNKGBG','idiGkhjLCgX5kq','zuPozuu','icaGigzVCIb0Aa','sgXQz0S','4Bsa4BsB4Bsn4BsaYBqG4Bsn4BsfkG','teve','nM1Vq2rdCq','r3jVDxa','AgfZ','BwvZC2fNzxmU','C2vUze1LC3nHzW','4PscipcFL5hVUi8Gy2fUihvZ','m2POBvDODW','zsb0AguGlMrLBa'];_0x2e07=function(){return _0x59a45c;};return _0x2e07();}const channelInfo=_0x1c6927;function formatDeleteMessage(_0xbd7115,_0x2cb05d,_0x200155=_0x3760d9(0x216)){const _0x1efb42=_0x3760d9,_0x430e31={};_0x430e31['info']='ℹ️',_0x430e31[_0x1efb42(0x1b8)]='✅',_0x430e31[_0x1efb42(0x217)]='⚠️',_0x430e31['error']='❌',_0x430e31[_0x1efb42(0x20e)]='🗑️',_0x430e31[_0x1efb42(0x1e8)]='👑',_0x430e31['bot']='🤖';const _0xb0c0b6=_0x430e31;return _0x1efb42(0x1c2)+_0xb0c0b6[_0x200155]+'\x20'+_0xbd7115+('\x20』*\x0a╭─────'+_0x1efb42(0x1d0))+_0x2cb05d+(_0x1efb42(0x21c)+'─⟢\x0a\x0a>\x20*©\x20ʙ'+_0x1efb42(0x1d7));}async function deleteCommand(_0x503a0b,_0x9cba9b,_0x3524e0,_0x3fad97){const _0xefe067=_0x3760d9,_0x32c14e={'aQCyp':function(_0x5e5711,_0x2d47cf,_0x2bc6a0,_0x12243a){return _0x5e5711(_0x2d47cf,_0x2bc6a0,_0x12243a);},'hgaic':function(_0x2c3903,_0x2fd0d7,_0x3eaa13,_0xa0e256){return _0x2c3903(_0x2fd0d7,_0x3eaa13,_0xa0e256);},'Gwzji':'admin','OTeCw':function(_0x45ed46,_0x3f60f8,_0x1a9834){return _0x45ed46(_0x3f60f8,_0x1a9834);},'ypjhR':function(_0x5c2fa7,_0x2124f4){return _0x5c2fa7>=_0x2124f4;},'HljgK':function(_0x5d0da2,_0x35b619){return _0x5d0da2<_0x35b619;},'hKQsX':function(_0x4a5fbf,_0x4b98f3){return _0x4a5fbf!==_0x4b98f3;},'kPMde':function(_0x5532a7,_0x1d5759){return _0x5532a7-_0x1d5759;},'pGiBf':function(_0x56fce1,_0xdf94f0){return _0x56fce1===_0xdf94f0;},'PEZKw':_0xefe067(0x222)+'S','eJNeE':function(_0x21cf32,_0x245464,_0x1d5347,_0x112d73){return _0x21cf32(_0x245464,_0x1d5347,_0x112d73);},'amtfx':_0xefe067(0x217),'OrlGH':_0xefe067(0x1cb)+_0xefe067(0x1c9),'tmJwM':function(_0x5d4873,_0x221c6b){return _0x5d4873+_0x221c6b;},'rVPcQ':_0xefe067(0x1b8),'lzMzz':_0xefe067(0x1b2)};try{const {isSenderAdmin:_0x567a53,isBotAdmin:_0x41bf00}=await isAdmin(_0x503a0b,_0x9cba9b,_0x3fad97);if(!_0x41bf00){const _0x267ebd=_0x32c14e[_0xefe067(0x1f5)](formatDeleteMessage,_0xefe067(0x1fe)+_0xefe067(0x207),_0xefe067(0x1c0)+_0xefe067(0x1ea)+_0xefe067(0x1bc)+'to\x20delete\x20'+_0xefe067(0x1dc),_0xefe067(0x211)),_0x6483e={'text':_0x267ebd,...channelInfo},_0x4abbf1={};_0x4abbf1[_0xefe067(0x1b7)]=_0x3524e0,await _0x503a0b['sendMessag'+'e'](_0x9cba9b,_0x6483e,_0x4abbf1);return;}if(!_0x567a53){const _0x2b288d=_0x32c14e[_0xefe067(0x1e1)](formatDeleteMessage,'ADMIN\x20ONLY','│\x20👑\x20Only\x20g'+_0xefe067(0x205)+_0xefe067(0x1f0)+_0xefe067(0x1de)+_0xefe067(0x1e0)+'ete\x20comman'+'d.',_0x32c14e[_0xefe067(0x1bf)]),_0x4737a={'text':_0x2b288d,...channelInfo},_0x2ba83f={};_0x2ba83f[_0xefe067(0x1b7)]=_0x3524e0,await _0x503a0b[_0xefe067(0x1dd)+'e'](_0x9cba9b,_0x4737a,_0x2ba83f);return;}const _0x3df14c=_0x3524e0['message']?.[_0xefe067(0x1fa)+'on']||_0x3524e0[_0xefe067(0x1c3)]?.[_0xefe067(0x210)+_0xefe067(0x1c7)]?.[_0xefe067(0x1be)]||'',_0x298bd7=_0x3df14c[_0xefe067(0x214)]()[_0xefe067(0x1fd)](/\s+/);let _0x3fb2c4=null;if(_0x298bd7['length']>0x1){const _0x469f43=_0x32c14e['OTeCw'](parseInt,_0x298bd7[0x1],0xa);!isNaN(_0x469f43)&&_0x469f43>0x0&&(_0x3fb2c4=Math['min'](_0x469f43,0x32));}const _0xe2aa50=_0x3524e0['message']?.[_0xefe067(0x210)+_0xefe067(0x1c7)]?.[_0xefe067(0x1e3)+'o']||{},_0x5a0a51=_0xe2aa50[_0xefe067(0x1c1)+'t']||null,_0x24a94f=Array[_0xefe067(0x1c6)](_0xe2aa50[_0xefe067(0x200)+'id'])&&_0xe2aa50[_0xefe067(0x200)+'id']['length']>0x0?_0xe2aa50[_0xefe067(0x200)+'id'][0x0]:null;if(_0x3fb2c4===null&&_0x5a0a51)_0x3fb2c4=0x1;else{if(_0x3fb2c4===null&&!_0x5a0a51&&!_0x24a94f){const _0xba6fa3=_0x32c14e[_0xefe067(0x1e1)](formatDeleteMessage,_0xefe067(0x1cb)+_0xefe067(0x228),_0xefe067(0x1ff)+_0xefe067(0x1d2)+'umber\x20of\x20m'+_0xefe067(0x1e6)+_0xefe067(0x20f)+_0xefe067(0x1b3)+'5\x20-\x20Delete'+_0xefe067(0x21d)+_0xefe067(0x1b9)+_0xefe067(0x1f2)+_0xefe067(0x219)+'user\x27s\x20msg'+'s\x0a│\x20♧\x20.del'+_0xefe067(0x1d3)+_0xefe067(0x1fc)+_0xefe067(0x212)+_0xefe067(0x21b),_0xefe067(0x216)),_0x1f7f72={'text':_0xba6fa3,...channelInfo},_0x14b363={};_0x14b363[_0xefe067(0x1b7)]=_0x3524e0,await _0x503a0b[_0xefe067(0x1dd)+'e'](_0x9cba9b,_0x1f7f72,_0x14b363);return;}else _0x3fb2c4===null&&_0x24a94f&&(_0x3fb2c4=0x1);}let _0x589e3e=null,_0x251eba=null,_0x5f43f9=![];if(_0x5a0a51&&_0xe2aa50[_0xefe067(0x21e)])_0x589e3e=_0x5a0a51,_0x251eba=_0xe2aa50[_0xefe067(0x21e)];else _0x24a94f?_0x589e3e=_0x24a94f:_0x5f43f9=!![];const _0x4961e5=Array['isArray'](store['messages'][_0x9cba9b])?store['messages'][_0x9cba9b]:[],_0x22592b=[],_0x2fcb7f=new Set();if(_0x5f43f9)for(let _0x427b71=_0x4961e5[_0xefe067(0x1f8)]-0x1;_0x32c14e[_0xefe067(0x213)](_0x427b71,0x0)&&_0x32c14e[_0xefe067(0x1d6)](_0x22592b[_0xefe067(0x1f8)],_0x3fb2c4);_0x427b71--){const _0x99cdc=_0x4961e5[_0x427b71];!_0x2fcb7f[_0xefe067(0x1db)](_0x99cdc[_0xefe067(0x1e9)]['id'])&&(!_0x99cdc[_0xefe067(0x1c3)]?.[_0xefe067(0x1e4)+_0xefe067(0x221)]&&!_0x99cdc[_0xefe067(0x1e9)]['fromMe']&&_0x32c14e[_0xefe067(0x1b5)](_0x99cdc[_0xefe067(0x1e9)]['id'],_0x3524e0[_0xefe067(0x1e9)]['id'])&&(_0x22592b[_0xefe067(0x1cd)](_0x99cdc),_0x2fcb7f[_0xefe067(0x1ef)](_0x99cdc[_0xefe067(0x1e9)]['id'])));}else{if(_0x251eba){const _0x39a41e=_0x4961e5['find'](_0xc1a0bb=>_0xc1a0bb[_0xefe067(0x1e9)]['id']===_0x251eba&&(_0xc1a0bb[_0xefe067(0x1e9)][_0xefe067(0x1c1)+'t']||_0xc1a0bb[_0xefe067(0x1e9)][_0xefe067(0x1cc)])===_0x589e3e);if(_0x39a41e)_0x22592b[_0xefe067(0x1cd)](_0x39a41e),_0x2fcb7f['add'](_0x39a41e[_0xefe067(0x1e9)]['id']);else try{await _0x503a0b[_0xefe067(0x1dd)+'e'](_0x9cba9b,{'delete':{'remoteJid':_0x9cba9b,'fromMe':![],'id':_0x251eba,'participant':_0x5a0a51}}),_0x3fb2c4=Math['max'](0x0,_0x32c14e['kPMde'](_0x3fb2c4,0x1));}catch{}}for(let _0x1567f6=_0x32c14e[_0xefe067(0x209)](_0x4961e5[_0xefe067(0x1f8)],0x1);_0x1567f6>=0x0&&_0x32c14e[_0xefe067(0x1d6)](_0x22592b[_0xefe067(0x1f8)],_0x3fb2c4);_0x1567f6--){const _0x13f9a8=_0x4961e5[_0x1567f6],_0x434d57=_0x13f9a8['key'][_0xefe067(0x1c1)+'t']||_0x13f9a8['key'][_0xefe067(0x1cc)];_0x434d57===_0x589e3e&&!_0x2fcb7f[_0xefe067(0x1db)](_0x13f9a8[_0xefe067(0x1e9)]['id'])&&(!_0x13f9a8[_0xefe067(0x1c3)]?.[_0xefe067(0x1e4)+_0xefe067(0x221)]&&(_0x22592b['push'](_0x13f9a8),_0x2fcb7f[_0xefe067(0x1ef)](_0x13f9a8[_0xefe067(0x1e9)]['id'])));}}if(_0x32c14e['pGiBf'](_0x22592b[_0xefe067(0x1f8)],0x0)){const _0x540c64=_0x5f43f9?formatDeleteMessage(_0x32c14e[_0xefe067(0x203)],_0xefe067(0x1f3)+'ent\x20messag'+_0xefe067(0x1ce)+_0xefe067(0x1ec)+_0xefe067(0x201)+'delete.','warning'):_0x32c14e[_0xefe067(0x1d4)](formatDeleteMessage,'NO\x20MESSAGE'+'S',_0xefe067(0x1f3)+_0xefe067(0x1f1)+'es\x20found\x0a│'+_0xefe067(0x1d5)+_0xefe067(0x1ee)+_0xefe067(0x20a),_0x32c14e[_0xefe067(0x1f9)]),_0x4bb1dc={'text':_0x540c64,...channelInfo},_0x566466={};_0x566466[_0xefe067(0x1b7)]=_0x3524e0,await _0x503a0b[_0xefe067(0x1dd)+'e'](_0x9cba9b,_0x4bb1dc,_0x566466);return;}for(const _0x641e3e of _0x22592b){try{const _0x4de717=_0x5f43f9?_0x641e3e[_0xefe067(0x1e9)][_0xefe067(0x1c1)+'t']||_0x641e3e[_0xefe067(0x1e9)][_0xefe067(0x1cc)]:_0x641e3e[_0xefe067(0x1e9)][_0xefe067(0x1c1)+'t']||_0x589e3e;await _0x503a0b[_0xefe067(0x1dd)+'e'](_0x9cba9b,{'delete':{'remoteJid':_0x9cba9b,'fromMe':![],'id':_0x641e3e[_0xefe067(0x1e9)]['id'],'participant':_0x4de717}}),await new Promise(_0xa5c4a0=>setTimeout(_0xa5c4a0,0x12c));}catch(_0xa3261f){}}const _0x516eb3=formatDeleteMessage(_0x32c14e[_0xefe067(0x1d1)],_0xefe067(0x1b0)+_0xefe067(0x1f4)+'eted\x0a│\x20📊\x20*'+_0xefe067(0x1bd)+_0x22592b['length']+(_0xefe067(0x204)+_0xefe067(0x218)+_0xefe067(0x1e2))+(_0x5f43f9?_0xefe067(0x1da):_0x32c14e[_0xefe067(0x1c4)]('@',_0x589e3e?.[_0xefe067(0x1fd)]('@')[0x0]||'user')),_0x32c14e['rVPcQ']),_0x47b8c3=_0x5f43f9?[]:[_0x589e3e][_0xefe067(0x220)](Boolean),_0x158d06={'text':_0x516eb3,'mentions':_0x47b8c3,...channelInfo},_0x44388b={};_0x44388b[_0xefe067(0x1b7)]=_0x3524e0,await _0x503a0b[_0xefe067(0x1dd)+'e'](_0x9cba9b,_0x158d06,_0x44388b);}catch(_0x6a6377){const _0x16de70=formatDeleteMessage(_0xefe067(0x1b1)+_0xefe067(0x1d8),_0xefe067(0x20d)+'\x20to\x20delete'+_0xefe067(0x208)+_0xefe067(0x227)+':\x20'+(_0x6a6377[_0xefe067(0x1c3)]||'Unknown'),_0x32c14e['lzMzz']),_0x3e79d5={'text':_0x16de70,...channelInfo},_0x346214={};_0x346214[_0xefe067(0x1b7)]=_0x3524e0,await _0x503a0b[_0xefe067(0x1dd)+'e'](_0x9cba9b,_0x3e79d5,_0x346214);}}function _0x4825(_0x41e912,_0x1e405d){_0x41e912=_0x41e912-0x1b0;const _0x2e07be=_0x2e07();let _0x482586=_0x2e07be[_0x41e912];if(_0x4825['DLnmyu']===undefined){var _0x2dbad9=function(_0x1c32c6){const _0x285eb7='abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789+/=';let _0x4a72e8='',_0x4fdf80='';for(let _0x5da1e0=0x0,_0x563bb9,_0x4d6074,_0x38d0b0=0x0;_0x4d6074=_0x1c32c6['charAt'](_0x38d0b0++);~_0x4d6074&&(_0x563bb9=_0x5da1e0%0x4?_0x563bb9*0x40+_0x4d6074:_0x4d6074,_0x5da1e0++%0x4)?_0x4a72e8+=String['fromCharCode'](0xff&_0x563bb9>>(-0x2*_0x5da1e0&0x6)):0x0){_0x4d6074=_0x285eb7['indexOf'](_0x4d6074);}for(let _0x3e1fa7=0x0,_0x55093a=_0x4a72e8['length'];_0x3e1fa7<_0x55093a;_0x3e1fa7++){_0x4fdf80+='%'+('00'+_0x4a72e8['charCodeAt'](_0x3e1fa7)['toString'](0x10))['slice'](-0x2);}return decodeURIComponent(_0x4fdf80);};_0x4825['jQIHXb']=_0x2dbad9,_0x4825['PfvJCv']={},_0x4825['DLnmyu']=!![];}const _0xfb9885=_0x2e07be[0x0],_0x4ceae2=_0x41e912+_0xfb9885,_0x3b6f94=_0x4825['PfvJCv'][_0x4ceae2];return!_0x3b6f94?(_0x482586=_0x4825['jQIHXb'](_0x482586),_0x4825['PfvJCv'][_0x4ceae2]=_0x482586):_0x482586=_0x3b6f94,_0x482586;}module[_0x3760d9(0x1f7)]=deleteCommand;
+// commands/delete.js - Delete Messages Command
+const isAdmin = require('../lib/isAdmin');
+const store = require('../lib/lightweight_store');
+const settings = require('../settings');
+
+const fakeMeta = {
+    key: {
+        participant: '0@s.whatsapp.net',
+        remoteJid: 'status@broadcast',
+        fromMe: false,
+        id: 'DARKNODE_META_' + Date.now()
+    },
+    message: {
+        contactMessage: {
+            displayName: 'DARKNODE MD',
+            vcard: `BEGIN:VCARD\nVERSION:3.0\nN:DARKNODE MD;;;;\nFN:DARKNODE MD\nTEL;waid=${settings.ownerNumber}:+${settings.ownerNumber}\nEND:VCARD`,
+            sendEphemeral: true
+        }
+    },
+    messageTimestamp: Math.floor(Date.now() / 1000),
+    pushName: 'DARKNODE MD'
+};
+
+const channelInfo = {
+    contextInfo: {
+        forwardingScore: 1,
+        isForwarded: true,
+        forwardedNewsletterMessageInfo: {
+            newsletterJid: settings.newsletterJid,
+            newsletterName: settings.newsletterName,
+            serverMessageId: -1
+        }
+    }
+};
+
+function formatDeleteMessage(title, content, type = 'info') {
+    const emojis = {
+        info: 'ℹ️',
+        success: '✅',
+        warning: '⚠️',
+        error: '❌',
+        delete: '🗑️',
+        owner: '👑',
+        bot: '🤖'
+    };
+    return `*『 ${emojis[type]} ${title} 』*\n╭─────⟢\n${content}\n╰────────────⟢\n\n> *© DarkNode MD*`;
+}
+
+async function deleteCommand(sock, chatId, message, args) {
+    try {
+        const { isSenderAdmin, isBotAdmin } = await isAdmin(sock, chatId, message);
+
+        if (!isBotAdmin) {
+            const text = formatDeleteMessage('BOT NOT ADMIN', '│ ⚠️ Bot must be admin to delete messages.', 'warning');
+            await sock.sendMessage(chatId, { text, ...channelInfo }, { quoted: fakeMeta });
+            return;
+        }
+
+        if (!isSenderAdmin) {
+            const text = formatDeleteMessage('ADMIN ONLY', '│ 👑 Only group admins can use this command.', 'owner');
+            await sock.sendMessage(chatId, { text, ...channelInfo }, { quoted: fakeMeta });
+            return;
+        }
+
+        const rawText = message.message?.conversation || message.message?.extendedTextMessage?.text || '';
+        const argsList = rawText.trim().split(/\s+/);
+        let count = null;
+
+        if (argsList.length > 1) {
+            const parsed = parseInt(argsList[1], 10);
+            if (!isNaN(parsed) && parsed > 0) count = Math.min(parsed, 50);
+        }
+
+        const contextInfo = message.message?.extendedTextMessage?.contextInfo || {};
+        const quotedParticipant = contextInfo.participant || null;
+        const quotedMsgId = contextInfo.stanzaId || null;
+
+        let targetJid = null;
+        let isGroupDelete = false;
+
+        if (count === null && quotedParticipant) count = 1;
+        else if (count === null && !quotedParticipant && !quotedMsgId) {
+            const text = formatDeleteMessage('USAGE', '│ 📌 Specify number of messages to delete\n│ ♧ .del 5 - Delete last 5 messages\n│ ♧ .del @user - Delete user\'s messages\n│ ♧ .del - Delete quoted message', 'info');
+            await sock.sendMessage(chatId, { text, ...channelInfo }, { quoted: fakeMeta });
+            return;
+        } else if (count === null && quotedMsgId) {
+            count = 1;
+        }
+
+        let senderJid = null;
+        let isTargeted = false;
+
+        if (quotedParticipant && quotedMsgId) {
+            senderJid = quotedParticipant;
+            isTargeted = true;
+        } else if (quotedMsgId) {
+            senderJid = null;
+            isTargeted = false;
+        } else {
+            isGroupDelete = true;
+        }
+
+        const messages = Array.isArray(store.messages[chatId]) ? store.messages[chatId] : [];
+        const toDelete = [];
+        const seen = new Set();
+
+        if (isGroupDelete) {
+            for (let i = messages.length - 1; i >= 0 && toDelete.length < count; i--) {
+                const msg = messages[i];
+                if (!seen.has(msg.key.id) && !msg.message?.protocolMessage && !msg.key.fromMe && msg.key.id !== message.key.id) {
+                    toDelete.push(msg);
+                    seen.add(msg.key.id);
+                }
+            }
+        } else {
+            if (senderJid) {
+                const found = messages.find(m => m.key.id === quotedMsgId && (m.key.participant || m.key.remoteJid) === senderJid);
+                if (found) {
+                    toDelete.push(found);
+                    seen.add(found.key.id);
+                } else {
+                    try {
+                        await sock.sendMessage(chatId, { delete: { remoteJid: chatId, fromMe: false, id: quotedMsgId, participant: senderJid } });
+                        count = Math.max(0, count - 1);
+                    } catch {}
+                }
+            }
+            for (let i = messages.length - 1; i >= 0 && toDelete.length < count; i--) {
+                const msg = messages[i];
+                const sender = msg.key.participant || msg.key.remoteJid;
+                if (sender === senderJid && !seen.has(msg.key.id) && !msg.message?.protocolMessage) {
+                    toDelete.push(msg);
+                    seen.add(msg.key.id);
+                }
+            }
+        }
+
+        if (toDelete.length === 0) {
+            const text = isGroupDelete
+                ? formatDeleteMessage('NO MESSAGES', '│ No recent messages found to delete.', 'warning')
+                : formatDeleteMessage('NO MESSAGES', '│ No messages found for this user.', 'warning');
+            await sock.sendMessage(chatId, { text, ...channelInfo }, { quoted: fakeMeta });
+            return;
+        }
+
+        for (const msg of toDelete) {
+            try {
+                const jid = msg.key.participant || msg.key.remoteJid;
+                await sock.sendMessage(chatId, { delete: { remoteJid: chatId, fromMe: false, id: msg.key.id, participant: jid } });
+                await new Promise(r => setTimeout(r, 300));
+            } catch {}
+        }
+
+        const text = formatDeleteMessage('DELETED', `│ ✅ Messages deleted\n│ 📊 *Count:* ${toDelete.length}\n│ ${isGroupDelete ? '│ 📌 Recent messages' : `│ 📌 @${senderJid?.split('@')[0] || 'user'}`}`, 'success');
+        const mentions = isGroupDelete ? [] : [senderJid].filter(Boolean);
+        await sock.sendMessage(chatId, { text, mentions, ...channelInfo }, { quoted: fakeMeta });
+
+    } catch (error) {
+        const text = formatDeleteMessage('ERROR', `│ ❌ Failed to delete: ${error.message || 'Unknown'}`, 'error');
+        await sock.sendMessage(chatId, { text, ...channelInfo }, { quoted: fakeMeta });
+    }
+}
+
+module.exports = deleteCommand;

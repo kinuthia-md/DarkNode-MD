@@ -1,1 +1,4 @@
-{"enabled":false}
+{
+  "enabled": true,
+  "react": true
+}
