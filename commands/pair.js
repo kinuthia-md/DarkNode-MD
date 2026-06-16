@@ -1,4 +1,4 @@
-// commands/pair.js
+// commands/pair.js - Pair/Connect Sub-bot
 const path = require('path');
 const fs = require('fs');
 const settings = require('../settings');
@@ -23,14 +23,32 @@ const {
     activeSubBots,
 } = require('../lib/subbotManager');
 
-const newsletterContext = {
+const fakeMeta = {
+    key: {
+        participant: '0@s.whatsapp.net',
+        remoteJid: 'status@broadcast',
+        fromMe: false,
+        id: 'DARKNODE_META_' + Date.now()
+    },
+    message: {
+        contactMessage: {
+            displayName: 'DARKNODE MD',
+            vcard: `BEGIN:VCARD\nVERSION:3.0\nN:DARKNODE MD;;;;\nFN:DARKNODE MD\nTEL;waid=${settings.ownerNumber}:+${settings.ownerNumber}\nEND:VCARD`,
+            sendEphemeral: true
+        }
+    },
+    messageTimestamp: Math.floor(Date.now() / 1000),
+    pushName: 'DARKNODE MD'
+};
+
+const channelInfo = {
     contextInfo: {
-        forwardingScore: 999,
+        forwardingScore: 1,
         isForwarded: true,
         forwardedNewsletterMessageInfo: {
-            newsletterJid: '120363426838586273@newsletter',
-            newsletterName: '404R>Society',
-            serverMessageId: 13
+            newsletterJid: settings.newsletterJid,
+            newsletterName: settings.newsletterName,
+            serverMessageId: -1
         }
     }
 };
@@ -79,25 +97,25 @@ async function pairCommand(sock, chatId, message, args) {
     if (!targetNumber || targetNumber.length < 10) {
         const errorLines = [`❌ Invalid number`, ``, `Usage: .pair 254XXXXXXXXX`];
         const errorMsg = formatHeader('PAIR ERROR', errorLines);
-        return sock.sendMessage(chatId, { text: errorMsg, ...newsletterContext }, { quoted: message });
+        return sock.sendMessage(chatId, { text: errorMsg, ...channelInfo }, { quoted: fakeMeta });
     }
 
     if (pairingInProgress.has(targetNumber)) {
         const waitLines = [`⏳ Pairing already in progress for ${targetNumber}`];
         const waitMsg = formatHeader('PAIRING IN PROGRESS', waitLines);
-        return sock.sendMessage(chatId, { text: waitMsg, ...newsletterContext }, { quoted: message });
+        return sock.sendMessage(chatId, { text: waitMsg, ...channelInfo }, { quoted: fakeMeta });
     }
 
     if (activeSubBots.has(targetNumber)) {
         const activeLines = [`✅ Bot for ${targetNumber} is already active.`];
         const activeMsg = formatHeader('BOT ACTIVE', activeLines);
-        return sock.sendMessage(chatId, { text: activeMsg, ...newsletterContext }, { quoted: message });
+        return sock.sendMessage(chatId, { text: activeMsg, ...channelInfo }, { quoted: fakeMeta });
     }
 
     if (subBotExists(targetNumber) && hasValidCreds(targetNumber)) {
         const existingLines = [`✅ Existing session found for ${targetNumber}`, `Restarting your bot...`];
         const existingMsg = formatHeader('SESSION FOUND', existingLines);
-        await sock.sendMessage(chatId, { text: existingMsg, ...newsletterContext }, { quoted: message });
+        await sock.sendMessage(chatId, { text: existingMsg, ...channelInfo }, { quoted: fakeMeta });
         launchSubBot(targetNumber);
         return;
     }
@@ -106,7 +124,7 @@ async function pairCommand(sock, chatId, message, args) {
     if (availableSlots <= 0) {
         const fullLines = [`❌ Server full. Cannot create new session.`];
         const fullMsg = formatHeader('SERVER FULL', fullLines);
-        return sock.sendMessage(chatId, { text: fullMsg, ...newsletterContext }, { quoted: message });
+        return sock.sendMessage(chatId, { text: fullMsg, ...channelInfo }, { quoted: fakeMeta });
     }
 
     if (subBotExists(targetNumber)) {
@@ -203,7 +221,7 @@ async function pairCommand(sock, chatId, message, args) {
                     ];
                     const pairingMsg = formatHeader('PAIRING CODE', pairingLines);
                     
-                    await sock.sendMessage(chatId, { text: pairingMsg, ...newsletterContext }, { quoted: message });
+                    await sock.sendMessage(chatId, { text: pairingMsg, ...channelInfo }, { quoted: fakeMeta });
                     
                     timeoutId = setTimeout(() => {
                         if (!paired && pairingInProgress.has(targetNumber)) {
@@ -214,7 +232,7 @@ async function pairCommand(sock, chatId, message, args) {
                             
                             const timeoutLines = [`⏰ Pairing timeout for ${targetNumber}`, `Please try again.`];
                             const timeoutMsg = formatHeader('TIMEOUT', timeoutLines);
-                            sock.sendMessage(chatId, { text: timeoutMsg, ...newsletterContext });
+                            sock.sendMessage(chatId, { text: timeoutMsg, ...channelInfo });
                         }
                     }, 300000);
                     
@@ -225,7 +243,7 @@ async function pairCommand(sock, chatId, message, args) {
                     
                     const errorLines = [`❌ Failed to generate pairing code.`, `Please try again.`];
                     const errorMsg = formatHeader('ERROR', errorLines);
-                    sock.sendMessage(chatId, { text: errorMsg, ...newsletterContext });
+                    sock.sendMessage(chatId, { text: errorMsg, ...channelInfo });
                 }
             }, 2000);
         }
@@ -237,7 +255,7 @@ async function pairCommand(sock, chatId, message, args) {
         
         const errorLines = [`❌ Error: ${error.message}`, `Please try again.`];
         const errorMsg = formatHeader('ERROR', errorLines);
-        await sock.sendMessage(chatId, { text: errorMsg, ...newsletterContext }, { quoted: message });
+        await sock.sendMessage(chatId, { text: errorMsg, ...channelInfo }, { quoted: fakeMeta });
     }
 }
 

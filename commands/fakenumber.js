@@ -55,7 +55,7 @@ function formatFakeNumberMessage(title, content, type = 'info') {
         country: '🌍'
     };
     
-    return `*『 ${emojis[type]} ${title} 』*
+    return `*⪨ ${emojis[type]} ${title} ⪩*
 ╭─────────⟢
 ${content}
 ╰─────────⟢
@@ -330,7 +330,7 @@ async function fakenumberCommand(sock, chatId, message, args) {
         // ============================================
         // SHOW USAGE
         // ============================================
-        const usageMsg = `*『 📱 TEMPORARY NUMBER 』*
+        const usageMsg = `*⪨ 📱 TEMPORARY NUMBER ⪩*
 ╭─────────⟢
 │ 📞 Get temporary phone numbers for SMS verification!
 │

@@ -52,7 +52,7 @@ async function autoreadCommand(sock, chatId, message) {
         const isOwner = message.key.fromMe;
 
         if (!isOwner) {
-            await sendWithContact(sock, chatId, '╭─── 『 ❌ AUTOREAD 』───⟢\n│ 👤 Only the bot owner can use this.\n╰────────────⟢\n> © DarkNode MD', message);
+            await sendWithContact(sock, chatId, '╭─── ⪨ ❌ AUTOREAD ⪩───⟢\n│ 👤 Only the bot owner can use this.\n╰────────────⟢\n> © DarkNode MD', message);
             return;
         }
 
@@ -66,20 +66,20 @@ async function autoreadCommand(sock, chatId, message) {
         if (sub === 'on' || sub === 'enable') {
             config.enabled = true;
             fs.writeFileSync(CONFIG_PATH, JSON.stringify(config, null, 2));
-            await sendWithContact(sock, chatId, '╭─── 『 ✅ AUTOREAD 』───⟢\n│ 📖 Auto-read is now *ON*\n╰────────────⟢\n> © DarkNode MD', message);
+            await sendWithContact(sock, chatId, '╭─── ⪨ ✅ AUTOREAD ⪩───⟢\n│ 📖 Auto-read is now *ON*\n╰────────────⟢\n> © DarkNode MD', message);
         } else if (sub === 'off' || sub === 'disable') {
             config.enabled = false;
             fs.writeFileSync(CONFIG_PATH, JSON.stringify(config, null, 2));
-            await sendWithContact(sock, chatId, '╭─── 『 ✅ AUTOREAD 』───⟢\n│ 📖 Auto-read is now *OFF*\n╰────────────⟢\n> © DarkNode MD', message);
+            await sendWithContact(sock, chatId, '╭─── ⪨ ✅ AUTOREAD ⪩───⟢\n│ 📖 Auto-read is now *OFF*\n╰────────────⟢\n> © DarkNode MD', message);
         } else {
             const status = config.enabled ? 'ON' : 'OFF';
-            await sendWithContact(sock, chatId, `╭─── 『 ℹ️ AUTOREAD 』───⟢\n│ 📖 Status: *${status}*\n│ 📌 Usage: .autoread on/off\n╰────────────⟢\n> © DarkNode MD`, message);
+            await sendWithContact(sock, chatId, `╭─── ⪨ ℹ️ AUTOREAD ⪩───⟢\n│ 📖 Status: *${status}*\n│ 📌 Usage: .autoread on/off\n╰────────────⟢\n> © DarkNode MD`, message);
         }
     } catch (e) {
         console.error('❌ Autoread error:', e);
         try {
             await sock.sendMessage(chatId, {
-                text: '╭─── 『 ❌ ERROR 』───⟢\n│ ❌ Failed to process command.\n╰────────────⟢\n> © DarkNode MD'
+                text: '╭─── ⪨ ❌ ERROR ⪩───⟢\n│ ❌ Failed to process command.\n╰────────────⟢\n> © DarkNode MD'
             }, { quoted: message });
         } catch {}
     }

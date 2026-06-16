@@ -1,47 +1,65 @@
-// commands/imagine.js
-const { generateImage } = require('../lib/imagehandler');
+// commands/imagine.js - AI Image Generator
+const axios = require('axios');
+const settings = require('../settings');
 
-const newsletterContext = {
+const fakeMeta = {
+    key: {
+        participant: '0@s.whatsapp.net',
+        remoteJid: 'status@broadcast',
+        fromMe: false,
+        id: 'DARKNODE_META_' + Date.now()
+    },
+    message: {
+        contactMessage: {
+            displayName: 'DARKNODE MD',
+            vcard: `BEGIN:VCARD\nVERSION:3.0\nN:DARKNODE MD;;;;\nFN:DARKNODE MD\nTEL;waid=${settings.ownerNumber}:+${settings.ownerNumber}\nEND:VCARD`,
+            sendEphemeral: true
+        }
+    },
+    messageTimestamp: Math.floor(Date.now() / 1000),
+    pushName: 'DARKNODE MD'
+};
+
+const channelInfo = {
     contextInfo: {
-        forwardingScore: 999,
+        forwardingScore: 1,
         isForwarded: true,
         forwardedNewsletterMessageInfo: {
-            newsletterJid: '120363426838586273@newsletter',
-            newsletterName: '404R>Society',
-            serverMessageId: 13
+            newsletterJid: settings.newsletterJid,
+            newsletterName: settings.newsletterName,
+            serverMessageId: -1
         }
     }
 };
 
 async function imagineCommand(sock, chatId, message, args) {
     try {
-        const prompt = args.join(' ').trim();
-        
+        const prompt = args?.join(' ')?.trim();
+
         if (!prompt) {
-            await sock.sendMessage(chatId, { 
-                text: "🎨 *AI Image Generator*\n\nUsage: .imagine <prompt>\n\nExample: .imagine a beautiful sunset over mountains"
+            await sock.sendMessage(chatId, {
+                text: `╭─── ⪨ 🎨 IMAGINE ⪩───⟢\n│ 📌 Usage: .imagine <prompt>\n│ 💡 Generate AI images\n╰────────────⟢\n> © DarkNode MD`,
+                ...channelInfo
             }, { quoted: message });
             return;
         }
 
-        await sock.sendMessage(chatId, { react: { text: "🎨", key: message.key } });
+        await sock.sendMessage(chatId, { react: { text: '🎨', key: message.key } });
 
-        // Generate image using local handler
-        const imageUrl = await generateImage(prompt, 'anime');
-        
-        await sock.sendMessage(chatId, { react: { text: "📥", key: message.key } });
-        
+        const response = await axios.get(`https://api.popcat.xyz/v1/ai/image?prompt=${encodeURIComponent(prompt)}`);
+        const imageUrl = response.data.url;
+
         await sock.sendMessage(chatId, {
             image: { url: imageUrl },
-            caption: `🎨 *${prompt.slice(0, 50)}*\n\n> *© DarkNode MD*`,
-            ...newsletterContext
+            caption: `╭─── ⪨ 🎨 IMAGINE ⪩───⟢\n│ ${prompt}\n╰────────────⟢\n> © DarkNode MD`,
+            ...channelInfo
         }, { quoted: message });
-        
-        await sock.sendMessage(chatId, { react: { text: "✅", key: message.key } });
+
+        await sock.sendMessage(chatId, { react: { text: '✅', key: message.key } });
 
     } catch (error) {
-        console.error('Imagine error:', error);
-        await sock.sendMessage(chatId, { react: { text: "❌", key: message.key } });
+        console.error('[Imagine] Error:', error);
+        await sock.sendMessage(chatId, { react: { text: '❌', key: message.key } });
     }
 }
 

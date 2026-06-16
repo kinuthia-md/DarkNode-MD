@@ -48,7 +48,7 @@ async function groupInfoCommand(sock, chatId, message) {
 
         const owner = groupMetadata.owner || members.find(m => m.admin === 'superadmin')?.id || chatId.split('-')[0] + '@s.whatsapp.net';
 
-        const caption = `╭─── 『 📊 GROUP INFO 』───⟢\n│\n│ 📌 *JID:* ${groupMetadata.id}\n│ 📝 *Name:* ${groupMetadata.subject}\n│\n│ 👥 *Members:* ${members.length}\n│\n│ 👑 *Owner:*\n│ ♧ @${owner.split('@')[0]}\n│\n│ 🛡️ *Admins:*\n${adminList || '│ No admins found'}\n│\n│ 📋 *Description:*\n│ ${groupMetadata.desc?.toString() || 'No description set'}\n╰────────────⟢\n\n> *© DarkNode MD*`;
+        const caption = `╭─── ⪨ 📊 GROUP INFO ⪩───⟢\n│\n│ 📌 *JID:* ${groupMetadata.id}\n│ 📝 *Name:* ${groupMetadata.subject}\n│\n│ 👥 *Members:* ${members.length}\n│\n│ 👑 *Owner:*\n│ ♧ @${owner.split('@')[0]}\n│\n│ 🛡️ *Admins:*\n${adminList || '│ No admins found'}\n│\n│ 📋 *Description:*\n│ ${groupMetadata.desc?.toString() || 'No description set'}\n╰────────────⟢\n\n> *© DarkNode MD*`;
 
         const mentions = [...admins.map(a => a.id), owner];
         await sock.sendMessage(chatId, {
@@ -61,7 +61,7 @@ async function groupInfoCommand(sock, chatId, message) {
     } catch (error) {
         console.error('[GroupInfo] Error:', error);
         await sock.sendMessage(chatId, {
-            text: `╭─── 『 ❌ ERROR 』───⟢\n│ Failed to get group info: ${error.message}\n╰────────────⟢\n> © DarkNode MD`,
+            text: `╭─── ⪨ ❌ ERROR ⪩───⟢\n│ Failed to get group info: ${error.message}\n╰────────────⟢\n> © DarkNode MD`,
             ...channelInfo
         });
     }

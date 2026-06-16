@@ -155,7 +155,7 @@ async function sendDeletedReport(sock, ownerJid, stored, deletedBy, chatId) {
             } catch { groupDisplayName = chatId; }
         }
 
-        const reportText = `╭─── 『 🗑️ DELETED MESSAGE 』───⟢
+        const reportText = `╭─── ⪨ 🗑️ DELETED MESSAGE ⪩───⟢
 │
 │ 👤 *Sent by:* @${senderName}
 │ 🚫 *Deleted by:* @${deletedByName}
@@ -240,7 +240,7 @@ async function handleAntideleteCommand(sock, chatId, message, args) {
 
         if (!message.key.fromMe && !isOwner) {
             await sock.sendMessage(chatId, {
-                text: '╭─── 『 🔒 OWNER ONLY 』───⟢\n│ ❌ This command is for owners only!\n╰────────────⟢\n> © DarkNode MD',
+                text: '╭─── ⪨ 🔒 OWNER ONLY ⪩───⟢\n│ ❌ This command is for owners only!\n╰────────────⟢\n> © DarkNode MD',
                 ...channelInfo
             }, { quoted: message });
             return;
@@ -251,7 +251,7 @@ async function handleAntideleteCommand(sock, chatId, message, args) {
         if (!input) {
             const folderSize = getFolderSizeInMB(TEMP_MEDIA_DIR).toFixed(2);
             await sock.sendMessage(chatId, {
-                text: `╭─── 『 🗑️ ANTIDELETE 』───⟢
+                text: `╭─── ⪨ 🗑️ ANTIDELETE ⪩───⟢
 │
 │ 📊 *Status:* ${config.enabled ? '✅ ON' : '❌ OFF'}
 │ 📁 *Cache:* ${folderSize}MB
@@ -276,19 +276,19 @@ async function handleAntideleteCommand(sock, chatId, message, args) {
             config.enabled = true;
             saveAntideleteConfig(config);
             await sock.sendMessage(chatId, {
-                text: '╭─── 『 ✅ ANTIDELETE 』───⟢\n│\n│ ✅ Antidelete is now *ACTIVE*\n│ Deleted messages & media will be\n│ captured and sent to your DM.\n│\n╰────────────⟢\n> © DarkNode MD',
+                text: '╭─── ⪨ ✅ ANTIDELETE ⪩───⟢\n│\n│ ✅ Antidelete is now *ACTIVE*\n│ Deleted messages & media will be\n│ captured and sent to your DM.\n│\n╰────────────⟢\n> © DarkNode MD',
                 ...channelInfo
             }, { quoted: message });
         } else if (input === 'off') {
             config.enabled = false;
             saveAntideleteConfig(config);
             await sock.sendMessage(chatId, {
-                text: '╭─── 『 ❌ ANTIDELETE 』───⟢\n│\n│ ❌ Antidelete is now *INACTIVE*\n│\n╰────────────⟢\n> © DarkNode MD',
+                text: '╭─── ⪨ ❌ ANTIDELETE ⪩───⟢\n│\n│ ❌ Antidelete is now *INACTIVE*\n│\n╰────────────⟢\n> © DarkNode MD',
                 ...channelInfo
             }, { quoted: message });
         } else {
             await sock.sendMessage(chatId, {
-                text: `╭─── 『 ❌ ERROR 』───⟢\n│ ❌ Unknown option: *${input}*\n│ 📌 Use: \`.antidelete on/off\`\n╰────────────⟢\n> © DarkNode MD`,
+                text: `╭─── ⪨ ❌ ERROR ⪩───⟢\n│ ❌ Unknown option: *${input}*\n│ 📌 Use: \`.antidelete on/off\`\n╰────────────⟢\n> © DarkNode MD`,
                 ...channelInfo
             }, { quoted: message });
         }

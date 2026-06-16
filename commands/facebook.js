@@ -38,7 +38,7 @@ async function facebookCommand(sock, chatId, message, args) {
 
     if (!url) {
         await sock.sendMessage(chatId, {
-            text: '╭─── 『 📹 FACEBOOK VIDEO 』───⟢\n│ 📌 Usage: .fb <url>\n│ 💡 Send a Facebook video link\n╰────────────⟢\n> © DarkNode MD',
+            text: '╭─── ⪨ 📹 FACEBOOK VIDEO ⪩───⟢\n│ 📌 Usage: .fb <url>\n│ 💡 Send a Facebook video link\n╰────────────⟢\n> © DarkNode MD',
             ...channelInfo
         }, { quoted: fakeMeta });
         return;
@@ -46,7 +46,7 @@ async function facebookCommand(sock, chatId, message, args) {
 
     if (!url.includes('facebook.com') && !url.includes('fb.watch')) {
         await sock.sendMessage(chatId, {
-            text: '╭─── 『 ❌ INVALID LINK 』───⟢\n│ Please provide a valid Facebook video link.\n╰────────────⟢\n> © DarkNode MD',
+            text: '╭─── ⪨ ❌ INVALID LINK ⪩───⟢\n│ Please provide a valid Facebook video link.\n╰────────────⟢\n> © DarkNode MD',
             ...channelInfo
         }, { quoted: fakeMeta });
         return;
@@ -79,7 +79,7 @@ async function facebookCommand(sock, chatId, message, args) {
         await sock.sendMessage(chatId, {
             video: { url: downloadUrl },
             mimetype: 'video/mp4',
-            caption: `╭─── 『 📹 FACEBOOK VIDEO 』───⟢\n│ 📊 Quality: ${quality}\n│ 📱 Powered by DarkNode MD\n╰────────────⟢\n> © DarkNode MD`,
+            caption: `╭─── ⪨ 📹 FACEBOOK VIDEO ⪩───⟢\n│ 📊 Quality: ${quality}\n│ 📱 Powered by DarkNode MD\n╰────────────⟢\n> © DarkNode MD`,
             ...channelInfo
         }, { quoted: fakeMeta });
 

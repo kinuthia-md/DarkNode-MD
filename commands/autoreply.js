@@ -50,7 +50,7 @@ async function autoreplyCommand(sock, chatId, message) {
         const isOwner = message.key.fromMe;
 
         if (!isOwner) {
-            await sendWithContact(sock, chatId, '╭─── 『 ❌ AUTOREPLY 』───⟢\n│ 👤 Only the bot owner can use this.\n╰────────────⟢\n> © DarkNode MD', message);
+            await sendWithContact(sock, chatId, '╭─── ⪨ ❌ AUTOREPLY ⪩───⟢\n│ 👤 Only the bot owner can use this.\n╰────────────⟢\n> © DarkNode MD', message);
             return;
         }
 
@@ -64,23 +64,23 @@ async function autoreplyCommand(sock, chatId, message) {
         if (sub === 'on' || sub === 'enable') {
             config.enabled = true;
             fs.writeFileSync(CONFIG_PATH, JSON.stringify(config, null, 2));
-            await sendWithContact(sock, chatId, '╭─── 『 ✅ AUTOREPLY 』───⟢\n│ 💬 Auto-reply is now *ON*\n╰────────────⟢\n> © DarkNode MD', message);
+            await sendWithContact(sock, chatId, '╭─── ⪨ ✅ AUTOREPLY ⪩───⟢\n│ 💬 Auto-reply is now *ON*\n╰────────────⟢\n> © DarkNode MD', message);
         } else if (sub === 'off' || sub === 'disable') {
             config.enabled = false;
             fs.writeFileSync(CONFIG_PATH, JSON.stringify(config, null, 2));
-            await sendWithContact(sock, chatId, '╭─── 『 ✅ AUTOREPLY 』───⟢\n│ 💬 Auto-reply is now *OFF*\n╰────────────⟢\n> © DarkNode MD', message);
+            await sendWithContact(sock, chatId, '╭─── ⪨ ✅ AUTOREPLY ⪩───⟢\n│ 💬 Auto-reply is now *OFF*\n╰────────────⟢\n> © DarkNode MD', message);
         } else if (sub === 'set' && parts.length >= 3) {
             const customMessage = parts.slice(2).join(' ');
             config.message = customMessage;
             fs.writeFileSync(CONFIG_PATH, JSON.stringify(config, null, 2));
-            await sendWithContact(sock, chatId, `╭─── 『 ✅ AUTOREPLY 』───⟢\n│ 💬 Reply message updated!\n│ 📝 ${customMessage}\n╰────────────⟢\n> © DarkNode MD`, message);
+            await sendWithContact(sock, chatId, `╭─── ⪨ ✅ AUTOREPLY ⪩───⟢\n│ 💬 Reply message updated!\n│ 📝 ${customMessage}\n╰────────────⟢\n> © DarkNode MD`, message);
         } else {
             const status = config.enabled ? 'ON' : 'OFF';
-            await sendWithContact(sock, chatId, `╭─── 『 ℹ️ AUTOREPLY 』───⟢\n│ 💬 Status: *${status}*\n│ 📝 Message: ${config.message}\n│ 📌 Usage:\n│   .autoreply on/off\n│   .autoreply set <message>\n╰────────────⟢\n> © DarkNode MD`, message);
+            await sendWithContact(sock, chatId, `╭─── ⪨ ℹ️ AUTOREPLY ⪩───⟢\n│ 💬 Status: *${status}*\n│ 📝 Message: ${config.message}\n│ 📌 Usage:\n│   .autoreply on/off\n│   .autoreply set <message>\n╰────────────⟢\n> © DarkNode MD`, message);
         }
     } catch (e) {
         console.error('❌ Autoreply error:', e);
-        try { await sock.sendMessage(chatId, { text: '╭─── 『 ❌ ERROR 』───⟢\n│ ❌ Failed to process command.\n╰────────────⟢\n> © DarkNode MD' }, { quoted: message }); } catch {}
+        try { await sock.sendMessage(chatId, { text: '╭─── ⪨ ❌ ERROR ⪩───⟢\n│ ❌ Failed to process command.\n╰────────────⟢\n> © DarkNode MD' }, { quoted: message }); } catch {}
     }
 }
 

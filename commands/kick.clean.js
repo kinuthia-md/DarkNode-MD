@@ -86,7 +86,7 @@ async function kickWithAnimatedCountdown({
     const mentions = uniqueTargets;
 
     // ─── STEP 1: Send initial warning message ───
-    const warnText = `╭─── 『 ⚠️ KICK INITIATED 』───⟢\n│ 👤 Targets: ${targetDisplay}\n│ 📋 Reason: ${reason}\n│ ⏳ Countdown starting...\n╰────────────⟢\n> © DarkNode MD`;
+    const warnText = `╭─── ⪨ ⚠️ KICK INITIATED ⪩───⟢\n│ 👤 Targets: ${targetDisplay}\n│ 📋 Reason: ${reason}\n│ ⏳ Countdown starting...\n╰────────────⟢\n> © DarkNode MD`;
 
     let mainKey = null;
     try {
@@ -104,7 +104,7 @@ async function kickWithAnimatedCountdown({
     for (let i = 0; i < COUNTDOWN_EMOJIS.length; i++) {
         await delay(500);
         if (mainKey) {
-            const countText = `╭─── 『 💥 REMOVING ${COUNTDOWN_EMOJIS[i]} 』───⟢\n│ 👤 Targets: ${targetDisplay}\n│ 📋 Reason: ${reason}\n│ 🚀 Action: Kick\n│ ⏳ ${COUNTDOWN_EMOJIS[i]}\n╰────────────⟢\n> © DarkNode MD`;
+            const countText = `╭─── ⪨ 💥 REMOVING ${COUNTDOWN_EMOJIS[i]} ⪩───⟢\n│ 👤 Targets: ${targetDisplay}\n│ 📋 Reason: ${reason}\n│ 🚀 Action: Kick\n│ ⏳ ${COUNTDOWN_EMOJIS[i]}\n╰────────────⟢\n> © DarkNode MD`;
             await safeEdit(sock, chatId, mainKey, countText);
         }
     }
@@ -117,17 +117,17 @@ async function kickWithAnimatedCountdown({
 
         // Update the message to success
         if (mainKey) {
-            const successText = `╭─── 『 ✅ KICK SUCCESSFUL 』───⟢\n│ 👤 Targets: ${targetDisplay}\n│ 📋 Reason: ${reason}\n│ ✅ Successfully removed ${uniqueTargets.length} member(s)\n╰────────────⟢\n> © DarkNode MD`;
+            const successText = `╭─── ⪨ ✅ KICK SUCCESSFUL ⪩───⟢\n│ 👤 Targets: ${targetDisplay}\n│ 📋 Reason: ${reason}\n│ ✅ Successfully removed ${uniqueTargets.length} member(s)\n╰────────────⟢\n> © DarkNode MD`;
             await safeEdit(sock, chatId, mainKey, successText);
         }
     } catch (e) {
         console.error('Kick execution failed:', e);
         if (mainKey) {
-            const failText = `╭─── 『 ❌ KICK FAILED 』───⟢\n│ 👤 Targets: ${targetDisplay}\n│ 📋 Reason: ${reason}\n│ ❌ Error: ${e.message}\n╰────────────⟢\n> © DarkNode MD`;
+            const failText = `╭─── ⪨ ❌ KICK FAILED ⪩───⟢\n│ 👤 Targets: ${targetDisplay}\n│ 📋 Reason: ${reason}\n│ ❌ Error: ${e.message}\n╰────────────⟢\n> © DarkNode MD`;
             await safeEdit(sock, chatId, mainKey, failText);
         } else {
             await sock.sendMessage(chatId, {
-                text: `╭─── 『 ❌ KICK FAILED 』───⟢\n│ ❌ Error: ${e.message}\n╰────────────⟢\n> © DarkNode MD`,
+                text: `╭─── ⪨ ❌ KICK FAILED ⪩───⟢\n│ ❌ Error: ${e.message}\n╰────────────⟢\n> © DarkNode MD`,
                 ...channelInfo
             }, { quoted: fakeMeta });
         }
@@ -156,7 +156,7 @@ async function kickAllCommand(sock, chatId, message, reason = 'Mass Kick') {
 
         if (targetJids.length === 0) {
             await sock.sendMessage(chatId, {
-                text: '╭─── 『 ❌ KICKALL 』───⟢\n│ ❌ No non-admin members to kick.\n╰────────────⟢\n> © DarkNode MD',
+                text: '╭─── ⪨ ❌ KICKALL ⪩───⟢\n│ ❌ No non-admin members to kick.\n╰────────────⟢\n> © DarkNode MD',
                 ...channelInfo
             }, { quoted: fakeMeta });
             return;
@@ -172,7 +172,7 @@ async function kickAllCommand(sock, chatId, message, reason = 'Mass Kick') {
     } catch (e) {
         console.error('kickAllCommand error:', e);
         await sock.sendMessage(chatId, {
-            text: `╭─── 『 ❌ KICKALL FAILED 』───⟢\n│ ❌ ${e.message}\n╰────────────⟢\n> © DarkNode MD`,
+            text: `╭─── ⪨ ❌ KICKALL FAILED ⪩───⟢\n│ ❌ ${e.message}\n╰────────────⟢\n> © DarkNode MD`,
             ...channelInfo
         }, { quoted: fakeMeta });
     }
@@ -206,7 +206,7 @@ async function kickCommand(sock, chatId, senderId, mentionedJidListKick, message
         // ─── Group-only guard ───
         if (!chatId.endsWith('@g.us')) {
             await sock.sendMessage(chatId, {
-                text: '╭─── 『 ❌ KICK 』───⟢\n│ 👥 This command can only be used in groups.\n╰────────────⟢\n> © DarkNode MD',
+                text: '╭─── ⪨ ❌ KICK ⪩───⟢\n│ 👥 This command can only be used in groups.\n╰────────────⟢\n> © DarkNode MD',
                 ...channelInfo
             }, { quoted: fakeMeta });
             return;
@@ -216,7 +216,7 @@ async function kickCommand(sock, chatId, senderId, mentionedJidListKick, message
         const { isSenderAdmin, isBotAdmin } = await isAdmin(sock, chatId, senderId);
         if (!isBotAdmin) {
             await sock.sendMessage(chatId, {
-                text: '╭─── 『 ❌ KICK 』───⟢\n│ 🤖 Bot needs to be an admin first.\n╰────────────⟢\n> © DarkNode MD',
+                text: '╭─── ⪨ ❌ KICK ⪩───⟢\n│ 🤖 Bot needs to be an admin first.\n╰────────────⟢\n> © DarkNode MD',
                 ...channelInfo
             }, { quoted: fakeMeta });
             return;
@@ -224,7 +224,7 @@ async function kickCommand(sock, chatId, senderId, mentionedJidListKick, message
 
         if (!isSenderAdmin && !message?.key?.fromMe) {
             await sock.sendMessage(chatId, {
-                text: '╭─── 『 ❌ KICK 』───⟢\n│ 👤 Only group admins can use this command.\n╰────────────⟢\n> © DarkNode MD',
+                text: '╭─── ⪨ ❌ KICK ⪩───⟢\n│ 👤 Only group admins can use this command.\n╰────────────⟢\n> © DarkNode MD',
                 ...channelInfo
             }, { quoted: fakeMeta });
             return;
@@ -233,7 +233,7 @@ async function kickCommand(sock, chatId, senderId, mentionedJidListKick, message
         // If no targets (no mention AND no reply), show error - never auto-kickAll
         if (!targetJids || targetJids.length === 0) {
             await sock.sendMessage(chatId, {
-                text: '╭─── 『 ❌ KICK 』───⟢\n│ ⚠️ Please mention a user or reply to a message to kick.\n│ 📌 Usage: .kick @user\n╰────────────⟢\n> © DarkNode MD',
+                text: '╭─── ⪨ ❌ KICK ⪩───⟢\n│ ⚠️ Please mention a user or reply to a message to kick.\n│ 📌 Usage: .kick @user\n╰────────────⟢\n> © DarkNode MD',
                 ...channelInfo
             }, { quoted: fakeMeta });
             return;
@@ -255,7 +255,7 @@ async function kickCommand(sock, chatId, senderId, mentionedJidListKick, message
 
         if (filteredTargets.length === 0) {
             await sock.sendMessage(chatId, {
-                text: '╭─── 『 ❌ KICK 』───⟢\n│ ❌ Cannot kick bot owner or protected users.\n╰────────────⟢\n> © DarkNode MD',
+                text: '╭─── ⪨ ❌ KICK ⪩───⟢\n│ ❌ Cannot kick bot owner or protected users.\n╰────────────⟢\n> © DarkNode MD',
                 ...channelInfo
             }, { quoted: fakeMeta });
             return;
@@ -274,7 +274,7 @@ async function kickCommand(sock, chatId, senderId, mentionedJidListKick, message
         console.error('kick.clean error:', e);
         try {
             await sock.sendMessage(chatId, {
-                text: '╭─── 『 ❌ KICK FAILED 』───⟢\n│ ❌ An error occurred.\n╰────────────⟢\n> © DarkNode MD',
+                text: '╭─── ⪨ ❌ KICK FAILED ⪩───⟢\n│ ❌ An error occurred.\n╰────────────⟢\n> © DarkNode MD',
                 ...channelInfo
             }, { quoted: fakeMeta });
         } catch { }

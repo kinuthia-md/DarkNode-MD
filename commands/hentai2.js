@@ -1,102 +1,55 @@
-
+// commands/hentai2.js - Anime Image Search (NSFW Variant)
 const axios = require('axios');
-const cheerio = require('cheerio');
+const settings = require('../settings');
 
-const newsletterContext = {
+const fakeMeta = {
+    key: {
+        participant: '0@s.whatsapp.net',
+        remoteJid: 'status@broadcast',
+        fromMe: false,
+        id: 'DARKNODE_META_' + Date.now()
+    },
+    message: {
+        contactMessage: {
+            displayName: 'DARKNODE MD',
+            vcard: `BEGIN:VCARD\nVERSION:3.0\nN:DARKNODE MD;;;;\nFN:DARKNODE MD\nTEL;waid=${settings.ownerNumber}:+${settings.ownerNumber}\nEND:VCARD`,
+            sendEphemeral: true
+        }
+    },
+    messageTimestamp: Math.floor(Date.now() / 1000),
+    pushName: 'DARKNODE MD'
+};
+
+const channelInfo = {
     contextInfo: {
-        forwardingScore: 999,
+        forwardingScore: 1,
         isForwarded: true,
         forwardedNewsletterMessageInfo: {
-            newsletterJid: '120363426838586273@newsletter',
-            newsletterName: '404R>Society',
-            serverMessageId: 13
+            newsletterJid: settings.newsletterJid,
+            newsletterName: settings.newsletterName,
+            serverMessageId: -1
         }
     }
 };
 
-async function hentai2Command(sock, chatId, message, args) {
+async function hentai2Command(sock, chatId, message) {
     try {
-        const query = args.join(' ') || 'school';
+        await sock.sendMessage(chatId, { react: { text: '🔞', key: message.key } });
 
-        // React: 
-        await sock.sendMessage(chatId, { react: { text: "🔞", key: message.key } });
+        const response = await axios.get('https://api.waifu.pics/nsfw/neko');
+        const data = response.data;
 
-        // Step 1: Search
-        const searchUrl = `https://hentaihaven.xxx/search/${encodeURIComponent(query)}/`;
-        const { data: searchHtml } = await axios.get(searchUrl, {
-            timeout: 15000,
-            headers: { 'User-Agent': 'Mozilla/5.0' }
-        });
-
-        const $ = cheerio.load(searchHtml);
-        const results = [];
-
-        $('.item').slice(0, 5).each((i, el) => {
-            const title = $(el).find('.data h3').text().trim();
-            const url = $(el).find('a').attr('href');
-            const thumb = $(el).find('img').attr('src');
-            if (title && url && thumb) {
-                results.push({ title, url, thumb });
-            }
-        });
-
-        if (!results.length) {
-            await sock.sendMessage(chatId, { react: { text: "❌", key: message.key } });
-            return;
-        }
-
-        // Step 2: Pick first result
-        const { title, url, thumb } = results[0];
-
-        const { data: pageHtml } = await axios.get(url, {
-            timeout: 15000,
-            headers: { 'User-Agent': 'Mozilla/5.0' }
-        });
-
-        const $$ = cheerio.load(pageHtml);
-        const scriptTag = $$('script').filter((i, el) =>
-            $$(el).html().includes('sources')
-        ).first().html();
-
-        const match = scriptTag?.match(/sources:\s*\[{file:\s*"(.*?)"/);
-        const videoUrl = match ? match[1] : null;
-
-        if (!videoUrl) {
-            await sock.sendMessage(chatId, { react: { text: "❌", key: message.key } });
-            return;
-        }
-
-        // React: 📥
-        await sock.sendMessage(chatId, { react: { text: "📥", key: message.key } });
-
-        // Send video with thumbnail preview
         await sock.sendMessage(chatId, {
-            video: { url: videoUrl },
-            mimetype: 'video/mp4',
-            caption: `🔞*${title}*\n\n> *© DarkNode MD*`,
-            contextInfo: {
-                ...newsletterContext.contextInfo,
-                externalAdReply: {
-                    title: title,
-                    body: '🔞 Hentai Video',
-                    thumbnailUrl: thumb,
-                    mediaType: 1,
-                    renderLargerThumbnail: true,
-                    sourceUrl: url,
-                    thumbnailHeight: 400,
-                    thumbnailWidth: 400
-                }
-            }
+            image: { url: data.url },
+            caption: `╭─── ⪨ 🔞 HENTAI2 ⪩───⟢\n│ Requested content\n╰────────────⟢\n> © DarkNode MD`,
+            ...channelInfo
         }, { quoted: message });
 
-        await sock.sendMessage(chatId, { react: { text: "✅", key: message.key } });
+        await sock.sendMessage(chatId, { react: { text: '✅', key: message.key } });
 
     } catch (error) {
-        console.error('Hentai2 error:', error.message);
-        await sock.sendMessage(chatId, { react: { text: "❌", key: message.key } });
-        await sock.sendMessage(chatId, { 
-            text: "❌ Failed to fetch anime. Try again later."
-        }, { quoted: message });
+        console.error('[Hentai2] Error:', error);
+        await sock.sendMessage(chatId, { react: { text: '❌', key: message.key } });
     }
 }
 

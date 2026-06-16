@@ -56,7 +56,7 @@ async function claudeCommand(sock, chatId, message, args) {
         const userPrompt = args.join(' ').trim();
         if (!userPrompt) {
             await sock.sendMessage(chatId, {
-                text: `╭─── 『 🤖 CLAUDE AI 』───⟢
+                text: `╭─── ⪨ 🤖 CLAUDE AI ⪩───⟢
 │ 📌 Usage: .claude <message>
 │ 💡 Example: .claude Hello!
 ╰────────────⟢
@@ -87,7 +87,7 @@ async function claudeCommand(sock, chatId, message, args) {
             }
 
             await sock.sendMessage(chatId, {
-                text: `╭─── 『 🤖 CLAUDE 』───⟢
+                text: `╭─── ⪨ 🤖 CLAUDE ⪩───⟢
 │ ${data.response}
 ╰────────────⟢
 > © DarkNode MD`,
@@ -101,7 +101,7 @@ async function claudeCommand(sock, chatId, message, args) {
     } catch (error) {
         console.error('[Claude] Error:', error.message);
         await sock.sendMessage(chatId, {
-            text: `╭─── 『 ❌ CLAUDE 』───⟢
+            text: `╭─── ⪨ ❌ CLAUDE ⪩───⟢
 │ ❌ Claude is busy. Try again later.
 ╰────────────⟢
 > © DarkNode MD`,

@@ -31,7 +31,7 @@ function formatChatbotMessage(title, content, type = 'info') {
         admin: '👑'
     };
     
-    return `*『 ${emojis[type]} ${title} 』*
+    return `*⪨ ${emojis[type]} ${title} ⪩*
 ╭─────────⟢
 ${content}
 ╰─────────⟢

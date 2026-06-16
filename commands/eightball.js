@@ -47,7 +47,7 @@ async function eightBallCommand(sock, chatId, message, args) {
     
     if (!question) {
         await sock.sendMessage(chatId, {
-            text: '╭─── 『 🎱 MAGIC 8-BALL 』───⟢\n│ ❓ Please ask a question!\n│\n│ 💡 Usage: .8ball <question>\n╰────────────⟢\n> © DarkNode MD',
+            text: '╭─── ⪨ 🎱 MAGIC 8-BALL ⪩───⟢\n│ ❓ Please ask a question!\n│\n│ 💡 Usage: .8ball <question>\n╰────────────⟢\n> © DarkNode MD',
             ...channelInfo
         }, { quoted: fakeMeta });
         return;
@@ -56,7 +56,7 @@ async function eightBallCommand(sock, chatId, message, args) {
     const randomResponse = eightBallResponses[Math.floor(Math.random() * eightBallResponses.length)];
 
     await sock.sendMessage(chatId, {
-        text: `╭─── 『 🎱 MAGIC 8-BALL 』───⟢\n│ ❓ *Question:* ${question}\n│\n│ 🔮 *Answer:* ${randomResponse}\n╰────────────⟢\n> © DarkNode MD`,
+        text: `╭─── ⪨ 🎱 MAGIC 8-BALL ⪩───⟢\n│ ❓ *Question:* ${question}\n│\n│ 🔮 *Answer:* ${randomResponse}\n╰────────────⟢\n> © DarkNode MD`,
         ...channelInfo
     }, { quoted: fakeMeta });
 }

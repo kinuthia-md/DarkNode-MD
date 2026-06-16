@@ -49,7 +49,7 @@ async function gcstatus(sock, chatId, message, args) {
 
     if (!targetGroup.endsWith('@g.us')) {
         await sock.sendMessage(chatId, {
-            text: '╭─── 『 📱 GC STATUS 』───⟢\n│ ❌ Not a valid group JID.\n│\n│ 💡 Usage: .gcstatus <group_jid> [message]\n│ 💡 Or use inside the target group\n╰────────────⟢\n> © DarkNode MD',
+            text: '╭─── ⪨ 📱 GC STATUS ⪩───⟢\n│ ❌ Not a valid group JID.\n│\n│ 💡 Usage: .gcstatus <group_jid> [message]\n│ 💡 Or use inside the target group\n╰────────────⟢\n> © DarkNode MD',
             ...channelInfo
         }, { quoted: message });
         return;
@@ -59,7 +59,7 @@ async function gcstatus(sock, chatId, message, args) {
     const check = await isAdmin(sock, targetGroup, senderJid);
     if (!check.isSenderAdmin && !message.key.fromMe) {
         await sock.sendMessage(chatId, {
-            text: '╭─── 『 ❌ ADMIN ONLY 』───⟢\n│ You must be admin in that group.\n╰────────────⟢\n> © DarkNode MD',
+            text: '╭─── ⪨ ❌ ADMIN ONLY ⪩───⟢\n│ You must be admin in that group.\n╰────────────⟢\n> © DarkNode MD',
             ...channelInfo
         }, { quoted: message });
         return;
@@ -67,7 +67,7 @@ async function gcstatus(sock, chatId, message, args) {
 
     if (!check.isBotAdmin) {
         await sock.sendMessage(chatId, {
-            text: '╭─── 『 ❌ BOT NOT ADMIN 』───⟢\n│ Bot must be admin in that group.\n╰────────────⟢\n> © DarkNode MD',
+            text: '╭─── ⪨ ❌ BOT NOT ADMIN ⪩───⟢\n│ Bot must be admin in that group.\n╰────────────⟢\n> © DarkNode MD',
             ...channelInfo
         }, { quoted: message });
         return;
@@ -85,7 +85,7 @@ async function gcstatus(sock, chatId, message, args) {
 
     if (!mediaType && !customMessage.trim()) {
         await sock.sendMessage(chatId, {
-            text: '╭─── 『 📱 GC STATUS 』───⟢\n│ 📌 Usage:\n│ • .gcstatus <group_jid> [message]\n│ • Reply to media with .gcstatus [message]\n│ • Use inside target group\n╰────────────⟢\n> © DarkNode MD',
+            text: '╭─── ⪨ 📱 GC STATUS ⪩───⟢\n│ 📌 Usage:\n│ • .gcstatus <group_jid> [message]\n│ • Reply to media with .gcstatus [message]\n│ • Use inside target group\n╰────────────⟢\n> © DarkNode MD',
             ...channelInfo
         }, { quoted: message });
         return;
@@ -148,7 +148,7 @@ async function gcstatus(sock, chatId, message, args) {
         await sock.relayMessage(targetGroup, msg.message, { messageId: msg.key.id });
 
         await sock.sendMessage(chatId, {
-            text: `╭─── 『 ✅ STATUS SET 』───⟢\n│ Group: ${groupName}\n╰────────────⟢\n> © DarkNode MD`,
+            text: `╭─── ⪨ ✅ STATUS SET ⪩───⟢\n│ Group: ${groupName}\n╰────────────⟢\n> © DarkNode MD`,
             ...channelInfo
         }, { quoted: message });
 
@@ -158,7 +158,7 @@ async function gcstatus(sock, chatId, message, args) {
         console.error('[GCStatus] Error:', error);
         await sock.sendMessage(chatId, { react: { text: '❌', key: message.key } });
         await sock.sendMessage(chatId, {
-            text: `╭─── 『 ❌ FAILED 』───⟢\n│ Failed to set status for ${groupName}\n╰────────────⟢\n> © DarkNode MD`,
+            text: `╭─── ⪨ ❌ FAILED ⪩───⟢\n│ Failed to set status for ${groupName}\n╰────────────⟢\n> © DarkNode MD`,
             ...channelInfo
         }, { quoted: message });
     }

@@ -63,14 +63,14 @@ async function channelCommand(sock, chatId, message, args) {
         const input = args.trim();
 
         if (!input) {
-            const usageMsg = `╭─── 『 📢 CHANNEL INFO 』───⟢
+            const usageMsg = `╭─── ⪨ 📢 CHANNEL INFO ⪩───⟢
 │ 📢 *Get WhatsApp channel information!*
 │
 │ *Usage:* .channel <link or invite code>
 │
 │ *Examples:*
-│ ♧ .channel https://whatsapp.com/channel/0029VawtjOXJpe8X3j3NCZ3j
-│ ♧ .channel 0029VawtjOXJpe8X3j3NCZ3j
+│ ♧ .channel https://whatsapp.com/channel/0029Vb8RuL91dAwCFOtTrG1X
+│ ♧ .channel 0029Vb8RuL91dAwCFOtTrG1X
 │ ♧ .channel 120363426838586273@newsletter
 ╰────────────⟢
 > © DarkNode MD`;
@@ -82,7 +82,7 @@ async function channelCommand(sock, chatId, message, args) {
 
         await sock.sendMessage(chatId, { react: { text: '🔍', key: message.key } });
 
-        const processingMsg = `╭─── 『 🔍 FETCHING 』───⟢
+        const processingMsg = `╭─── ⪨ 🔍 FETCHING ⪩───⟢
 │ 🔍 Fetching channel information...
 │ 📌 *Input:* ${input}
 ╰────────────⟢
@@ -123,7 +123,7 @@ async function channelCommand(sock, chatId, message, args) {
             }
             await sock.sendMessage(chatId, { react: { text: '❌', key: message.key } });
             return await sock.sendMessage(chatId, {
-                text: `╭─── 『 ❌ NOT FOUND 』───⟢
+                text: `╭─── ⪨ ❌ NOT FOUND ⪩───⟢
 │ ❌ ${errorMessage}
 │ 📌 *Input:* ${input}
 ╰────────────⟢
@@ -135,7 +135,7 @@ async function channelCommand(sock, chatId, message, args) {
         if (!newsletterInfo) {
             await sock.sendMessage(chatId, { react: { text: '❌', key: message.key } });
             return await sock.sendMessage(chatId, {
-                text: `╭─── 『 ❌ NOT FOUND 』───⟢
+                text: `╭─── ⪨ ❌ NOT FOUND ⪩───⟢
 │ ❌ Could not fetch channel information.
 │ 📌 *Input:* ${input}
 ╰────────────⟢
@@ -190,7 +190,7 @@ async function channelCommand(sock, chatId, message, args) {
         }
 
         await sock.sendMessage(chatId, {
-            text: `╭─── 『 🔢 CHANNEL JID 』───⟢
+            text: `╭─── ⪨ 🔢 CHANNEL JID ⪩───⟢
 │ 🔢 *JID:* \`${actualJid}\`
 │ 🆔 *Invite Code:* \`${inviteCode || newsletter.invite || 'N/A'}\`
 │
@@ -207,7 +207,7 @@ async function channelCommand(sock, chatId, message, args) {
         try { await sock.sendMessage(chatId, { react: { text: '❌', key: message.key } }); } catch {}
 
         await sock.sendMessage(chatId, {
-            text: `╭─── 『 ❌ ERROR 』───⟢
+            text: `╭─── ⪨ ❌ ERROR ⪩───⟢
 │ ❌ Failed to fetch channel information.
 │ 🔧 ${error.message}
 ╰────────────⟢

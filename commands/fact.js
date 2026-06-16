@@ -38,13 +38,13 @@ module.exports = async function(sock, chatId, message) {
         const fact = response.data.text;
 
         await sock.sendMessage(chatId, {
-            text: `╭─── 『 🧠 RANDOM FACT 』───⟢\n│ ${fact}\n╰────────────⟢\n> © DarkNode MD`,
+            text: `╭─── ⪨ 🧠 RANDOM FACT ⪩───⟢\n│ ${fact}\n╰────────────⟢\n> © DarkNode MD`,
             ...channelInfo
         }, { quoted: fakeMeta });
     } catch (error) {
         console.error('Error fetching fact:', error);
         await sock.sendMessage(chatId, {
-            text: '╭─── 『 ❌ ERROR 』───⟢\n│ Failed to fetch fact.\n╰────────────⟢\n> © DarkNode MD',
+            text: '╭─── ⪨ ❌ ERROR ⪩───⟢\n│ Failed to fetch fact.\n╰────────────⟢\n> © DarkNode MD',
             ...channelInfo
         }, { quoted: fakeMeta });
     }

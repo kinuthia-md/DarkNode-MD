@@ -37,7 +37,7 @@ const channelInfo = {
 async function ensureGroupAndAdmin(sock, chatId, senderJid) {
     if (!chatId.endsWith('@g.us')) {
         await sock.sendMessage(chatId, {
-            text: '╭─── 『 ❌ GROUP ONLY 』───⟢\n│ This command can only be used in groups.\n╰────────────⟢\n> © DarkNode MD',
+            text: '╭─── ⪨ ❌ GROUP ONLY ⪩───⟢\n│ This command can only be used in groups.\n╰────────────⟢\n> © DarkNode MD',
             ...channelInfo
         });
         return { ok: false };
@@ -48,7 +48,7 @@ async function ensureGroupAndAdmin(sock, chatId, senderJid) {
 
     if (!check.isBotAdmin) {
         await sock.sendMessage(chatId, {
-            text: '╭─── 『 ❌ BOT NOT ADMIN 』───⟢\n│ Bot must be admin to manage the group.\n╰────────────⟢\n> © DarkNode MD',
+            text: '╭─── ⪨ ❌ BOT NOT ADMIN ⪩───⟢\n│ Bot must be admin to manage the group.\n╰────────────⟢\n> © DarkNode MD',
             ...channelInfo
         });
         return { ok: false };
@@ -56,7 +56,7 @@ async function ensureGroupAndAdmin(sock, chatId, senderJid) {
 
     if (!check.isSenderAdmin) {
         await sock.sendMessage(chatId, {
-            text: '╭─── 『 ❌ ADMIN ONLY 』───⟢\n│ Only group admins can use this command.\n╰────────────⟢\n> © DarkNode MD',
+            text: '╭─── ⪨ ❌ ADMIN ONLY ⪩───⟢\n│ Only group admins can use this command.\n╰────────────⟢\n> © DarkNode MD',
             ...channelInfo
         });
         return { ok: false };
@@ -72,7 +72,7 @@ async function setGroupDescription(sock, chatId, senderJid, newDesc, quotedMsg) 
     const desc = (newDesc || '').trim();
     if (!desc) {
         await sock.sendMessage(chatId, {
-            text: '╭─── 『 ❌ USAGE 』───⟢\n│ 📌 .setdesc <description>\n╰────────────⟢\n> © DarkNode MD',
+            text: '╭─── ⪨ ❌ USAGE ⪩───⟢\n│ 📌 .setdesc <description>\n╰────────────⟢\n> © DarkNode MD',
             ...channelInfo
         }, { quoted: quotedMsg });
         return;
@@ -81,12 +81,12 @@ async function setGroupDescription(sock, chatId, senderJid, newDesc, quotedMsg) 
     try {
         await sock.groupUpdateDescription(chatId, desc);
         await sock.sendMessage(chatId, {
-            text: '╭─── 『 ✅ UPDATED 』───⟢\n│ Group description updated.\n╰────────────⟢\n> © DarkNode MD',
+            text: '╭─── ⪨ ✅ UPDATED ⪩───⟢\n│ Group description updated.\n╰────────────⟢\n> © DarkNode MD',
             ...channelInfo
         }, { quoted: quotedMsg });
     } catch {
         await sock.sendMessage(chatId, {
-            text: '╭─── 『 ❌ FAILED 』───⟢\n│ Failed to update group description.\n╰────────────⟢\n> © DarkNode MD',
+            text: '╭─── ⪨ ❌ FAILED ⪩───⟢\n│ Failed to update group description.\n╰────────────⟢\n> © DarkNode MD',
             ...channelInfo
         }, { quoted: quotedMsg });
     }
@@ -94,9 +94,9 @@ async function setGroupDescription(sock, chatId, senderJid, newDesc, quotedMsg) 
 
 async function setGroupName(sock, chatId, senderJid, newName, quotedMsg) {
     const messages = {
-        empty: '╭─── 『 ❌ USAGE 』───⟢\n│ 📌 .setname <new name>\n╰────────────⟢\n> © DarkNode MD',
-        success: '╭─── 『 ✅ UPDATED 』───⟢\n│ Group name updated.\n╰────────────⟢\n> © DarkNode MD',
-        error: '╭─── 『 ❌ FAILED 』───⟢\n│ Failed to update group name.\n╰────────────⟢\n> © DarkNode MD'
+        empty: '╭─── ⪨ ❌ USAGE ⪩───⟢\n│ 📌 .setname <new name>\n╰────────────⟢\n> © DarkNode MD',
+        success: '╭─── ⪨ ✅ UPDATED ⪩───⟢\n│ Group name updated.\n╰────────────⟢\n> © DarkNode MD',
+        error: '╭─── ⪨ ❌ FAILED ⪩───⟢\n│ Failed to update group name.\n╰────────────⟢\n> © DarkNode MD'
     };
 
     const check = await ensureGroupAndAdmin(sock, chatId, senderJid);
@@ -118,10 +118,10 @@ async function setGroupName(sock, chatId, senderJid, newName, quotedMsg) {
 
 async function setGroupPhoto(sock, chatId, senderJid, quotedMsg) {
     const messages = {
-        noImage: '╭─── 『 ❌ NO IMAGE 』───⟢\n│ Reply to an image to set as group photo.\n╰────────────⟢\n> © DarkNode MD',
+        noImage: '╭─── ⪨ ❌ NO IMAGE ⪩───⟢\n│ Reply to an image to set as group photo.\n╰────────────⟢\n> © DarkNode MD',
         type: 'image',
-        success: '╭─── 『 ✅ UPDATED 』───⟢\n│ Group photo updated.\n╰────────────⟢\n> © DarkNode MD',
-        error: '╭─── 『 ❌ FAILED 』───⟢\n│ Failed to update group photo.\n╰────────────⟢\n> © DarkNode MD'
+        success: '╭─── ⪨ ✅ UPDATED ⪩───⟢\n│ Group photo updated.\n╰────────────⟢\n> © DarkNode MD',
+        error: '╭─── ⪨ ❌ FAILED ⪩───⟢\n│ Failed to update group photo.\n╰────────────⟢\n> © DarkNode MD'
     };
 
     const check = await ensureGroupAndAdmin(sock, chatId, senderJid);

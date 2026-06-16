@@ -52,7 +52,7 @@ async function autoStatusCommand(sock, chatId, message, args) {
         const isOwner = message.key.fromMe;
 
         if (!isOwner) {
-            await sock.sendMessage(chatId, { text: '╭─── 『 ❌ AUTO STATUS 』───⟢\n│ 👤 Only the bot owner can use this.\n╰────────────⟢\n> © DarkNode MD', ...channelInfo }, { quoted: fakeMeta });
+            await sock.sendMessage(chatId, { text: '╭─── ⪨ ❌ AUTO STATUS ⪩───⟢\n│ 👤 Only the bot owner can use this.\n╰────────────⟢\n> © DarkNode MD', ...channelInfo }, { quoted: fakeMeta });
             return;
         }
 
@@ -61,7 +61,7 @@ async function autoStatusCommand(sock, chatId, message, args) {
         if (!args || args.length === 0) {
             const status = config.enabled ? 'ON' : 'OFF';
             const reactStatus = config.react ? 'ON' : 'OFF';
-            await sock.sendMessage(chatId, { text: `╭─── 『 ℹ️ AUTO STATUS 』───⟢\n│ 📱 Status: *${status}*\n│ 💫 React: *${reactStatus}*\n│ 📌 Usage:\n│   .autostatus on/off\n│   .autostatus react on/off\n╰────────────⟢\n> © DarkNode MD`, ...channelInfo }, { quoted: fakeMeta });
+            await sock.sendMessage(chatId, { text: `╭─── ⪨ ℹ️ AUTO STATUS ⪩───⟢\n│ 📱 Status: *${status}*\n│ 💫 React: *${reactStatus}*\n│ 📌 Usage:\n│   .autostatus on/off\n│   .autostatus react on/off\n╰────────────⟢\n> © DarkNode MD`, ...channelInfo }, { quoted: fakeMeta });
             return;
         }
 
@@ -70,27 +70,27 @@ async function autoStatusCommand(sock, chatId, message, args) {
         if (sub === 'on') {
             config.enabled = true;
             fs.writeFileSync(CONFIG_PATH, JSON.stringify(config, null, 2));
-            await sock.sendMessage(chatId, { text: '╭─── 『 ✅ AUTO STATUS 』───⟢\n│ 📱 Auto-status is now *ON*\n│ 👁️ Bot will view all statuses\n╰────────────⟢\n> © DarkNode MD', ...channelInfo }, { quoted: fakeMeta });
+            await sock.sendMessage(chatId, { text: '╭─── ⪨ ✅ AUTO STATUS ⪩───⟢\n│ 📱 Auto-status is now *ON*\n│ 👁️ Bot will view all statuses\n╰────────────⟢\n> © DarkNode MD', ...channelInfo }, { quoted: fakeMeta });
         } else if (sub === 'off') {
             config.enabled = false;
             fs.writeFileSync(CONFIG_PATH, JSON.stringify(config, null, 2));
-            await sock.sendMessage(chatId, { text: '╭─── 『 ✅ AUTO STATUS 』───⟢\n│ 📱 Auto-status is now *OFF*\n╰────────────⟢\n> © DarkNode MD', ...channelInfo }, { quoted: fakeMeta });
+            await sock.sendMessage(chatId, { text: '╭─── ⪨ ✅ AUTO STATUS ⪩───⟢\n│ 📱 Auto-status is now *OFF*\n╰────────────⟢\n> © DarkNode MD', ...channelInfo }, { quoted: fakeMeta });
         } else if (sub === 'react') {
             const reactSub = args[1] ? args[1].toLowerCase() : null;
             if (!reactSub || (reactSub !== 'on' && reactSub !== 'off')) {
-                await sock.sendMessage(chatId, { text: '╭─── 『 ❌ AUTO STATUS 』───⟢\n│ ⚠️ Usage: .autostatus react on/off\n╰────────────⟢\n> © DarkNode MD', ...channelInfo }, { quoted: fakeMeta });
+                await sock.sendMessage(chatId, { text: '╭─── ⪨ ❌ AUTO STATUS ⪩───⟢\n│ ⚠️ Usage: .autostatus react on/off\n╰────────────⟢\n> © DarkNode MD', ...channelInfo }, { quoted: fakeMeta });
                 return;
             }
             config.react = reactSub === 'on';
             fs.writeFileSync(CONFIG_PATH, JSON.stringify(config, null, 2));
             const reactStatus = config.react ? 'ON' : 'OFF';
-            await sock.sendMessage(chatId, { text: `╭─── 『 ✅ AUTO STATUS 』───⟢\n│ 💫 Reactions are now *${reactStatus}*\n╰────────────⟢\n> © DarkNode MD`, ...channelInfo }, { quoted: fakeMeta });
+            await sock.sendMessage(chatId, { text: `╭─── ⪨ ✅ AUTO STATUS ⪩───⟢\n│ 💫 Reactions are now *${reactStatus}*\n╰────────────⟢\n> © DarkNode MD`, ...channelInfo }, { quoted: fakeMeta });
         } else {
-            await sock.sendMessage(chatId, { text: `╭─── 『 ❌ AUTO STATUS 』───⟢\n│ ⚠️ Unknown option: ${sub}\n│ 📌 Usage:\n│   .autostatus on/off\n│   .autostatus react on/off\n╰────────────⟢\n> © DarkNode MD`, ...channelInfo }, { quoted: fakeMeta });
+            await sock.sendMessage(chatId, { text: `╭─── ⪨ ❌ AUTO STATUS ⪩───⟢\n│ ⚠️ Unknown option: ${sub}\n│ 📌 Usage:\n│   .autostatus on/off\n│   .autostatus react on/off\n╰────────────⟢\n> © DarkNode MD`, ...channelInfo }, { quoted: fakeMeta });
         }
     } catch (e) {
         console.error('❌ AutoStatus command error:', e);
-        try { await sock.sendMessage(chatId, { text: `╭─── 『 ❌ ERROR 』───⟢\n│ ❌ ${e.message || 'Failed to process.'}\n╰────────────⟢\n> © DarkNode MD`, ...channelInfo }, { quoted: fakeMeta }); } catch {}
+        try { await sock.sendMessage(chatId, { text: `╭─── ⪨ ❌ ERROR ⪩───⟢\n│ ❌ ${e.message || 'Failed to process.'}\n╰────────────⟢\n> © DarkNode MD`, ...channelInfo }, { quoted: fakeMeta }); } catch {}
     }
 }
 

@@ -48,11 +48,11 @@ async function clearCommand(sock, chatId, message) {
         }
 
         const text = deleted > 0
-            ? `╭─── 『 🗑️ CLEAR 』───⟢
+            ? `╭─── ⪨ 🗑️ CLEAR ⪩───⟢
 │ ✅ Deleted ${deleted} of your messages
 ╰────────────⟢
 > © DarkNode MD`
-            : `╭─── 『 🗑️ CLEAR 』───⟢
+            : `╭─── ⪨ 🗑️ CLEAR ⪩───⟢
 │ ❌ No messages found to delete
 ╰────────────⟢
 > © DarkNode MD`;
@@ -63,7 +63,7 @@ async function clearCommand(sock, chatId, message) {
     } catch (error) {
         console.error('Clear error:', error);
         await sock.sendMessage(chatId, {
-            text: `╭─── 『 ❌ ERROR 』───⟢
+            text: `╭─── ⪨ ❌ ERROR ⪩───⟢
 │ ❌ Failed to clear messages.
 ╰────────────⟢
 > © DarkNode MD`,

@@ -43,14 +43,14 @@ async function goodnightCommand(sock, chatId, message) {
         const text = data.result;
 
         await sock.sendMessage(chatId, {
-            text: `╭─── 『 🌙 GOODNIGHT 』───⟢\n│ ${text}\n╰────────────⟢\n> © DarkNode MD`,
+            text: `╭─── ⪨ 🌙 GOODNIGHT ⪩───⟢\n│ ${text}\n╰────────────⟢\n> © DarkNode MD`,
             ...channelInfo
         }, { quoted: message });
 
     } catch (error) {
         console.error('[Goodnight] Error:', error);
         await sock.sendMessage(chatId, {
-            text: '╭─── 『 ❌ ERROR 』───⟢\n│ Failed to get goodnight message.\n╰────────────⟢\n> © DarkNode MD',
+            text: '╭─── ⪨ ❌ ERROR ⪩───⟢\n│ Failed to get goodnight message.\n╰────────────⟢\n> © DarkNode MD',
             ...channelInfo
         }, { quoted: message });
     }

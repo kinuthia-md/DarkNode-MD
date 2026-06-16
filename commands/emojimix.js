@@ -45,7 +45,7 @@ async function emojimixCommand(sock, chatId, message, args) {
 
     if (!parts[0]) {
         await sock.sendMessage(chatId, {
-            text: '╭─── 『 😎 EMOJI MIX 』───⟢\n│ 📌 Usage: .emojix 😎+🥰\n│ 💡 Combine two emojis with +\n╰────────────⟢\n> © DarkNode MD',
+            text: '╭─── ⪨ 😎 EMOJI MIX ⪩───⟢\n│ 📌 Usage: .emojix 😎+🥰\n│ 💡 Combine two emojis with +\n╰────────────⟢\n> © DarkNode MD',
             ...channelInfo
         }, { quoted: fakeMeta });
         return;
@@ -53,7 +53,7 @@ async function emojimixCommand(sock, chatId, message, args) {
 
     if (!input.includes('+')) {
         await sock.sendMessage(chatId, {
-            text: '╭─── 『 😎 EMOJI MIX 』───⟢\n│ ⚠️ Use *+* sign between emojis\n│\n│ 📌 Example: .emojix 😎+🥰\n╰────────────⟢\n> © DarkNode MD',
+            text: '╭─── ⪨ 😎 EMOJI MIX ⪩───⟢\n│ ⚠️ Use *+* sign between emojis\n│\n│ 📌 Example: .emojix 😎+🥰\n╰────────────⟢\n> © DarkNode MD',
             ...channelInfo
         }, { quoted: fakeMeta });
         return;
@@ -69,7 +69,7 @@ async function emojimixCommand(sock, chatId, message, args) {
 
         if (!data.results || data.results.length === 0) {
             await sock.sendMessage(chatId, {
-                text: '╭─── 『 ❌ FAILED 』───⟢\n│ These emojis can\'t be mixed!\n│ 💡 Try different emojis\n╰────────────⟢\n> © DarkNode MD',
+                text: '╭─── ⪨ ❌ FAILED ⪩───⟢\n│ These emojis can\'t be mixed!\n│ 💡 Try different emojis\n╰────────────⟢\n> © DarkNode MD',
                 ...channelInfo
             }, { quoted: fakeMeta });
             return;
@@ -110,7 +110,7 @@ async function emojimixCommand(sock, chatId, message, args) {
     } catch (error) {
         console.error('[EmojiMix] Error:', error.message);
         await sock.sendMessage(chatId, {
-            text: '╭─── 『 ❌ ERROR 』───⟢\n│ Failed to mix emojis.\n╰────────────⟢\n> © DarkNode MD',
+            text: '╭─── ⪨ ❌ ERROR ⪩───⟢\n│ Failed to mix emojis.\n╰────────────⟢\n> © DarkNode MD',
             ...channelInfo
         }, { quoted: fakeMeta });
     }

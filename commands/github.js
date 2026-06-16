@@ -45,7 +45,7 @@ function formatGithubMessage(title, content, type = 'success') {
         package: '📦',
         code: '💻'
     };
-    return `*『 ${emojis[type]} ${title} 』*\n╭─────⟢\n${content}\n╰────────────⟢\n\n> *© DarkNode MD*`;
+    return `*⪨ ${emojis[type]} ${title} ⪩*\n╭─────⟢\n${content}\n╰────────────⟢\n\n> *© DarkNode MD*`;
 }
 
 async function githubCommand(sock, chatId, message) {
@@ -58,7 +58,7 @@ async function githubCommand(sock, chatId, message) {
 
         const repo = await response.json();
 
-        let text = `*『 🐙 GITHUB REPOSITORY 』*\n╭─────⟢\n│ 📂 *Name:* ${repo.name}\n│ 📊 *Watchers:* ${repo.watchers_count}\n│ 📊 *Size:* ${(repo.size / 1024).toFixed(2)} KB\n│ 📅 *Created:* ${moment(repo.created_at).format('DD/MM/YYYY HH:mm')}\n│ 📝 *Description:* ${repo.description || 'No description'}\n│ 🍴 *Forks:* ${repo.forks_count}\n│ ⭐ *Stars:* ${repo.stargazers_count}\n╰────────────⟢\n\n> *© DarkNode MD*`;
+        let text = `*⪨ 🐙 GITHUB REPOSITORY ⪩*\n╭─────⟢\n│ 📂 *Name:* ${repo.name}\n│ 📊 *Watchers:* ${repo.watchers_count}\n│ 📊 *Size:* ${(repo.size / 1024).toFixed(2)} KB\n│ 📅 *Created:* ${moment(repo.created_at).format('DD/MM/YYYY HH:mm')}\n│ 📝 *Description:* ${repo.description || 'No description'}\n│ 🍴 *Forks:* ${repo.forks_count}\n│ ⭐ *Stars:* ${repo.stargazers_count}\n╰────────────⟢\n\n> *© DarkNode MD*`;
 
         const botImage = path.join(__dirname, '../assets/bot_image.jpg');
         if (fs.existsSync(botImage)) {

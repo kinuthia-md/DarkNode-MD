@@ -27,7 +27,7 @@ function formatVcfMessage(title, content, type = 'info') {
         group: '👥'
     };
     
-    return `*『 ${emojis[type]} ${title} 』*
+    return `*⪨ ${emojis[type]} ${title} ⪩*
 ╭─────────⟢
 ${content}
 ╰─────────⟢

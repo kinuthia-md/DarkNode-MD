@@ -37,7 +37,7 @@ const channelInfo = {
 async function goodbyeCommand(sock, chatId, message, args) {
     if (!chatId.endsWith('@g.us')) {
         await sock.sendMessage(chatId, {
-            text: '╭─── 『 ❌ GROUP ONLY 』───⟢\n│ This command can only be used in groups.\n╰────────────⟢\n> © DarkNode MD',
+            text: '╭─── ⪨ ❌ GROUP ONLY ⪩───⟢\n│ This command can only be used in groups.\n╰────────────⟢\n> © DarkNode MD',
             ...channelInfo
         });
         return;
@@ -75,7 +75,7 @@ async function handleLeaveEvent(sock, groupJid, participants) {
             if (customMessage) {
                 goodbyeText = customMessage.replace(/{user}/g, '@' + displayName).replace(/{group}/g, groupName);
             } else {
-                goodbyeText = `╭─── 『 👋 GOODBYE 』───⟢\n│ @${displayName} has left ${groupName}\n│ We'll miss you!\n╰────────────⟢\n> © DarkNode MD`;
+                goodbyeText = `╭─── ⪨ 👋 GOODBYE ⪩───⟢\n│ @${displayName} has left ${groupName}\n│ We'll miss you!\n╰────────────⟢\n> © DarkNode MD`;
             }
 
             let profilePic;
@@ -109,7 +109,7 @@ async function handleLeaveEvent(sock, groupJid, participants) {
             if (customMessage) {
                 fallbackText = customMessage.replace(/{user}/g, '@' + phoneNumber).replace(/{group}/g, groupName);
             } else {
-                fallbackText = `╭─── 『 👋 GOODBYE 』───⟢\n│ @${phoneNumber} has left the group.\n╰────────────⟢\n> © DarkNode MD`;
+                fallbackText = `╭─── ⪨ 👋 GOODBYE ⪩───⟢\n│ @${phoneNumber} has left the group.\n╰────────────⟢\n> © DarkNode MD`;
             }
             await sock.sendMessage(groupJid, {
                 text: fallbackText, mentions: [userId], ...channelInfo

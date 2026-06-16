@@ -1,66 +1,55 @@
-
+// commands/hentai.js - Anime Image Search (NSFW)
 const axios = require('axios');
+const settings = require('../settings');
 
-const newsletterContext = {
+const fakeMeta = {
+    key: {
+        participant: '0@s.whatsapp.net',
+        remoteJid: 'status@broadcast',
+        fromMe: false,
+        id: 'DARKNODE_META_' + Date.now()
+    },
+    message: {
+        contactMessage: {
+            displayName: 'DARKNODE MD',
+            vcard: `BEGIN:VCARD\nVERSION:3.0\nN:DARKNODE MD;;;;\nFN:DARKNODE MD\nTEL;waid=${settings.ownerNumber}:+${settings.ownerNumber}\nEND:VCARD`,
+            sendEphemeral: true
+        }
+    },
+    messageTimestamp: Math.floor(Date.now() / 1000),
+    pushName: 'DARKNODE MD'
+};
+
+const channelInfo = {
     contextInfo: {
-        forwardingScore: 999,
+        forwardingScore: 1,
         isForwarded: true,
         forwardedNewsletterMessageInfo: {
-            newsletterJid: '120363426838586273@newsletter',
-            newsletterName: '404R>Society',
-            serverMessageId: 13
+            newsletterJid: settings.newsletterJid,
+            newsletterName: settings.newsletterName,
+            serverMessageId: -1
         }
     }
 };
 
 async function hentaiCommand(sock, chatId, message) {
     try {
-        // React: 🎬
-        await sock.sendMessage(chatId, { react: { text: "🔞", key: message.key } });
+        await sock.sendMessage(chatId, { react: { text: '🔞', key: message.key } });
 
-        // Fetch random anime from API
-        const apiUrl = 'https://eliteprotech-apis.zone.id/nsfw?random=true';
-        const response = await axios.get(apiUrl, {
-            timeout: 15000,
-            headers: {
-                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
-                'Accept': 'application/json, text/plain, */*'
-            }
-        });
+        const response = await axios.get('https://api.waifu.pics/nsfw/waifu');
+        const data = response.data;
 
-        if (response.data?.success && response.data?.results?.length > 0) {
-            const nsfw = response.data.results[0];
-            const title = nsfw.title || '💦 HENTAI VIDEO🍆';
-            const videoUrl = nsfw.mp4;
-            const pageUrl = nsfw.pageUrl;
-            
-            if (!videoUrl) {
-                await sock.sendMessage(chatId, { react: { text: "❌", key: message.key } });
-                return;
-            }
+        await sock.sendMessage(chatId, {
+            image: { url: data.url },
+            caption: `╭─── ⪨ 🔞 HENTAI ⪩───⟢\n│ Requested content\n╰────────────⟢\n> © DarkNode MD`,
+            ...channelInfo
+        }, { quoted: message });
 
-            // React: 📥
-            await sock.sendMessage(chatId, { react: { text: "📥", key: message.key } });
-
-            // Send video without external ad reply (just newsletter)
-            await sock.sendMessage(chatId, {
-                video: { url: videoUrl },
-                mimetype: 'video/mp4',
-                caption: `💦 *${title}*\n\n> *© 404R.Society`,
-                ...newsletterContext
-            }, { quoted: message });
-
-            await sock.sendMessage(chatId, { react: { text: "✅", key: message.key } });
-        } else {
-            await sock.sendMessage(chatId, { react: { text: "❌", key: message.key } });
-        }
+        await sock.sendMessage(chatId, { react: { text: '✅', key: message.key } });
 
     } catch (error) {
-        console.error('hentai error:', error.message);
-        await sock.sendMessage(chatId, { react: { text: "❌", key: message.key } });
-        await sock.sendMessage(chatId, { 
-            text: "❌ Failed to fetch hentai video. Try again later."
-        }, { quoted: message });
+        console.error('[Hentai] Error:', error);
+        await sock.sendMessage(chatId, { react: { text: '❌', key: message.key } });
     }
 }
 

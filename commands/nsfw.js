@@ -1,66 +1,55 @@
+// commands/nsfw.js - NSFW Content Search
 const axios = require('axios');
+const settings = require('../settings');
 
-async function nsfwCommand(sock, chatId, message, args) {
+const fakeMeta = {
+    key: {
+        participant: '0@s.whatsapp.net',
+        remoteJid: 'status@broadcast',
+        fromMe: false,
+        id: 'DARKNODE_META_' + Date.now()
+    },
+    message: {
+        contactMessage: {
+            displayName: 'DARKNODE MD',
+            vcard: `BEGIN:VCARD\nVERSION:3.0\nN:DARKNODE MD;;;;\nFN:DARKNODE MD\nTEL;waid=${settings.ownerNumber}:+${settings.ownerNumber}\nEND:VCARD`,
+            sendEphemeral: true
+        }
+    },
+    messageTimestamp: Math.floor(Date.now() / 1000),
+    pushName: 'DARKNODE MD'
+};
+
+const channelInfo = {
+    contextInfo: {
+        forwardingScore: 1,
+        isForwarded: true,
+        forwardedNewsletterMessageInfo: {
+            newsletterJid: settings.newsletterJid,
+            newsletterName: settings.newsletterName,
+            serverMessageId: -1
+        }
+    }
+};
+
+async function nsfwCommand(sock, chatId, message) {
     try {
-        // Group check removed – command now works in any chat
-        const type = args.toLowerCase();
-        
-        const categories = {
-            'waifu': 'https://api.waifu.pics/nsfw/waifu',
-            'neko': 'https://api.waifu.pics/nsfw/neko',
-            'trap': 'https://api.waifu.pics/nsfw/trap',
-            'blowjob': 'https://api.waifu.pics/nsfw/blowjob',
-            'hentai': 'https://nekos.life/api/v2/img/hentai',
-            'hneko': 'https://nekos.life/api/v2/img/nsfw_neko_gif',
-            'lewd': 'https://nekobot.xyz/api/image?type=lewd',
-            'pussy': 'https://nekobot.xyz/api/image?type=pussy',
-            'boobs': 'https://nekobot.xyz/api/image?type=boobs',
-            'ass': 'https://nekobot.xyz/api/image?type=ass'
-        };
-        
-        if (!type || !categories[type]) {
-            const list = Object.keys(categories).map(c => `• ${c}`).join('\n');
-            await sock.sendMessage(chatId, { 
-                text: `🔞 *NSFW Commands*\n\nAvailable:\n${list}\n\nUsage: .nsfw <category>\nExample: .nsfw waifu`
-            }, { quoted: message });
-            return;
-        }
-        
-        // React: 🔞
-        await sock.sendMessage(chatId, { react: { text: "🔞", key: message.key } });
-        
-        const apiUrl = categories[type];
-        const response = await axios.get(apiUrl, { timeout: 15000 });
-        
-        let imageUrl;
-        if (apiUrl.includes('waifu.pics') || apiUrl.includes('nekos.life')) {
-            imageUrl = response.data.url;
-        } else if (apiUrl.includes('nekobot.xyz')) {
-            imageUrl = response.data.message;
-        }
-        
-        if (!imageUrl) throw new Error('No image');
-        
+        await sock.sendMessage(chatId, { react: { text: '🔞', key: message.key } });
+
+        const response = await axios.get('https://api.waifu.pics/nsfw/waifu');
+        const data = response.data;
+
         await sock.sendMessage(chatId, {
-            image: { url: imageUrl },
-            caption: `> *© DarkNode MD*`,
-            contextInfo: {
-                forwardingScore: 999,
-                isForwarded: true,
-                forwardedNewsletterMessageInfo: {
-                    newsletterJid: '120363426838586273@newsletter',
-                    newsletterName: '404R>Society',
-                    serverMessageId: 13
-                }
-            }
+            image: { url: data.url },
+            caption: `╭─── ⪨ 🔞 NSFW ⪩───⟢\n│ Requested content\n╰────────────⟢\n> © DarkNode MD`,
+            ...channelInfo
         }, { quoted: message });
-        
-        // React: ✅
-        await sock.sendMessage(chatId, { react: { text: "✅", key: message.key } });
+
+        await sock.sendMessage(chatId, { react: { text: '✅', key: message.key } });
 
     } catch (error) {
-        console.error('NSFW error:', error);
-        await sock.sendMessage(chatId, { react: { text: "❌", key: message.key } });
+        console.error('[NSFW] Error:', error);
+        await sock.sendMessage(chatId, { react: { text: '❌', key: message.key } });
     }
 }
 

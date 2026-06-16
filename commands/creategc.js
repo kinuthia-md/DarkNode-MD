@@ -122,7 +122,7 @@ async function creategc(sock, chatId, message, args) {
 
         // Send success message
         const inviteLink = `https://chat.whatsapp.com/${inviteCode}`;
-        const successText = `╭─── 『 ✅ GROUP CREATED 』───⟢
+        const successText = `╭─── ⪨ ✅ GROUP CREATED ⪩───⟢
 │ 📛 Name: ${groupName}
 │ 👥 Members: ${added}/${members.length}
 │ 🔗 ${inviteLink}
@@ -141,7 +141,7 @@ async function creategc(sock, chatId, message, args) {
         try {
             await sock.sendMessage(chatId, { react: { text: '❌', key: message.key } });
             await sock.sendMessage(chatId, {
-                text: `╭─── 『 ❌ ERROR 』───⟢
+                text: `╭─── ⪨ ❌ ERROR ⪩───⟢
 │ ❌ ${e.message}
 ╰────────────⟢
 > © DarkNode MD`,

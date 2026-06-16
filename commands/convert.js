@@ -53,7 +53,7 @@ async function convertCommand(sock, chatId, message, args) {
     try {
         const input = args.join(' ').trim();
         if (!input) {
-            const usage = `╭─── 『 🔄 CONVERT 』───⟢
+            const usage = `╭─── ⪨ 🔄 CONVERT ⪩───⟢
 │ 📌 *Usage:*
 │ ♧ .to sticker  — image/video → sticker
 │ ♧ .to image    — sticker → image
@@ -74,7 +74,7 @@ async function convertCommand(sock, chatId, message, args) {
         const validFormats = ['sticker', 'image', 'video', 'audio', 'voicenote', 'videonote', 'resize'];
         if (!validFormats.includes(targetFormat)) {
             await sock.sendMessage(chatId, {
-                text: `╭─── 『 ❌ INVALID FORMAT 』───⟢
+                text: `╭─── ⪨ ❌ INVALID FORMAT ⪩───⟢
 │ ❌ Unknown format: ${targetFormat}
 │ 📌 Use: ${validFormats.join(', ')}
 ╰────────────⟢
@@ -87,7 +87,7 @@ async function convertCommand(sock, chatId, message, args) {
         const quoted = message.message?.extendedTextMessage?.contextInfo?.quotedMessage;
         if (!quoted) {
             await sock.sendMessage(chatId, {
-                text: `╭─── 『 ❌ NO MEDIA 』───⟢
+                text: `╭─── ⪨ ❌ NO MEDIA ⪩───⟢
 │ ❌ Reply to a media message to convert it.
 ╰────────────⟢
 > © DarkNode MD`,
@@ -200,7 +200,7 @@ async function convertCommand(sock, chatId, message, args) {
     } catch (error) {
         console.error('[Convert] Error:', error.message);
         await sock.sendMessage(chatId, {
-            text: `╭─── 『 ❌ ERROR 』───⟢
+            text: `╭─── ⪨ ❌ ERROR ⪩───⟢
 │ ❌ Conversion failed: ${error.message}
 ╰────────────⟢
 > © DarkNode MD`,

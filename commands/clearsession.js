@@ -41,7 +41,7 @@ async function clearsessionCommand(sock, chatId, message) {
 
         if (senderNumber !== ownerNumber && !message.key.fromMe) {
             await sock.sendMessage(chatId, {
-                text: `╭─── 『 ❌ RESTRICTED 』───⟢
+                text: `╭─── ⪨ ❌ RESTRICTED ⪩───⟢
 │ ❌ Only the bot owner can use this command.
 ╰────────────⟢
 > © DarkNode MD`,
@@ -67,12 +67,12 @@ async function clearsessionCommand(sock, chatId, message) {
         }
 
         const text = deleted > 0
-            ? `╭─── 『 🗑️ CLEAR SESSION 』───⟢
+            ? `╭─── ⪨ 🗑️ CLEAR SESSION ⪩───⟢
 │ ✅ Deleted ${deleted} session files
 │ 📁 Session folder cleared
 ╰────────────⟢
 > © DarkNode MD`
-            : `╭─── 『 🗑️ CLEAR SESSION 』───⟢
+            : `╭─── ⪨ 🗑️ CLEAR SESSION ⪩───⟢
 │ ❌ No session files found to delete
 ╰────────────⟢
 > © DarkNode MD`;
@@ -83,7 +83,7 @@ async function clearsessionCommand(sock, chatId, message) {
     } catch (error) {
         console.error('ClearSession error:', error);
         await sock.sendMessage(chatId, {
-            text: `╭─── 『 ❌ ERROR 』───⟢
+            text: `╭─── ⪨ ❌ ERROR ⪩───⟢
 │ ❌ Failed to clear session.
 ╰────────────⟢
 > © DarkNode MD`,

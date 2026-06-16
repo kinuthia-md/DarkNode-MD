@@ -63,7 +63,7 @@ async function cleartmpCommand(sock, chatId, message) {
 
         if (senderNumber !== ownerNumber && !message.key.fromMe) {
             await sock.sendMessage(chatId, {
-                text: `╭─── 『 ❌ RESTRICTED 』───⟢
+                text: `╭─── ⪨ ❌ RESTRICTED ⪩───⟢
 │ ❌ Only the bot owner can use this command.
 ╰────────────⟢
 > © DarkNode MD`,
@@ -80,7 +80,7 @@ async function cleartmpCommand(sock, chatId, message) {
         const osCount = clearDir(osTmp);
         const localCount = clearDir(localTmp);
 
-        const text = `╭─── 『 🗑️ CLEAR TEMP 』───⟢
+        const text = `╭─── ⪨ 🗑️ CLEAR TEMP ⪩───⟢
 │ ✅ OS temp cleared: ${osCount} files
 │ ✅ Local temp cleared: ${localCount} files
 ╰────────────⟢
@@ -92,7 +92,7 @@ async function cleartmpCommand(sock, chatId, message) {
     } catch (error) {
         console.error('ClearTmp error:', error);
         await sock.sendMessage(chatId, {
-            text: `╭─── 『 ❌ ERROR 』───⟢
+            text: `╭─── ⪨ ❌ ERROR ⪩───⟢
 │ ❌ Failed to clear temp.
 ╰────────────⟢
 > © DarkNode MD`,

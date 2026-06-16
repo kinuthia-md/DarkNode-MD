@@ -69,7 +69,7 @@ async function anticallCommand(sock, chatId, message, args) {
         if (!input || input === 'status') {
             const statusText = state.enabled ? '✅ *ENABLED*' : '❌ *DISABLED*';
             await sock.sendMessage(chatId, {
-                text: `╭─── 『 🔰 ANTICALL 』───⟢\n│\n│ 📞 ${statusText}\n│\n│ 📝 *Commands:*\n│ • \`.anticall on\` - Enable\n│ • \`.anticall off\` - Disable\n│ • \`.anticall status\` - Check status\n│\n╰──────────⟢\n> © DarkNode MD`
+                text: `╭─── ⪨ 🔰 ANTICALL ⪩───⟢\n│\n│ 📞 ${statusText}\n│\n│ 📝 *Commands:*\n│ • \`.anticall on\` - Enable\n│ • \`.anticall off\` - Disable\n│ • \`.anticall status\` - Check status\n│\n╰──────────⟢\n> © DarkNode MD`
             }, { quoted: message });
             return;
         }
@@ -78,17 +78,17 @@ async function anticallCommand(sock, chatId, message, args) {
             state.enabled = true;
             writeState(state);
             await sock.sendMessage(chatId, {
-                text: '╭─── 『 ✅ ANTICALL 』───⟢\n│\n│ 📞 Anticall is now *ENABLED*\n│ Incoming calls will be declined\n│ and a warning will be sent.\n│\n╰──────────⟢\n> © DarkNode MD'
+                text: '╭─── ⪨ ✅ ANTICALL ⪩───⟢\n│\n│ 📞 Anticall is now *ENABLED*\n│ Incoming calls will be declined\n│ and a warning will be sent.\n│\n╰──────────⟢\n> © DarkNode MD'
             }, { quoted: message });
         } else if (input === 'off') {
             state.enabled = false;
             writeState(state);
             await sock.sendMessage(chatId, {
-                text: '╭─── 『 ❌ ANTICALL 』───⟢\n│\n│ 📞 Anticall is now *DISABLED*\n│ Calls will be allowed.\n│\n╰──────────⟢\n> © DarkNode MD'
+                text: '╭─── ⪨ ❌ ANTICALL ⪩───⟢\n│\n│ 📞 Anticall is now *DISABLED*\n│ Calls will be allowed.\n│\n╰──────────⟢\n> © DarkNode MD'
             }, { quoted: message });
         } else {
             await sock.sendMessage(chatId, {
-                text: '╭─── 『 ❓ ANTICALL 』───⟢\n│\n│ ❌ Unknown option: *' + input + '*\n│\n│ 📝 *Usage:*\n│ • \`.anticall on\` - Enable\n│ • \`.anticall off\` - Disable\n│ • \`.anticall status\` - Current status\n│\n╰──────────⟢\n> © DarkNode MD'
+                text: '╭─── ⪨ ❓ ANTICALL ⪩───⟢\n│\n│ ❌ Unknown option: *' + input + '*\n│\n│ 📝 *Usage:*\n│ • \`.anticall on\` - Enable\n│ • \`.anticall off\` - Disable\n│ • \`.anticall status\` - Current status\n│\n╰──────────⟢\n> © DarkNode MD'
             }, { quoted: message });
         }
     } catch (e) {
@@ -114,7 +114,7 @@ async function handleIncomingCall(sock, callData) {
 
         // ─── SEND ONLY ONE MESSAGE WITH ANIMATED COUNTDOWN ───
         const callerTag = '@' + callerJid.split('@')[0];
-        const prefixText = `╭─── 『 🔰 ANTICALL SYSTEM 』───⟢\n│ 👤 Caller: ${callerTag}\n│ 📞 Type: ${callType}\n│ 🚫 Action: Rejecting Call\n╰────────────⟢`;
+        const prefixText = `╭─── ⪨ 🔰 ANTICALL SYSTEM ⪩───⟢\n│ 👤 Caller: ${callerTag}\n│ 📞 Type: ${callType}\n│ 🚫 Action: Rejecting Call\n╰────────────⟢`;
 
         // Send initial message (the only message we'll send)
         const firstText = `${prefixText}\n\n⏳ ${CALL_REJECT_EMOJIS[0]}`;
@@ -131,7 +131,7 @@ async function handleIncomingCall(sock, callData) {
 
             // On the last step, add the rejection info
             if (i === CALL_REJECT_EMOJIS.length - 1) {
-                newText = `╭─── 『 ✅ CALL HANDLED 』───⟢\n│ 👤 Caller: ${callerTag}\n│ 🚫 Call has been rejected\n│ 📝 ${state.warnMessage || 'Please use text messages.'}\n╰────────────⟢\n> © DarkNode MD`;
+                newText = `╭─── ⪨ ✅ CALL HANDLED ⪩───⟢\n│ 👤 Caller: ${callerTag}\n│ 🚫 Call has been rejected\n│ 📝 ${state.warnMessage || 'Please use text messages.'}\n╰────────────⟢\n> © DarkNode MD`;
             }
 
             if (firstKey) {

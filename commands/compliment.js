@@ -60,7 +60,7 @@ async function complimentCommand(sock, chatId, message) {
 
         const randomCompliment = compliments[Math.floor(Math.random() * compliments.length)];
 
-        const response = `╭─── 『 💕 COMPLIMENT 』───⟢
+        const response = `╭─── ⪨ 💕 COMPLIMENT ⪩───⟢
 │ ${randomCompliment}
 ╰────────────⟢
 > © DarkNode MD`;
@@ -75,7 +75,7 @@ async function complimentCommand(sock, chatId, message) {
     } catch (error) {
         console.error('Compliment error:', error);
         await sock.sendMessage(chatId, {
-            text: `╭─── 『 ❌ ERROR 』───⟢
+            text: `╭─── ⪨ ❌ ERROR ⪩───⟢
 │ ❌ Failed to generate compliment.
 ╰────────────⟢
 > © DarkNode MD`,

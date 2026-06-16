@@ -87,7 +87,7 @@ const LINK_PATTERNS = {
 function formatMessage(title, body, type = 'info') {
     const icons = { info: 'ℹ️', success: '✅', warn: '⚠️', error: '❌', config: '⚙️' };
     const icon = icons[type] || 'ℹ️';
-    return `╭─── 『 ${icon} ${title} 』───⟢\n│\n${body}\n│\n╰──────────⟢\n> © DarkNode MD`;
+    return `╭─── ⪨ ${icon} ${title} ⪩───⟢\n│\n${body}\n│\n╰──────────⟢\n> © DarkNode MD`;
 }
 
 // Use fakeMeta for all command responses (shows contact card)

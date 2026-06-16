@@ -43,7 +43,7 @@ function formatDeleteMessage(title, content, type = 'info') {
         owner: '👑',
         bot: '🤖'
     };
-    return `*『 ${emojis[type]} ${title} 』*\n╭─────⟢\n${content}\n╰────────────⟢\n\n> *© DarkNode MD*`;
+    return `*⪨ ${emojis[type]} ${title} ⪩*\n╭─────⟢\n${content}\n╰────────────⟢\n\n> *© DarkNode MD*`;
 }
 
 async function deleteCommand(sock, chatId, message, args) {

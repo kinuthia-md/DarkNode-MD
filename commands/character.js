@@ -53,7 +53,7 @@ async function characterCommand(sock, chatId, message) {
 
         if (!targetJid) {
             await sock.sendMessage(chatId, {
-                text: `╭─── 『 🔮 CHARACTER 』───⟢
+                text: `╭─── ⪨ 🔮 CHARACTER ⪩───⟢
 │ ⚠️ Reply to someone or mention them
 │ 📌 Usage: .character @user
 ╰────────────⟢
@@ -82,7 +82,7 @@ async function characterCommand(sock, chatId, message) {
 
         const rating = Math.floor(Math.random() * 15) + 80;
 
-        const result = `╭─── 『 🔮 CHARACTER ANALYSIS 』───⟢
+        const result = `╭─── ⪨ 🔮 CHARACTER ANALYSIS ⪩───⟢
 │ 👤 *Target:* @${targetJid.split('@')[0]}
 │
 ${traitsText}
@@ -102,7 +102,7 @@ ${traitsText}
         console.error('Character error:', e);
         try {
             await sock.sendMessage(chatId, {
-                text: `╭─── 『 ❌ ERROR 』───⟢
+                text: `╭─── ⪨ ❌ ERROR ⪩───⟢
 │ ❌ Failed to analyze character.
 ╰────────────⟢
 > © DarkNode MD`,

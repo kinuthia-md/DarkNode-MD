@@ -42,7 +42,7 @@ async function handleAntitagCommand(sock, chatId, userMessage, senderId, isSende
     try {
         if (!isSenderAdmin) {
             await sock.sendMessage(chatId, {
-                text: '╭─── 『 ❌ ANTITAG 』───⟢\n│ 👤 Group admins only.\n╰────────────⟢\n> © DarkNode MD',
+                text: '╭─── ⪨ ❌ ANTITAG ⪩───⟢\n│ 👤 Group admins only.\n╰────────────⟢\n> © DarkNode MD',
                 ...channelInfo
             }, { quoted: fakeMeta });
             return;
@@ -53,7 +53,7 @@ async function handleAntitagCommand(sock, chatId, userMessage, senderId, isSende
 
         if (!sub) {
             await sock.sendMessage(chatId, {
-                text: `╭─── 『 ℹ️ ANTITAG 』───⟢\n│ 📌 Usage:\n│   .antitag on\n│   .antitag off\n│   .antitag set <delete/kick>\n│   .antitag status\n╰────────────⟢\n> © DarkNode MD`,
+                text: `╭─── ⪨ ℹ️ ANTITAG ⪩───⟢\n│ 📌 Usage:\n│   .antitag on\n│   .antitag off\n│   .antitag set <delete/kick>\n│   .antitag status\n╰────────────⟢\n> © DarkNode MD`,
                 ...channelInfo
             }, { quoted: fakeMeta });
             return;
@@ -64,7 +64,7 @@ async function handleAntitagCommand(sock, chatId, userMessage, senderId, isSende
                 const existing = await getAntitag(chatId, 'on');
                 if (existing?.enabled) {
                     await sock.sendMessage(chatId, {
-                        text: '╭─── 『 ❌ ANTITAG 』───⟢\n│ ⚠️ Antitag is already ON.\n╰────────────⟢\n> © DarkNode MD',
+                        text: '╭─── ⪨ ❌ ANTITAG ⪩───⟢\n│ ⚠️ Antitag is already ON.\n╰────────────⟢\n> © DarkNode MD',
                         ...channelInfo
                     }, { quoted: fakeMeta });
                     return;
@@ -72,8 +72,8 @@ async function handleAntitagCommand(sock, chatId, userMessage, senderId, isSende
                 const result = await setAntitag(chatId, 'on', 'delete');
                 await sock.sendMessage(chatId, {
                     text: result
-                        ? '╭─── 『 ✅ ANTITAG 』───⟢\n│ 🛡️ Antitag is now *ON*\n│ ⚙️ Default action: delete\n╰────────────⟢\n> © DarkNode MD'
-                        : '╭─── 『 ❌ ANTITAG 』───⟢\n│ ❌ Failed to enable.\n╰────────────⟢\n> © DarkNode MD',
+                        ? '╭─── ⪨ ✅ ANTITAG ⪩───⟢\n│ 🛡️ Antitag is now *ON*\n│ ⚙️ Default action: delete\n╰────────────⟢\n> © DarkNode MD'
+                        : '╭─── ⪨ ❌ ANTITAG ⪩───⟢\n│ ❌ Failed to enable.\n╰────────────⟢\n> © DarkNode MD',
                     ...channelInfo
                 }, { quoted: fakeMeta });
                 break;
@@ -81,7 +81,7 @@ async function handleAntitagCommand(sock, chatId, userMessage, senderId, isSende
             case 'off': {
                 await removeAntitag(chatId, 'on');
                 await sock.sendMessage(chatId, {
-                    text: '╭─── 『 ✅ ANTITAG 』───⟢\n│ 🛡️ Antitag is now *OFF*\n╰────────────⟢\n> © DarkNode MD',
+                    text: '╭─── ⪨ ✅ ANTITAG ⪩───⟢\n│ 🛡️ Antitag is now *OFF*\n╰────────────⟢\n> © DarkNode MD',
                     ...channelInfo
                 }, { quoted: fakeMeta });
                 break;
@@ -89,7 +89,7 @@ async function handleAntitagCommand(sock, chatId, userMessage, senderId, isSende
             case 'set': {
                 if (args.length < 2) {
                     await sock.sendMessage(chatId, {
-                        text: '╭─── 『 ❌ ANTITAG 』───⟢\n│ ⚠️ Specify an action: delete or kick\n╰────────────⟢\n> © DarkNode MD',
+                        text: '╭─── ⪨ ❌ ANTITAG ⪩───⟢\n│ ⚠️ Specify an action: delete or kick\n╰────────────⟢\n> © DarkNode MD',
                         ...channelInfo
                     }, { quoted: fakeMeta });
                     return;
@@ -97,7 +97,7 @@ async function handleAntitagCommand(sock, chatId, userMessage, senderId, isSende
                 const action = args[1];
                 if (!['delete', 'kick'].includes(action)) {
                     await sock.sendMessage(chatId, {
-                        text: '╭─── 『 ❌ ANTITAG 』───⟢\n│ ⚠️ Choose: delete or kick\n╰────────────⟢\n> © DarkNode MD',
+                        text: '╭─── ⪨ ❌ ANTITAG ⪩───⟢\n│ ⚠️ Choose: delete or kick\n╰────────────⟢\n> © DarkNode MD',
                         ...channelInfo
                     }, { quoted: fakeMeta });
                     return;
@@ -105,8 +105,8 @@ async function handleAntitagCommand(sock, chatId, userMessage, senderId, isSende
                 const result = await setAntitag(chatId, 'on', action);
                 await sock.sendMessage(chatId, {
                     text: result
-                        ? `╭─── 『 ✅ ANTITAG 』───⟢\n│ 🛡️ Action set to: *${action}*\n╰────────────⟢\n> © DarkNode MD`
-                        : '╭─── 『 ❌ ANTITAG 』───⟢\n│ ❌ Failed to set action.\n╰────────────⟢\n> © DarkNode MD',
+                        ? `╭─── ⪨ ✅ ANTITAG ⪩───⟢\n│ 🛡️ Action set to: *${action}*\n╰────────────⟢\n> © DarkNode MD`
+                        : '╭─── ⪨ ❌ ANTITAG ⪩───⟢\n│ ❌ Failed to set action.\n╰────────────⟢\n> © DarkNode MD',
                     ...channelInfo
                 }, { quoted: fakeMeta });
                 break;
@@ -116,14 +116,14 @@ async function handleAntitagCommand(sock, chatId, userMessage, senderId, isSende
                 const status = antitagConfig?.enabled ? 'ON' : 'OFF';
                 const action = antitagConfig?.action || 'Not set';
                 await sock.sendMessage(chatId, {
-                    text: `╭─── 『 ℹ️ ANTITAG 』───⟢\n│ 🛡️ Status: *${status}*\n│ ⚙️ Action: ${action}\n╰────────────⟢\n> © DarkNode MD`,
+                    text: `╭─── ⪨ ℹ️ ANTITAG ⪩───⟢\n│ 🛡️ Status: *${status}*\n│ ⚙️ Action: ${action}\n╰────────────⟢\n> © DarkNode MD`,
                     ...channelInfo
                 }, { quoted: fakeMeta });
                 break;
             }
             default:
                 await sock.sendMessage(chatId, {
-                    text: `╭─── 『 ❌ ANTITAG 』───⟢\n│ ⚠️ Unknown option: ${sub}\n│ 📌 Use .antitag for usage.\n╰────────────⟢\n> © DarkNode MD`,
+                    text: `╭─── ⪨ ❌ ANTITAG ⪩───⟢\n│ ⚠️ Unknown option: ${sub}\n│ 📌 Use .antitag for usage.\n╰────────────⟢\n> © DarkNode MD`,
                     ...channelInfo
                 }, { quoted: fakeMeta });
         }
@@ -131,7 +131,7 @@ async function handleAntitagCommand(sock, chatId, userMessage, senderId, isSende
         console.error('❌ Antitag command error:', e);
         try {
             await sock.sendMessage(chatId, {
-                text: '╭─── 『 ❌ ERROR 』───⟢\n│ ❌ Failed to process antitag.\n╰────────────⟢\n> © DarkNode MD',
+                text: '╭─── ⪨ ❌ ERROR ⪩───⟢\n│ ❌ Failed to process antitag.\n╰────────────⟢\n> © DarkNode MD',
                 ...channelInfo
             }, { quoted: fakeMeta });
         } catch {}
@@ -172,7 +172,7 @@ async function handleTagDetection(sock, chatId, message, senderId) {
             if (action === 'delete') {
                 await sock.sendMessage(chatId, { delete: { remoteJid: chatId, fromMe: false, id: message.key.id, participant: senderId } });
                 await sock.sendMessage(chatId, {
-                    text: '╭─── 『 ⚠️ MASS TAG 』───⟢\n│ ❌ Mass tagging detected! Message deleted.\n╰────────────⟢\n> © DarkNode MD',
+                    text: '╭─── ⪨ ⚠️ MASS TAG ⪩───⟢\n│ ❌ Mass tagging detected! Message deleted.\n╰────────────⟢\n> © DarkNode MD',
                     ...channelInfo
                 });
             } else if (action === 'kick') {
@@ -180,7 +180,7 @@ async function handleTagDetection(sock, chatId, message, senderId) {
                 try {
                     await sock.groupParticipantsUpdate(chatId, [senderId], 'remove');
                     await sock.sendMessage(chatId, {
-                        text: `╭─── 『 ⚠️ MASS TAG 』───⟢\n│ 👤 @${senderId.split('@')[0]}\n│ 🚫 Kicked for mass tagging\n╰────────────⟢\n> © DarkNode MD`,
+                        text: `╭─── ⪨ ⚠️ MASS TAG ⪩───⟢\n│ 👤 @${senderId.split('@')[0]}\n│ 🚫 Kicked for mass tagging\n╰────────────⟢\n> © DarkNode MD`,
                         mentions: [senderId],
                         ...channelInfo
                     });

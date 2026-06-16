@@ -38,7 +38,7 @@ async function gitcloneCommand(sock, chatId, message, args) {
 
         if (!repoUrl) {
             await sock.sendMessage(chatId, {
-                text: `╭─── 『 📦 GITCLONE 』───⟢\n│ 📌 Usage: .gitclone <github_url>\n│ 💡 Example: .gitclone https://github.com/user/repo\n╰────────────⟢\n> © DarkNode MD`,
+                text: `╭─── ⪨ 📦 GITCLONE ⪩───⟢\n│ 📌 Usage: .gitclone <github_url>\n│ 💡 Example: .gitclone https://github.com/user/repo\n╰────────────⟢\n> © DarkNode MD`,
                 ...channelInfo
             }, { quoted: message });
             return;
@@ -46,7 +46,7 @@ async function gitcloneCommand(sock, chatId, message, args) {
 
         if (!/^https:\/\/github\.com\/[^\/]+\/[^\/]+/.test(repoUrl)) {
             await sock.sendMessage(chatId, {
-                text: '╭─── 『 ❌ INVALID URL 』───⟢\n│ Invalid GitHub link.\n╰────────────⟢\n> © DarkNode MD',
+                text: '╭─── ⪨ ❌ INVALID URL ⪩───⟢\n│ Invalid GitHub link.\n╰────────────⟢\n> © DarkNode MD',
                 ...channelInfo
             }, { quoted: message });
             return;
@@ -80,7 +80,7 @@ async function gitcloneCommand(sock, chatId, message, args) {
             document: { url: downloadUrl },
             fileName: filename,
             mimetype: 'application/zip',
-            caption: `╭─── 『 📦 GITCLONE 』───⟢\n│ 📂 ${owner}/${repo}\n╰────────────⟢\n> © DarkNode MD`,
+            caption: `╭─── ⪨ 📦 GITCLONE ⪩───⟢\n│ 📂 ${owner}/${repo}\n╰────────────⟢\n> © DarkNode MD`,
             ...channelInfo
         }, { quoted: message });
 

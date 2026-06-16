@@ -59,7 +59,7 @@ async function calculatorCommand(sock, chatId, message, args) {
     try {
         const expression = args.join(' ').trim();
         if (!expression) {
-            const usageMsg = `╭─── 『 🧮 CALCULATOR 』───⟢
+            const usageMsg = `╭─── ⪨ 🧮 CALCULATOR ⪩───⟢
 │ 📌 Usage: .calc <expression>
 │ 💡 Example: .calc 2+2*3
 │
@@ -82,7 +82,7 @@ async function calculatorCommand(sock, chatId, message, args) {
         const result = safeEval(expression);
         if (result === null || result === undefined || isNaN(result)) {
             await sock.sendMessage(chatId, {
-                text: `╭─── 『 ❌ ERROR 』───⟢
+                text: `╭─── ⪨ ❌ ERROR ⪩───⟢
 │ ❌ Invalid expression
 │ 📌 *Input:* ${expression}
 ╰────────────⟢
@@ -93,7 +93,7 @@ async function calculatorCommand(sock, chatId, message, args) {
             return;
         }
 
-        const response = `╭─── 『 🧮 RESULT 』───⟢
+        const response = `╭─── ⪨ 🧮 RESULT ⪩───⟢
 │ 📌 *Expression:* ${expression}
 │ ✅ *Result:* ${result}
 ╰────────────⟢
@@ -109,7 +109,7 @@ async function calculatorCommand(sock, chatId, message, args) {
     } catch (error) {
         console.error('Calculator error:', error);
         await sock.sendMessage(chatId, {
-            text: `╭─── 『 ❌ ERROR 』───⟢
+            text: `╭─── ⪨ ❌ ERROR ⪩───⟢
 │ ❌ Failed to calculate.
 ╰────────────⟢
 > © DarkNode MD`,

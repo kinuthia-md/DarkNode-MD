@@ -71,7 +71,7 @@ async function gifCommand(sock, chatId, message, args) {
             if (gifBuffer && gifBuffer.length > 0) {
                 await sock.sendMessage(chatId, {
                     video: gifBuffer, mimetype: 'video/mp4',
-                    caption: `╭─── 『 🎬 GIF 』───⟢\n│ Video converted to GIF!\n╰────────────⟢\n> © DarkNode MD`,
+                    caption: `╭─── ⪨ 🎬 GIF ⪩───⟢\n│ Video converted to GIF!\n╰────────────⟢\n> © DarkNode MD`,
                     gifPlayback: true, ...channelInfo
                 }, { quoted: message });
                 await sock.sendMessage(chatId, { react: { text: '✅', key: message.key } });
@@ -85,7 +85,7 @@ async function gifCommand(sock, chatId, message, args) {
         const query = args?.join(' ')?.trim();
         if (!query) {
             await sock.sendMessage(chatId, {
-                text: `╭─── 『 🎬 GIF 』───⟢\n│ 📌 Usage:\n│ • .gif <search> - Search GIF\n│ • Reply to video with .gif - Convert to GIF\n╰────────────⟢\n> © DarkNode MD`,
+                text: `╭─── ⪨ 🎬 GIF ⪩───⟢\n│ 📌 Usage:\n│ • .gif <search> - Search GIF\n│ • Reply to video with .gif - Convert to GIF\n╰────────────⟢\n> © DarkNode MD`,
                 ...channelInfo
             }, { quoted: message });
             return;
@@ -102,7 +102,7 @@ async function gifCommand(sock, chatId, message, args) {
         if (gifUrl) {
             await sock.sendMessage(chatId, {
                 video: { url: gifUrl }, mimetype: 'video/mp4',
-                caption: `╭─── 『 🎬 GIF 』───⟢\n│ 🔍 ${query}\n╰────────────⟢\n> © DarkNode MD`,
+                caption: `╭─── ⪨ 🎬 GIF ⪩───⟢\n│ 🔍 ${query}\n╰────────────⟢\n> © DarkNode MD`,
                 gifPlayback: true, ...channelInfo
             }, { quoted: message });
             await sock.sendMessage(chatId, { react: { text: '✅', key: message.key } });
