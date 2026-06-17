@@ -35,7 +35,7 @@ async function ownerCommand(sock, chatId, message) {
     try {
         await sock.sendMessage(chatId, { react: { text: '👑', key: message.key } });
 
-        const ownerInfo = `╭─── ⪨ 👑 OWNERS ⪩───⟢\n│\n│ 📱 DARKBOI: wa.me/2349049636843\n│ 📱 NABEES: wa.me/2347072182960\n│\n│ 💬 Contact for support\n╰────────────⟢\n\n> *© DarkNode MD*`;
+        const ownerInfo = `╭─── ⪨ 👑 OWNER ⪩───⟢\n│\n│ 📱 Smurk: wa.me/254794119486\n│ 📱 Smurkio: wa.me/254794119486\n│\n│ 💬 Contact for support\n╰────────────⟢\n\n> *© DarkNode MD*`;
 
         await sock.sendMessage(chatId, {
             text: ownerInfo,

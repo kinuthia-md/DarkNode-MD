@@ -580,7 +580,7 @@ if (message.message?.interactiveResponseMessage?.nativeFlowResponseMessage) {
                 break;
             case cmd.startsWith('.hentai2') || cmd.startsWith('.hentaivideo'):
                 const hentai2Args = userMessage.split(' ').slice(1);
-                await hentai2Command(sock, chatId, message, anime2Args);
+                await hentai2Command(sock, chatId, message, hentai2Args);
                 break;
             case cmd.startsWith('.tempmail') || cmd.startsWith('.tmpmail'):
                 const tmpArgs = userMessage.split(' ').slice(1);

@@ -166,25 +166,48 @@ async function pairCommand(sock, chatId, message, args) {
                 console.log(`[Pair] ✓ ${targetNumber} successfully connected!`);
                 
                 if (timeoutId) clearTimeout(timeoutId);
-                await saveCreds();
                 
-                setTimeout(async () => {
-                    const credsPath = path.join(sessionPath, 'creds.json');
-                    if (fs.existsSync(credsPath) && fs.statSync(credsPath).size > 100) {
-                        console.log(`[Pair] Creds saved for ${targetNumber}`);
-                        
-                        pairingInProgress.delete(targetNumber);
-                        
-                        setTimeout(() => {
-                            try { userSock?.end(); } catch(_) {}
-                        }, 5000);
-                        
-                        setTimeout(() => {
-                            console.log(`[Pair] Launching sub-bot for ${targetNumber}`);
-                            launchSubBot(targetNumber);
-                        }, 3000);
-                    }
-                }, 3000);
+                // Wait for creds to be fully saved
+                await saveCreds();
+                await new Promise(resolve => setTimeout(resolve, 2000));
+                
+                const credsPath = path.join(sessionPath, 'creds.json');
+                const credsExist = fs.existsSync(credsPath);
+                const credsSize = credsExist ? fs.statSync(credsPath).size : 0;
+                
+                console.log(`[Pair] Checking creds: exists=${credsExist}, size=${credsSize}`);
+                
+                if (credsExist && credsSize > 100) {
+                    console.log(`[Pair] ✓ Creds verified for ${targetNumber}`);
+                    
+                    pairingInProgress.delete(targetNumber);
+                    
+                    // Send success message
+                    const successLines = [
+                        `✅ Successfully paired!`,
+                        `Number: ${targetNumber}`,
+                        `Starting your bot...`
+                    ];
+                    const successMsg = formatHeader('PAIRING SUCCESS', successLines);
+                    await sock.sendMessage(chatId, { text: successMsg, ...channelInfo }, { quoted: message });
+                    
+                    setTimeout(() => {
+                        try { userSock?.end(); } catch(_) {}
+                    }, 2000);
+                    
+                    setTimeout(() => {
+                        console.log(`[Pair] Launching sub-bot for ${targetNumber}`);
+                        launchSubBot(targetNumber);
+                    }, 3000);
+                } else {
+                    console.error(`[Pair] ✗ Creds not saved properly for ${targetNumber}`);
+                    pairingInProgress.delete(targetNumber);
+                    deleteSubBotFolder(targetNumber);
+                    
+                    const failLines = [`❌ Failed to save session`, `Please try again.`];
+                    const failMsg = formatHeader('PAIRING FAILED', failLines);
+                    await sock.sendMessage(chatId, { text: failMsg, ...channelInfo }, { quoted: message });
+                }
             }
             
             if (connection === 'close' && !paired) {

@@ -41,7 +41,7 @@ async function ryukCommand(sock, chatId, message) {
         const quote = quotes[Math.floor(Math.random() * quotes.length)];
 
         await sock.sendMessage(chatId, {
-            text: `╭─── ⪨ 🍎 RYUK ⪩───⟢\n│ ${quote}\n╰────────────⟢\n> © DarkNode MD`,
+            text: `╭───⪨ 🍎 RYUK ⪩───⟢\n│ ${quote}\n╰────────────⟢\n> © DarkNode MD`,
             ...channelInfo
         }, { quoted: message });
 

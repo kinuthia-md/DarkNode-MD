@@ -46,7 +46,7 @@ async function reportCommand(sock, chatId, message, args) {
         const senderId = message.key.participant || message.key.remoteJid;
 
         await sock.sendMessage(chatId, {
-            text: `╭─── ⪨ 🚨 REPORT ⪩───⟢\n│ ✅ Report submitted!\n│\n│ 📱 From: ${senderId.split('@')[0]}\n│ 📝 Reason: ${reason}\n│\n│ Thank you for reporting.\n╰────────────⟢\n> © DarkNode MD`,
+            text: `╭─── ⪨ 🚨 REPORT ⪩ ───⟢\n│ ✅ Report submitted!\n│\n│ 📱 From: ${senderId.split('@')[0]}\n│ 📝 Reason: ${reason}\n│\n│ Thank you for reporting.\n╰────────────⟢\n> © DarkNode MD`,
             ...channelInfo
         }, { quoted: message });
 

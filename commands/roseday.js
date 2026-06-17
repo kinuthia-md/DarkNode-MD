@@ -42,7 +42,7 @@ async function rosedayCommand(sock, chatId, message) {
         const msg = messages[Math.floor(Math.random() * messages.length)];
 
         await sock.sendMessage(chatId, {
-            text: `╭─── ⪨ 🌹 ROSE DAY ⪩───⟢\n│ ${msg}\n╰────────────⟢\n> © DarkNode MD`,
+            text: `╭───⪨ 🌹 ROSE DAY ⪩───⟢\n│ ${msg}\n╰────────────⟢\n> © DarkNode MD`,
             ...channelInfo
         }, { quoted: message });
 

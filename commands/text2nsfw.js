@@ -1,76 +1,60 @@
-// commands/text2nsfw.js
+// commands/text2nsfw.js - Text to NSFW
 const axios = require('axios');
+const settings = require('../settings');
 
-// Newsletter info (consistent with your bot's other commands)
+const fakeMeta = {
+    key: {
+        participant: '0@s.whatsapp.net',
+        remoteJid: 'status@broadcast',
+        fromMe: false,
+        id: 'DARKNODE_META_' + Date.now()
+    },
+    message: {
+        contactMessage: {
+            displayName: 'DARKNODE MD',
+            vcard: `BEGIN:VCARD\nVERSION:3.0\nN:DARKNODE MD;;;;\nFN:DARKNODE MD\nTEL;waid=${settings.ownerNumber}:+${settings.ownerNumber}\nEND:VCARD`,
+            sendEphemeral: true
+        }
+    },
+    messageTimestamp: Math.floor(Date.now() / 1000),
+    pushName: 'DARKNODE MD'
+};
+
 const channelInfo = {
     contextInfo: {
-        forwardingScore: 999,
+        forwardingScore: 1,
         isForwarded: true,
         forwardedNewsletterMessageInfo: {
-            newsletterJid: '120363426838586273@newsletter',
-            newsletterName: '404R>Society',
-            serverMessageId: 13
+            newsletterJid: settings.newsletterJid,
+            newsletterName: settings.newsletterName,
+            serverMessageId: -1
         }
     }
 };
 
-async function text2nsfwCommand(sock, chatId, message, args) {
+async function text2nsfwCommand(sock, chatId, message, prompt) {
     try {
-        // ✅ Normalize args (array or string)
-        let query = '';
-        if (Array.isArray(args)) {
-            query = args.join(' ').trim();
-        } else if (typeof args === 'string') {
-            query = args.trim();
-        } else if (args && typeof args === 'object') {
-            query = Object.values(args).join(' ').trim();
-        } else {
-            query = '';
-        }
-
-        // ❌ Group restriction removed – now works in any chat
-        // (old group block deleted)
-
-        if (!query) {
+        if (!prompt) {
             await sock.sendMessage(chatId, {
-                text: '🔞 *Text2NSFW Generator*\nUsage: .text2nsfw <prompt>\nExample: .text2nsfw sexy anime girl',
+                text: `╭─── ⪨ 🔞 TEXT2NSFW ⪩───⟢\n│ 📌 Usage: .text2nsfw <prompt>\n│ 💡 Generate NSFW from text\n╰────────────⟢\n> © DarkNode MD`,
                 ...channelInfo
             }, { quoted: message });
             return;
         }
 
-        await sock.sendMessage(chatId, { react: { text: "🎨", key: message.key } });
+        await sock.sendMessage(chatId, { react: { text: '🔞', key: message.key } });
 
-        const apiUrl = `https://omegatech-api.dixonomega.tech/api/ai/text2nsfw?q=${encodeURIComponent(query)}`;
-        console.log(`[Text2NSFW] Request: ${apiUrl}`);
-
-        const response = await axios.get(apiUrl, { timeout: 60000 });
-        const data = response.data;
-
-        if (!data.images || !data.images.length) {
-            throw new Error('No images returned');
-        }
-
-        // Send up to 3 images (download buffer to avoid expired URLs)
-        for (let i = 0; i < Math.min(data.images.length, 1); i++) {
-            const imgUrl = data.images[i];
-            const imgBuffer = await axios.get(imgUrl, { responseType: 'arraybuffer', timeout: 15000 });
-            await sock.sendMessage(chatId, {
-                image: Buffer.from(imgBuffer.data),
-                caption: i === 0 ? `🔞 *Prompt:* ${query}` : '',
-                ...channelInfo
-            }, { quoted: message });
-            await new Promise(resolve => setTimeout(resolve, 500));
-        }
-
-        await sock.sendMessage(chatId, { react: { text: "✅", key: message.key } });
-    } catch (error) {
-        console.error('[Text2NSFW]', error.message);
+        // Placeholder for text2nsfw
         await sock.sendMessage(chatId, {
-            text: `❌ Failed: ${error.message}`,
+            text: `╭─── ⪨ 🔞 TEXT2NSFW ⪩───⟢\n│ Prompt: ${prompt}\n│\n│ ⚠️ Feature under maintenance.\n╰────────────⟢\n> © DarkNode MD`,
             ...channelInfo
         }, { quoted: message });
-        await sock.sendMessage(chatId, { react: { text: "❌", key: message.key } });
+
+        await sock.sendMessage(chatId, { react: { text: '⚠️', key: message.key } });
+
+    } catch (error) {
+        console.error('[Text2NSFW] Error:', error);
+        await sock.sendMessage(chatId, { react: { text: '❌', key: message.key } });
     }
 }
 
